@@ -1,4 +1,4 @@
-package com.dreamstreet.arpg.gui;
+package com.dreamstreet.arpg.ui;
 
 import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.gfx.SpriteSheet;

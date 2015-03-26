@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
 import com.dreamstreet.arpg.gfx.*;
-import com.dreamstreet.arpg.gui.UI;
+import com.dreamstreet.arpg.ui.UI;
 
 public class Game extends Canvas implements Runnable, MouseInputListener, MouseWheelListener {
 
