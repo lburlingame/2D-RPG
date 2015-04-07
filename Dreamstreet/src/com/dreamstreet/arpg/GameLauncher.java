@@ -45,7 +45,7 @@ public class GameLauncher extends Applet {
       //  game.frame.setUndecorated(true); //makes borderless window
         game.frame.pack();
 
-        //frame.setResizable(false);
+        game.frame.setResizable(false);
         game.frame.setLocationRelativeTo(null);
         game.frame.setVisible(true);        game.start();
         game.requestFocus();
