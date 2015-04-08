@@ -2,6 +2,7 @@ package com.dreamstreet.arpg.gfx;
 
 import com.dreamstreet.arpg.Game;
 
+import javax.print.attribute.standard.MediaSize;
 import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -44,6 +45,8 @@ public class TileMap {
                             tiles.add(new Tile(col*32,row*32,32,32,4, true));
                         }else if(id == 5){
                             tiles.add(new Tile(col * 32, row * 32, 32, 32, 5, false));
+                        }else if(id == 6){
+                            tiles.add(new Tile(col * 44, row * 44, 88, 44, 6, false));
                         }else if(id > 99){
                             tiles.add(new Tile(col * 32, row * 32, 32, 32, 100, true));
                         }
@@ -62,18 +65,14 @@ public class TileMap {
 	}
 
 	public void draw(Graphics g, Camera camera){
-        double xOffset = camera.getXOffset();
-        double yOffset = camera.getYOffset();
+        Vector2 offset = camera.getIsoOffset();
+        double xOffset = offset.x;
+        double yOffset = offset.y;
         double scale = camera.getScale();
 
         for(int i =0;i<mapSize;i++) {
-			// only draws the tile if its in the bounds of the screen
-			if ((tiles.get(i).x-xOffset)*scale > (0 - tiles.get(i).height*scale * 1.1)  &&  (tiles.get(i).x-xOffset)*scale < Game.WIDTH*Game.SCALE * 1.1
-			&& (tiles.get(i).y-yOffset)*scale > (0 - tiles.get(i).width * scale * 1.1) && (tiles.get(i).y-yOffset)*scale <  (Game.HEIGHT * Game.SCALE * 1.1))
-			{
-				g.drawImage(Textures.getTile(tiles.get(i).id),(int)((tiles.get(i).x-xOffset)*scale),(int)((tiles.get(i).y-yOffset)*scale),(int)(tiles.get(i).height*scale)+1,(int)(tiles.get(i).width*scale)+1,null);
-			}
-
+            Vector2 curr = IsoCalculator.twoDToIso(new Vector2(tiles.get(i).x, tiles.get(i).y));
+            g.drawImage(Textures.getTile(tiles.get(i).id),(int)((curr.x-xOffset)*scale),(int)((curr.y-yOffset)*scale),(int)(tiles.get(i).width*scale),(int)(tiles.get(i).height*scale),null);
 		}
 	}
 

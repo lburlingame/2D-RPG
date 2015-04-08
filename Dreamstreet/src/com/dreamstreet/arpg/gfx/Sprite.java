@@ -1,5 +1,7 @@
 package com.dreamstreet.arpg.gfx;
 
+import com.dreamstreet.arpg.Game;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -7,6 +9,8 @@ public class Sprite {
 
 	private double x;
     private double y;
+
+    private Vector2 feet;
 
     private double velocity;
 
@@ -16,10 +20,20 @@ public class Sprite {
     private double dest_x;
     private double dest_y;
 
+
+
     private double width;
     private double height;
 	private BufferedImage img;
     public double imgscale;
+    private int frame = 0;
+    private int animation_timer = 5;
+
+    public void setCamera(Camera camera) {
+        this.camera = camera;
+    }
+
+    private Camera camera;
 	
 	public Sprite(BufferedImage img, double imgscale, double x, double y) {
         this.img = img;
@@ -31,6 +45,7 @@ public class Sprite {
         this.dy = 0;
         this.width = 32;
         this.height = 32;
+        feet = IsoCalculator.isoTo2D(new Vector2(width - 17 * imgscale, height-4 * imgscale));
 	}
 	
 	public Sprite(BufferedImage img, double imgscale){
@@ -44,76 +59,60 @@ public class Sprite {
         this.height = 32;
 	}
 
+
     public void tick() {
         if ((x + dx > dest_x && dx > 0) || (x + dx < dest_x && dx < 0)) {
+            camera.setDx(0);
+            camera.setxOffset(camera.getxOffset() + dest_x - x);
             dx = 0;
             x = dest_x;
+            frame = 0;
+            animation_timer = 3;
         }
         if ((y + dy > dest_y && dy > 0) || (y + dy < dest_y && dy < 0)) {
+            camera.setDy(0);
+            camera.setyOffset(camera.getyOffset() + dest_y - y);
             dy = 0;
             y = dest_y;
+            frame = 0;
+            animation_timer = 3;
         }
 
         x += dx;
         y += dy;
+        if (dx != 0 || dy != 0) {
+            animation_timer--;
+            if (animation_timer == 0) {
+                animation_timer = 3;
+                frame++;
+                frame = frame % 8;
+            }
+        }
+
+
+
     }
 	
 	public void draw(Graphics g, Camera camera){
-        double xOffset = camera.getXOffset();
-        double yOffset = camera.getYOffset();
+        Vector2 offset = camera.getIsoOffset();
+        double xOffset = offset.x;
+        double yOffset = offset.y;
         double scale = camera.getScale();
 
-		g.drawImage(img, (int)((x-xOffset)*scale), (int)((y-yOffset)*scale),(int)(32*scale*imgscale),(int)(32*scale*imgscale), null);
+        img = Game.spritesheet.getSprite((int)(width * frame), 0, 32, 32);
+        Vector2 iso = IsoCalculator.twoDToIso(new Vector2(x,y));
+        Vector2 isofeet = IsoCalculator.twoDToIso(feet);
+        Vector2 isodest = IsoCalculator.twoDToIso(new Vector2(dest_x,dest_y));
+
+        g.setColor(new Color(0, 0, 0, 46));
+        g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset)* scale),(int)(width*scale*imgscale),(int)(height*scale*imgscale)/2);
+        g.drawImage(img, (int)((iso.x - xOffset)*scale), (int)((iso.y-yOffset)*scale),(int)(32*scale*imgscale),(int)(32*scale*imgscale), null);
 		g.setColor(Color.white);
         g.fillRect((int)((x-xOffset)*scale), (int)((y-yOffset)*scale),10,10);
         g.fillRect((int)((x-xOffset + (width - 17)*imgscale)*scale), (int)((y-yOffset+ (height - 4)*imgscale)*scale),5,5);
-        g.fillRect((int)((dest_x + (width-17)*imgscale -xOffset)*scale), (int) ((dest_y +(height-4)*imgscale - yOffset) * scale),5,5);
+        g.fillRect((int)((isodest.x + (width-17)*imgscale -xOffset)*scale), (int) ((isodest.y +(height-4)*imgscale - yOffset) * scale),5,5);
 
     }
-
-	
-	public BufferedImage getImage(){
-		return this.img;
-	}
-	
-	public void setImage(BufferedImage img){
-		this.img = img;
-	}
-
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
-        dest_x = x;
-    }
-
-	public double getY() {
-		return y;
-	}
-
-	public void setY(double y) {
-		this.y = y;
-        dest_y = y;
-	}
-
-    public double getDy() {
-        return dy;
-    }
-
-    public double getDx() {
-        return dx;
-    }
-
-    public void setDy(double dy) {
-        this.dy = dy;
-    }
-
-    public void setDx(double dx) {
-        this.dx = dx;
-    }
-
 
     private Direction findSlope()
     {
@@ -146,8 +145,8 @@ public class Sprite {
 
     public void move(double dest_x, double dest_y)
     {
-        this.dest_x = dest_x - (width - 17) * imgscale;
-        this.dest_y = dest_y - (height - 4) * imgscale;
+        this.dest_x = dest_x - feet.x;
+        this.dest_y = dest_y - feet.y;
 
         Direction dir = findSlope();
 
@@ -168,6 +167,54 @@ public class Sprite {
         dy = 0;
     }
 
-	
+    public BufferedImage getImage(){
+        return this.img;
+    }
+
+    public void setImage(BufferedImage img){
+        this.img = img;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+        dest_x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+        dest_y = y;
+    }
+
+    public double getDy() {
+        return dy;
+    }
+
+    public double getDx() {
+        return dx;
+    }
+
+    public void setDy(double dy) {
+        this.dy = dy;
+    }
+
+    public void setDx(double dx) {
+        this.dx = dx;
+    }
+
+    public double getDest_y() {
+        return dest_y;
+    }
+
+    public double getDest_x() {
+        return dest_x;
+    }
 	
 }

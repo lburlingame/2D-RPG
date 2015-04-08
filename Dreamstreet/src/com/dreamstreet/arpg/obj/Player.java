@@ -30,7 +30,7 @@ public class Player extends Mob {
                 Point frameLoc = input.getLocationOnScreen();
                 mLoc.x -= frameLoc.x;
                 mLoc.y -= frameLoc.y;
-                move(mLoc.getX() / camera.getScale() + camera.getXOffset(), mLoc.getY() / camera.getScale() + camera.getYOffset());
+            //    move(mLoc.getX() / camera.getScale() + camera.getXOffset(), mLoc.getY() / camera.getScale() + camera.getYOffset());
             }
 
             if (input.wheelnotches < 0) {
