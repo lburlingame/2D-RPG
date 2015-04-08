@@ -4,12 +4,16 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
 import com.dreamstreet.arpg.gfx.*;
+import com.dreamstreet.arpg.sfx.AudioPlayer;
+import com.dreamstreet.arpg.sfx.MusicPlayer;
 import com.dreamstreet.arpg.ui.UI;
+
 
 public class Game extends Canvas implements Runnable, MouseInputListener, MouseWheelListener {
 
@@ -77,7 +81,15 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 
     private UI ui = new UI();
 
+    private AudioPlayer music = new AudioPlayer("res/audio/d2cave.wav");
+    private boolean audioPlay = true;
+
 	public Game() {
+
+        String songName = "d2cave.";
+        String path = "res/audio/" + songName;
+//        music.playSoundOnce();
+
         camera = new Camera(3,.1);
         character.setCamera(camera);
         camera.centerCamera(character.getX(),character.getY(), 32*character.imgscale / 2, 32*character.imgscale/2);
@@ -124,6 +136,25 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
                 }
 
                 if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_M) {
+                    if (audioPlay) {
+                        music.stop();
+                        audioPlay = false;
+                    }else{
+                        music.start();
+                        audioPlay = true;
+                    }
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_EQUALS) {
+                    camera.zoomIn();
+                    camera.centerCamera(character.getX(), character.getY(), 32 * character.imgscale / 2, 32 * character.imgscale / 2);
+                }
+                if (e.getKeyCode() == KeyEvent.VK_MINUS){
+                    camera.zoomOut();
+                    camera.centerCamera(character.getX(), character.getY(), 32 * character.imgscale / 2, 32 * character.imgscale / 2);
                 }
 
 
