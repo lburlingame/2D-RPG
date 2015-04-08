@@ -5,8 +5,9 @@ import java.awt.*;
 
 public class Textures {
 
-    private static Image TILE_STONE,TILE_GRASS,TILE_WATER,TILE_DEAD_GRASS,TILE_WALL,TILE_DOOR;
+    private static Image TILE_STONE,TILE_GRASS,TILE_WATER,TILE_DEAD_GRASS,TILE_WALL,TILE_DOOR,ISOTILE_GRASS;
     private static SpriteSheet tilesheet = new SpriteSheet("/tiles/tile_sheet.png");
+    private static SpriteSheet isosheet = new SpriteSheet("/tiles/isotile.png");
 
     public static Image getTile(int id) {
         switch (id) {
@@ -20,6 +21,8 @@ public class Textures {
                 return getTileDeadGrass();
             case (5):
                 return getTileWall();
+            case (6):
+                return getIsoTile();
             case (100):
                 return getTileDoor();
             default:
@@ -61,6 +64,14 @@ public class Textures {
         }
         return TILE_WALL;
     }
+
+    private static Image getIsoTile() {
+        if (ISOTILE_GRASS == null) {
+            ISOTILE_GRASS = new ImageIcon(isosheet.getSprite(0,0,88,43)).getImage();//6
+        }
+        return ISOTILE_GRASS;
+    }
+
 
     private static Image getTileDoor() {
         if (TILE_DOOR == null) {

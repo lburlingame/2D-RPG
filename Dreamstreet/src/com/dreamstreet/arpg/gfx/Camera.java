@@ -15,6 +15,7 @@ public final class Camera {
     private int SCREEN_CENTER_Y;
 
     private double xOffset;
+
     private double yOffset;
     private double dx;
     private double dy;
@@ -26,8 +27,8 @@ public final class Camera {
         SCREEN_CENTER_X = Game.WIDTH * Game.SCALE / 2;
         SCREEN_CENTER_Y = Game.HEIGHT  * Game.SCALE / 2;
 
-        xOffset = 0;
-        yOffset = 0;
+        xOffset = -5;
+        yOffset = -5;
         dx = 0;
         dy = 0;
 
@@ -58,16 +59,17 @@ public final class Camera {
 
     public void centerCamera(double x, double y, double width, double height) {
         this.xOffset =  x - ((SCREEN_CENTER_X - width * scale) / scale);
-        this.yOffset =  y - ((SCREEN_CENTER_Y - height * scale) / scale);
+        this.yOffset =  y;
     }
 
-    public double getXOffset() {
-        return xOffset;
+    public Vector2 getIsoOffset() {
+        return IsoCalculator.twoDToIso(new Vector2(xOffset,yOffset));
     }
 
-    public double getYOffset() {
-        return yOffset;
+    public Vector2 getCartOffset() {
+        return new Vector2(xOffset,yOffset);
     }
+
 
     public void setDy(double dy) {
         this.dy = dy;
@@ -79,5 +81,18 @@ public final class Camera {
     public double getScale() {
         return scale;
     }
+    public double getyOffset() {
+        return yOffset;
+    }
 
+    public double getxOffset() {
+        return xOffset;
+    }
+    public void setxOffset(double xOffset) {
+        this.xOffset = xOffset;
+    }
+
+    public void setyOffset(double yOffset) {
+        this.yOffset = yOffset;
+    }
 }

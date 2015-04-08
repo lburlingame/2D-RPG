@@ -19,7 +19,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
     public static final Dimension dimension = new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
-	public static final String NAME = "Dream Street";
+	public static final String NAME = "The Dream Maker";
     public JFrame frame;
     private Thread thread;
 
@@ -29,7 +29,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	public int tickCount = 0;
 
 	//spritesheets for map and character
-	private SpriteSheet spritesheet = new SpriteSheet("/sprites/bear_sprite.png");
+	public static SpriteSheet spritesheet = new SpriteSheet("/sprites/bear_sheet.png");
     private SpriteSheet skulltulasheet = new SpriteSheet("/sprites/skulltula_sprite.png");
     private SpriteSheet kodamasheet = new SpriteSheet("/sprites/kodama_sprite.png");
     private SpriteSheet skeletonsheet = new SpriteSheet("/sprites/skeleton_sprite.png");
@@ -47,7 +47,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
     private BufferedImage skeletonchar = skeletonsheet.getSprite(0,0,32,32);
     private BufferedImage nofacechar = nofacesheet.getSprite(0,0,32,32);
 
-	private Sprite character = new Sprite(spritechar,1.0, 500,500);
+	private Sprite character = new Sprite(spritechar,1.0, 200,60);
     private Sprite skulltula = new Sprite(skulltulachar,2.0, 2000,2000);
     private Sprite kodama = new Sprite(kodamachar,.5, 2200,2000);
     private Sprite kodama1 = new Sprite(kodamachar,.65, 2300,2000);
@@ -65,7 +65,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	//private Lighting lightradius = new Lighting(lightobj, character.getX()-980,character.getY()-530); // use this if running on 480 width
 
 	//map
-	private TileMap map = new TileMap("res/levels/test_map.txt",mapsheet);
+	private TileMap map = new TileMap("res/levels/isotest_map.txt",mapsheet);
     private Camera camera;
 
 
@@ -79,6 +79,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 
 	public Game() {
         camera = new Camera(3,.1);
+        character.setCamera(camera);
         camera.centerCamera(character.getX(),character.getY(), 32*character.imgscale / 2, 32*character.imgscale/2);
 
 
@@ -198,10 +199,14 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
             Point frameLoc = this.getLocationOnScreen();
             mLoc.x -= frameLoc.x;
             mLoc.y -= frameLoc.y;
-            character.move(mLoc.getX() / camera.getScale() + camera.getXOffset(), mLoc.getY() / camera.getScale() + camera.getYOffset());
+            mLoc = IsoCalculator.isoTo2D(mLoc);
+
+            Vector2 offset = camera.getCartOffset();
+            character.move(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y);
+            camera.setDx(character.getDx());
+            camera.setDy(character.getDy());
         }
         character.tick();
-        camera.centerCamera(character.getX(), character.getY(), 32 * character.imgscale / 2, 32 * character.imgscale / 2);
 
         camera.tick();
         ui.tick();
@@ -224,7 +229,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 		Graphics g = bs.getDrawGraphics();
 
         g.setColor(Color.BLACK);
-        g.fillRect(0,0,WIDTH*SCALE,HEIGHT*SCALE);
+        g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
 		map.draw(g,camera);
 		character.draw(g,camera);
 	    skulltula.draw(g,camera);
@@ -255,11 +260,11 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 
         g.drawString(fps + " ", 20, 40);
         g.drawString(character.getX() + ", " + character.getY(), 20, 70);
-        g.drawString(camera.getXOffset() + ", " + camera.getYOffset(), 20, 100);
-        g.drawString(((character.getX() - camera.getXOffset())*camera.getScale()) + ", " + ((character.getY() - camera.getYOffset())*camera.getScale()), 20, 130);
+        g.drawString(camera.getCartOffset().x + ", " + camera.getCartOffset().y, 20, 100);
+        g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 130);
         g.drawString(camera.getScale() + " ", 20, 160);
-      //  g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
-      //  g.drawLine(WIDTH/2*SCALE,0,WIDTH/2*SCALE,HEIGHT*SCALE);
+        //g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
+        //g.drawLine(WIDTH/2*SCALE,0,WIDTH/2*SCALE,HEIGHT*SCALE);
     }
 
     public void debug(DebugLevel level, String msg) {
