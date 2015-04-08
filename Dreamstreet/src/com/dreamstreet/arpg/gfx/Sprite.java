@@ -45,7 +45,7 @@ public class Sprite {
         this.dy = 0;
         this.width = 32;
         this.height = 32;
-        feet = IsoCalculator.isoTo2D(new Vector2(width - 17 * imgscale, height-4 * imgscale));
+        feet = IsoCalculator.isoTo2D(new Vector2((width - 16) * imgscale, (height-4) * imgscale));
 	}
 	
 	public Sprite(BufferedImage img, double imgscale){
@@ -62,16 +62,20 @@ public class Sprite {
 
     public void tick() {
         if ((x + dx > dest_x && dx > 0) || (x + dx < dest_x && dx < 0)) {
-            camera.setDx(0);
-            camera.setxOffset(camera.getxOffset() + dest_x - x);
+            if (camera!=null) {
+                camera.setDx(0);
+                camera.setxOffset(camera.getxOffset() + dest_x - x);
+            }
             dx = 0;
             x = dest_x;
             frame = 0;
             animation_timer = 3;
         }
         if ((y + dy > dest_y && dy > 0) || (y + dy < dest_y && dy < 0)) {
-            camera.setDy(0);
-            camera.setyOffset(camera.getyOffset() + dest_y - y);
+            if (camera != null) {
+                camera.setDy(0);
+                camera.setyOffset(camera.getyOffset() + dest_y - y);
+            }
             dy = 0;
             y = dest_y;
             frame = 0;
@@ -107,11 +111,24 @@ public class Sprite {
         g.setColor(new Color(0, 0, 0, 46));
         g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset)* scale),(int)(width*scale*imgscale),(int)(height*scale*imgscale)/2);
         g.drawImage(img, (int)((iso.x - xOffset)*scale), (int)((iso.y-yOffset)*scale),(int)(32*scale*imgscale),(int)(32*scale*imgscale), null);
-		g.setColor(Color.white);
-        g.fillRect((int)((x-xOffset)*scale), (int)((y-yOffset)*scale),10,10);
-        g.fillRect((int)((x-xOffset + (width - 17)*imgscale)*scale), (int)((y-yOffset+ (height - 4)*imgscale)*scale),5,5);
-        g.fillRect((int)((isodest.x + (width-17)*imgscale -xOffset)*scale), (int) ((isodest.y +(height-4)*imgscale - yOffset) * scale),5,5);
 
+        drawDebug(g,camera);
+    }
+
+    public void drawDebug(Graphics g, Camera camera) {
+        Vector2 offset = camera.getIsoOffset();
+        double xOffset = offset.x;
+        double yOffset = offset.y;
+        double scale = camera.getScale();
+
+        Vector2 iso = IsoCalculator.twoDToIso(new Vector2(x,y));
+        Vector2 isofeet = IsoCalculator.twoDToIso(feet);
+        Vector2 isodest = IsoCalculator.twoDToIso(new Vector2(dest_x,dest_y));
+
+        g.setColor(Color.white);
+      //  g.drawRect((int)((iso.x-xOffset)*scale), (int)((iso.y- yOffset)*scale),(int)(width*imgscale*scale),(int)(height*imgscale*scale)); //draws rectangle around char
+        g.fillRect((int)((iso.x-xOffset + isofeet.x)*scale), (int)((iso.y - yOffset + isofeet.y)*scale),5,5);  // draws rectangle at characters x and y
+        g.fillRect((int)((isodest.x + isofeet.x - xOffset)*scale), (int) ((isodest.y + isofeet.y - yOffset) * scale),5,5); // draws character at character's "feet"
     }
 
     private Direction findSlope()
@@ -161,6 +178,8 @@ public class Sprite {
     }
 
     public void stop() {
+        frame = 0;
+        animation_timer = 3;
         dest_x = x;
         dest_y = y;
         dx = 0;
@@ -216,5 +235,6 @@ public class Sprite {
     public double getDest_x() {
         return dest_x;
     }
+
 	
 }

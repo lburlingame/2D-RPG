@@ -62,6 +62,11 @@ public final class Camera {
         this.yOffset =  y;
     }
 
+    public void stop() {
+        dx = 0;
+        dy = 0;
+    }
+
     public Vector2 getIsoOffset() {
         return IsoCalculator.twoDToIso(new Vector2(xOffset,yOffset));
     }

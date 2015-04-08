@@ -82,29 +82,38 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
         character.setCamera(camera);
         camera.centerCamera(character.getX(),character.getY(), 32*character.imgscale / 2, 32*character.imgscale/2);
 
+        kodama.move(-400,-400);
+        kodama1.move(400,300);
+        kodama2.move(200,200);
+        kodama3.move(0,0);
+        noface.move(-200, -900);
+        skulltula.move(-40, -400);
 
 
-	//	Random rand = new Random();
+
+        //	Random rand = new Random();
 		//for (int i = 0; i < rays.length; i++) {
 		//	rays[i] = new RayShadow(new Rectangle(rand.nextInt(2000), rand.nextInt(2000), rand.nextInt(200), rand.nextInt(200)), WIDTH*SCALE);
-	//	}
+        //	}
 
-		addKeyListener(new KeyAdapter() {
+        addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-
+                if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+                }
             }
 
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_Q) {
                     if (ui.currhealth + 200 > ui.maxhealth) {
                         ui.currhealth = ui.maxhealth;
-                    }else{
+                    } else {
                         ui.currhealth += 200;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_S) {
                     character.stop();
+                    camera.stop();
                     stopped = true;
                 }
 
@@ -115,7 +124,6 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
                 }
 
                 if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
-
                 }
 
 
@@ -207,6 +215,12 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
             camera.setDy(character.getDy());
         }
         character.tick();
+        kodama.tick();
+        kodama1.tick();
+        kodama2.tick();
+        kodama3.tick();
+        skulltula.tick();
+        noface.tick();
 
         camera.tick();
         ui.tick();
