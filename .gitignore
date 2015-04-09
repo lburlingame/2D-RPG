@@ -5,6 +5,10 @@ ehthumbs.db
 # Folder config file
 Desktop.ini
 
+#IDEA
+**/.idea/workspace.xml 
+**/.idea/tasks.xml
+
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
