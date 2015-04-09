@@ -40,7 +40,6 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
     private SpriteSheet nofacesheet = new SpriteSheet("/sprites/noface_sprite.png");
 
     private SpriteSheet lightsheet = new SpriteSheet("/effects/lightradius.png");
-	private SpriteSheet mapsheet = new SpriteSheet("/tiles/tile_sheet.png");
 
 	//character image and sprite
 	private BufferedImage lightobj = lightsheet.getSprite(0,0,66,36);
@@ -69,7 +68,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	//private Lighting lightradius = new Lighting(lightobj, character.getX()-980,character.getY()-530); // use this if running on 480 width
 
 	//map
-	private TileMap map = new TileMap("res/levels/isotest_map.txt",mapsheet);
+	private TileMap map = new TileMap("res/levels/isotest_map.txt");
     private Camera camera;
 
 
@@ -85,11 +84,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
     private boolean audioPlay = true;
 
 	public Game() {
-
-        String songName = "d2cave.";
-        String path = "res/audio/" + songName;
-//        music.playSoundOnce();
-
+        music.stop();
         camera = new Camera(3,.1);
         character.setCamera(camera);
         camera.centerCamera(character.getX(),character.getY(), 32*character.imgscale / 2, 32*character.imgscale/2);
@@ -277,6 +272,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
 		map.draw(g,camera);
 		character.draw(g,camera);
+        /*
 	    skulltula.draw(g,camera);
 		kodama.draw(g,camera);
         kodama1.draw(g,camera);
@@ -284,7 +280,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
         kodama3.draw(g, camera);
         skeleton.draw(g,camera);
         noface.draw(g,camera);
-        ui.draw(g);
+        ui.draw(g);*/
 
       //  lightradius.draw(g,30);
 

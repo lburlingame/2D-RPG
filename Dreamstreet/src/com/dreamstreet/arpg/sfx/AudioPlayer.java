@@ -34,6 +34,8 @@ public class AudioPlayer{
                 e1.printStackTrace();
             }
             clip.start();
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
         }catch(Exception e) {
             //whatevers
         }
