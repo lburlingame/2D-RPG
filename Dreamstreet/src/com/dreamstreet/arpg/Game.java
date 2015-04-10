@@ -50,7 +50,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
     private BufferedImage skeletonchar = skeletonsheet.getSprite(0,0,32,32);
     private BufferedImage nofacechar = nofacesheet.getSprite(0,0,32,32);
 
-	private Sprite character = new Sprite(spritechar,1.0, 200,60);
+	private Sprite character = new Sprite(spritechar,1.0, 0,0);
     private Sprite skulltula = new Sprite(skulltulachar,2.0, 2000,2000);
     private Sprite kodama = new Sprite(kodamachar,.5, 2200,2000);
     private Sprite kodama1 = new Sprite(kodamachar,.65, 2300,2000);
@@ -241,12 +241,13 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
             camera.setDy(character.getDy());
         }
         character.tick();
+        /*
         kodama.tick();
         kodama1.tick();
         kodama2.tick();
         kodama3.tick();
         skulltula.tick();
-        noface.tick();
+        noface.tick();*/
 
         camera.tick();
         ui.tick();
@@ -298,12 +299,13 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	public void drawDebug(Graphics g) {
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
         g.setColor(Color.WHITE);
+        Vector2 curr = IsoCalculator.twoDToIso(new Vector2(character.getX(), character.getY()));
 
         g.drawString(fps + " ", 20, 40);
         g.drawString(character.getX() + ", " + character.getY(), 20, 70);
-        g.drawString(camera.getCartOffset().x + ", " + camera.getCartOffset().y, 20, 100);
-        g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 130);
-        g.drawString(camera.getScale() + " ", 20, 160);
+        g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 100);
+        g.drawString(curr.x + ", " + curr.y, 20, 130);
+       // g.drawString(camera.getScale() + " ", 20, 160);
         //g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
         //g.drawLine(WIDTH/2*SCALE,0,WIDTH/2*SCALE,HEIGHT*SCALE);
     }

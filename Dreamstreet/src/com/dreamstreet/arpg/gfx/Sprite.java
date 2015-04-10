@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 public class Sprite {
 
-    private final Vector2 ifeet;
     private double x;
     private double y;
 
@@ -26,7 +25,7 @@ public class Sprite {
 	private BufferedImage img;
     public double imgscale;
     private int frame = 0;
-    private int animation_timer = 5;
+    private int animation_timer = 3;
 
     private Camera camera;
 	
@@ -40,8 +39,7 @@ public class Sprite {
         this.dy = 0;
         this.width = 32;
         this.height = 32;
-        feet = IsoCalculator.isoTo2D(new Vector2((width - 16) * imgscale, (height-4) * imgscale));
-        ifeet = IsoCalculator.twoDToIso(feet);
+        feet = IsoCalculator.isoTo2D(new Vector2((width - 16) * imgscale, (height - 4) * imgscale));
 
     }
 
@@ -67,14 +65,14 @@ public class Sprite {
             animation_timer = 3;
         }
 
-        Tile dest = TileMap.getTile(x + dx + ifeet.x, y + ifeet.y);
+        Tile dest = TileMap.getTile(x + dx + feet.x, y + feet.y);
         if (dest != null) {
             x += dx;
             if (camera!=null) camera.setDx(dx);
         }else{
             if (camera!=null) camera.setDx(0);
         }
-        dest = TileMap.getTile(x + ifeet.x, y + dy + ifeet.y);
+        dest = TileMap.getTile(x + feet.x, y + dy + feet.y);
         if (dest != null) {
             y += dy;
             if (camera!=null) camera.setDy(dy);
@@ -122,6 +120,7 @@ public class Sprite {
         g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * imgscale * scale), (int) (height * imgscale * scale)); //draws rectangle around char
         g.fillRect((int)((iso.x-xOffset + isofeet.x)*scale), (int)((iso.y - yOffset + isofeet.y)*scale),5,5);  // draws rectangle at characters x and y
         g.fillRect((int)((isodest.x + isofeet.x - xOffset)*scale), (int) ((isodest.y + isofeet.y - yOffset) * scale),5,5); // draws character at character's "feet"
+        g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * imgscale * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
     }
 
     private Direction findSlope()
