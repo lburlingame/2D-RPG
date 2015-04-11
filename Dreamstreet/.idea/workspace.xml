@@ -2,19 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f469562c-903f-4c6b-bf14-b230c907b189" name="Default" comment="">
+      <change type="DELETED" beforePath="C:\programming\2D-RPG\Dreamstreet\bin\com\dreamstreet\arpg\sfx\MusicPlayer.class" afterPath="" />
+      <change type="DELETED" beforePath="C:\programming\2D-RPG\Dreamstreet\src\com\dreamstreet\arpg\sfx\MusicPlayer.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/Camera.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/Camera.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game$1.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game$2.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game$DebugLevel.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game$DebugLevel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/GameLauncher.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/GameLauncher.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/Sprite.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/Sprite.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/TileMap.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/TileMap.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/Textures.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/Textures.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/GameLauncher.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/GameLauncher.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/item/Item.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/item/Item.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Textures.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Textures.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/levels/isotest_map.txt" afterPath="$PROJECT_DIR$/bin/levels/isotest_map.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/levels/isotest_map.txt" afterPath="$PROJECT_DIR$/res/levels/isotest_map.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/levels/isotest2_map.txt" afterPath="$PROJECT_DIR$/res/levels/isotest2_map.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Dreamstreet.iws" />
@@ -47,8 +49,8 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4352" max-vertical-offset="6766">
-              <caret line="67" column="36" selection-start-line="67" selection-start-column="36" selection-end-line="67" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2799" max-vertical-offset="6766">
+              <caret line="353" column="28" selection-start-line="353" selection-start-column="28" selection-end-line="353" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -56,11 +58,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="IsoCalculator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/IsoCalculator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+              <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="isotest_map.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/levels/isotest_map.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="1105">
-              <caret line="39" column="49" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="691" max-vertical-offset="1105">
+              <caret line="42" column="51" selection-start-line="42" selection-start-column="51" selection-end-line="42" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -69,42 +81,22 @@
       <file leaf-file-name="Camera.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="577" max-vertical-offset="1547">
-              <caret line="79" column="17" selection-start-line="79" selection-start-column="17" selection-end-line="79" selection-end-column="17" />
-              <folding />
+            <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1581">
+              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+              <folding>
+                <element signature="e#1694#1695#0" expanded="true" />
+                <element signature="e#1722#1723#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Sprite.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Sprite.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1853" max-vertical-offset="4063">
-              <caret line="122" column="138" selection-start-line="122" selection-start-column="138" selection-end-line="122" selection-end-column="138" />
-              <folding>
-                <element signature="e#4882#4883#0" expanded="true" />
-                <element signature="e#4964#4965#0" expanded="true" />
-                <element signature="e#5025#5026#0" expanded="true" />
-                <element signature="e#5090#5091#0" expanded="true" />
-                <element signature="e#5788#5789#0" expanded="true" />
-                <element signature="e#5812#5813#0" expanded="true" />
-                <element signature="e#5920#5921#0" expanded="true" />
-                <element signature="e#5944#5945#0" expanded="true" />
-                <element signature="e#6053#6054#0" expanded="true" />
-                <element signature="e#6078#6079#0" expanded="true" />
-                <element signature="e#6107#6108#0" expanded="true" />
-                <element signature="e#6132#6133#0" expanded="true" />
-                <element signature="e#6168#6169#0" expanded="true" />
-                <element signature="e#6196#6197#0" expanded="true" />
-                <element signature="e#6232#6233#0" expanded="true" />
-                <element signature="e#6260#6261#0" expanded="true" />
-                <element signature="e#6293#6294#0" expanded="true" />
-                <element signature="e#6322#6323#0" expanded="true" />
-                <element signature="e#6355#6356#0" expanded="true" />
-                <element signature="e#6384#6385#0" expanded="true" />
-                <element signature="e#6427#6428#0" expanded="true" />
-                <element signature="e#6463#6464#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.46633416" vertical-offset="323" max-vertical-offset="3689">
+              <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -112,18 +104,30 @@
       <file leaf-file-name="TileMap.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="913" max-vertical-offset="2329">
-              <caret line="72" column="65" selection-start-line="72" selection-start-column="65" selection-end-line="72" selection-end-column="65" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1836" max-vertical-offset="2295">
+              <caret line="134" column="1" selection-start-line="134" selection-start-column="1" selection-end-line="134" selection-end-column="1" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Textures.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Item.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/item/Item.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
+              <caret line="12" column="85" selection-start-line="12" selection-start-column="85" selection-end-line="12" selection-end-column="85" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Textures.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Textures.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33251834" vertical-offset="0" max-vertical-offset="1496">
-              <caret line="9" column="78" selection-start-line="9" selection-start-column="78" selection-end-line="9" selection-end-column="78" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="1853">
+              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -132,8 +136,8 @@
       <file leaf-file-name="isotest2_map.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/levels/isotest2_map.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="119">
-              <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+              <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -142,7 +146,7 @@
       <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Tile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
+            <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="408">
               <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
               <folding />
             </state>
@@ -163,18 +167,19 @@
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/obj/Player.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/ui/Minimap.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/sfx/MusicPlayer.java" />
-        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Tile.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/level/LevelManager.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/level/Level.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/sfx/AudioPlayer.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/GameLauncher.java" />
-        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java" />
         <option value="$PROJECT_DIR$/res/levels/isotest_map.txt" />
-        <option value="$PROJECT_DIR$/res/levels/isotest2_map.txt" />
-        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java" />
-        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java" />
+        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java" />
+        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/item/Item.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Textures.java" />
+        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java" />
+        <option value="$PROJECT_DIR$/res/levels/isotest2_map.txt" />
+        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java" />
+        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java" />
       </list>
     </option>
   </component>
@@ -182,8 +187,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="211" />
-    <option name="width" value="1325" />
+    <option name="x" value="127" />
+    <option name="width" value="1409" />
     <option name="height" value="826" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -313,6 +318,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="item" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dreamstreet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dreamstreet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="arpg" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="input" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -386,20 +413,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="audio" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dreamstreet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dreamstreet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value=".idea" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -684,12 +697,13 @@
       <workItem from="1428475134506" duration="4880000" />
       <workItem from="1428521058720" duration="4964000" />
       <workItem from="1428534458298" duration="17508000" />
-      <workItem from="1428611177401" duration="21620000" />
+      <workItem from="1428611177401" duration="23329000" />
+      <workItem from="1428697011653" duration="14028000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78689000" />
+    <option name="totallyTimeSpent" value="94426000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -712,7 +726,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="211" y="0" width="1325" height="826" extended-state="0" />
+    <frame x="127" y="0" width="1409" height="826" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -726,11 +740,10 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.370317" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885376" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3631124" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25454545" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23869532" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -742,6 +755,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885376" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -766,10 +780,10 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.370317" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3631124" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885376" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25454545" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23869532" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
@@ -802,16 +816,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3230" max-vertical-offset="6120">
-          <caret line="212" column="115" selection-start-line="212" selection-start-column="115" selection-end-line="212" selection-end-column="115" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/ui/Minimap.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="510">
@@ -823,30 +827,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3723">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#4882#4883#0" expanded="true" />
-            <element signature="e#4964#4965#0" expanded="true" />
-            <element signature="e#5025#5026#0" expanded="true" />
-            <element signature="e#5090#5091#0" expanded="true" />
-            <element signature="e#5788#5789#0" expanded="true" />
-            <element signature="e#5812#5813#0" expanded="true" />
-            <element signature="e#5920#5921#0" expanded="true" />
-            <element signature="e#5944#5945#0" expanded="true" />
-            <element signature="e#6053#6054#0" expanded="true" />
-            <element signature="e#6078#6079#0" expanded="true" />
-            <element signature="e#6107#6108#0" expanded="true" />
-            <element signature="e#6132#6133#0" expanded="true" />
-            <element signature="e#6168#6169#0" expanded="true" />
-            <element signature="e#6196#6197#0" expanded="true" />
-            <element signature="e#6232#6233#0" expanded="true" />
-            <element signature="e#6260#6261#0" expanded="true" />
-            <element signature="e#6293#6294#0" expanded="true" />
-            <element signature="e#6322#6323#0" expanded="true" />
-            <element signature="e#6355#6356#0" expanded="true" />
-            <element signature="e#6384#6385#0" expanded="true" />
-            <element signature="e#6427#6428#0" expanded="true" />
-            <element signature="e#6463#6464#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -896,30 +877,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3485">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#4882#4883#0" expanded="true" />
-            <element signature="e#4964#4965#0" expanded="true" />
-            <element signature="e#5025#5026#0" expanded="true" />
-            <element signature="e#5090#5091#0" expanded="true" />
-            <element signature="e#5788#5789#0" expanded="true" />
-            <element signature="e#5812#5813#0" expanded="true" />
-            <element signature="e#5920#5921#0" expanded="true" />
-            <element signature="e#5944#5945#0" expanded="true" />
-            <element signature="e#6053#6054#0" expanded="true" />
-            <element signature="e#6078#6079#0" expanded="true" />
-            <element signature="e#6107#6108#0" expanded="true" />
-            <element signature="e#6132#6133#0" expanded="true" />
-            <element signature="e#6168#6169#0" expanded="true" />
-            <element signature="e#6196#6197#0" expanded="true" />
-            <element signature="e#6232#6233#0" expanded="true" />
-            <element signature="e#6260#6261#0" expanded="true" />
-            <element signature="e#6293#6294#0" expanded="true" />
-            <element signature="e#6322#6323#0" expanded="true" />
-            <element signature="e#6355#6356#0" expanded="true" />
-            <element signature="e#6384#6385#0" expanded="true" />
-            <element signature="e#6427#6428#0" expanded="true" />
-            <element signature="e#6463#6464#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -935,7 +893,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1666">
           <caret line="9" column="46" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
-          <folding />
+          <folding>
+            <element signature="e#1694#1695#0" expanded="true" />
+            <element signature="e#1722#1723#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1008,30 +969,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="879" max-vertical-offset="2754">
           <caret line="58" column="5" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
-          <folding>
-            <element signature="e#4882#4883#0" expanded="true" />
-            <element signature="e#4964#4965#0" expanded="true" />
-            <element signature="e#5025#5026#0" expanded="true" />
-            <element signature="e#5090#5091#0" expanded="true" />
-            <element signature="e#5788#5789#0" expanded="true" />
-            <element signature="e#5812#5813#0" expanded="true" />
-            <element signature="e#5920#5921#0" expanded="true" />
-            <element signature="e#5944#5945#0" expanded="true" />
-            <element signature="e#6053#6054#0" expanded="true" />
-            <element signature="e#6078#6079#0" expanded="true" />
-            <element signature="e#6107#6108#0" expanded="true" />
-            <element signature="e#6132#6133#0" expanded="true" />
-            <element signature="e#6168#6169#0" expanded="true" />
-            <element signature="e#6196#6197#0" expanded="true" />
-            <element signature="e#6232#6233#0" expanded="true" />
-            <element signature="e#6260#6261#0" expanded="true" />
-            <element signature="e#6293#6294#0" expanded="true" />
-            <element signature="e#6322#6323#0" expanded="true" />
-            <element signature="e#6355#6356#0" expanded="true" />
-            <element signature="e#6384#6385#0" expanded="true" />
-            <element signature="e#6427#6428#0" expanded="true" />
-            <element signature="e#6463#6464#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1039,7 +977,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="864" max-vertical-offset="1428">
           <caret line="64" column="27" selection-start-line="64" selection-start-column="27" selection-end-line="64" selection-end-column="27" />
-          <folding />
+          <folding>
+            <element signature="e#1694#1695#0" expanded="true" />
+            <element signature="e#1722#1723#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1134,14 +1075,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/IsoCalculator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="226" max-vertical-offset="646">
-          <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_11/src.zip!/javax/imageio/ImageIO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2102102" vertical-offset="21127" max-vertical-offset="25993">
@@ -1153,13 +1086,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/sfx/MusicPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.41666666" vertical-offset="204" max-vertical-offset="816">
-          <caret line="2" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1208,91 +1134,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1139" max-vertical-offset="1547">
-          <caret line="79" column="17" selection-start-line="79" selection-start-column="17" selection-end-line="79" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1853" max-vertical-offset="4063">
-          <caret line="122" column="138" selection-start-line="122" selection-start-column="138" selection-end-line="122" selection-end-column="138" />
-          <folding>
-            <element signature="e#4882#4883#0" expanded="true" />
-            <element signature="e#4964#4965#0" expanded="true" />
-            <element signature="e#5025#5026#0" expanded="true" />
-            <element signature="e#5090#5091#0" expanded="true" />
-            <element signature="e#5788#5789#0" expanded="true" />
-            <element signature="e#5812#5813#0" expanded="true" />
-            <element signature="e#5920#5921#0" expanded="true" />
-            <element signature="e#5944#5945#0" expanded="true" />
-            <element signature="e#6053#6054#0" expanded="true" />
-            <element signature="e#6078#6079#0" expanded="true" />
-            <element signature="e#6107#6108#0" expanded="true" />
-            <element signature="e#6132#6133#0" expanded="true" />
-            <element signature="e#6168#6169#0" expanded="true" />
-            <element signature="e#6196#6197#0" expanded="true" />
-            <element signature="e#6232#6233#0" expanded="true" />
-            <element signature="e#6260#6261#0" expanded="true" />
-            <element signature="e#6293#6294#0" expanded="true" />
-            <element signature="e#6322#6323#0" expanded="true" />
-            <element signature="e#6355#6356#0" expanded="true" />
-            <element signature="e#6384#6385#0" expanded="true" />
-            <element signature="e#6427#6428#0" expanded="true" />
-            <element signature="e#6463#6464#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/levels/battle_map.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="409">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30050504" vertical-offset="289" max-vertical-offset="21862">
+          <caret line="24" column="14" selection-start-line="24" selection-start-column="14" selection-end-line="24" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/levels/isotest2_map.txt">
+    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/item/Item.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="119">
-          <caret line="1" column="3" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/levels/isotest_map.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="527" max-vertical-offset="1105">
-          <caret line="39" column="49" selection-start-line="39" selection-start-column="49" selection-end-line="39" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5117" max-vertical-offset="6766">
-          <caret line="67" column="36" selection-start-line="67" selection-start-column="36" selection-end-line="67" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
+          <caret line="12" column="85" selection-start-line="12" selection-start-column="85" selection-end-line="12" selection-end-column="85" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java">
+    <entry file="file://$PROJECT_DIR$/res/levels/isotest_map.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="913" max-vertical-offset="2329">
-          <caret line="72" column="65" selection-start-line="72" selection-start-column="65" selection-end-line="72" selection-end-column="65" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="691" max-vertical-offset="1105">
+          <caret line="42" column="51" selection-start-line="42" selection-start-column="51" selection-end-line="42" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/IsoCalculator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Textures.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33251834" vertical-offset="0" max-vertical-offset="1496">
-          <caret line="9" column="78" selection-start-line="9" selection-start-column="78" selection-end-line="9" selection-end-column="78" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="1853">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/levels/isotest2_map.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
+          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1581">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+          <folding>
+            <element signature="e#1694#1695#0" expanded="true" />
+            <element signature="e#1722#1723#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1836" max-vertical-offset="2295">
+          <caret line="134" column="1" selection-start-line="134" selection-start-column="1" selection-end-line="134" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2799" max-vertical-offset="6766">
+          <caret line="353" column="28" selection-start-line="353" selection-start-column="28" selection-end-line="353" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46633416" vertical-offset="323" max-vertical-offset="3689">
+          <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
           <folding />
         </state>
       </provider>

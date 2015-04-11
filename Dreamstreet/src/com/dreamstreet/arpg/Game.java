@@ -4,22 +4,20 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
 import com.dreamstreet.arpg.gfx.*;
 import com.dreamstreet.arpg.sfx.AudioPlayer;
-import com.dreamstreet.arpg.sfx.MusicPlayer;
 import com.dreamstreet.arpg.ui.UI;
 
 
 public class Game extends Canvas implements Runnable, MouseInputListener, MouseWheelListener {
 
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 480;  // 1920x1080
-	//public static final int WIDTH = 480;
+	//public static final int WIDTH = 640;  // 1920x1080
+	public static final int WIDTH = 480;
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
     public static final Dimension dimension = new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
@@ -68,7 +66,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	//private Lighting lightradius = new Lighting(lightobj, character.getX()-980,character.getY()-530); // use this if running on 480 width
 
 	//map
-	private TileMap map = new TileMap("res/levels/isotest_map.txt");
+	private TileMap map = new TileMap("res/levels/isotest2_map.txt");
     private Camera camera;
 
 
@@ -269,7 +267,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 		}
 		Graphics g = bs.getDrawGraphics();
 
-        g.setColor(Color.BLACK);
+        g.setColor(new Color(51, 51, 52));
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
 		map.draw(g,camera);
 		character.draw(g,camera);
@@ -281,7 +279,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
         kodama3.draw(g, camera);
         skeleton.draw(g,camera);
         noface.draw(g,camera);
-        ui.draw(g);*/
+        */ui.draw(g);
 
       //  lightradius.draw(g,30);
 
@@ -342,7 +340,9 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
             stopped = false;
             clicked = true;
         }else if (e.getButton() == MouseEvent.BUTTON3) {
-
+            character.stop();
+            camera.stop();
+            stopped = true;
         }
     }
 
@@ -351,7 +351,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
         if (e.getButton() == MouseEvent.BUTTON1) {
             clicked = false;
         }else if (e.getButton() == MouseEvent.BUTTON3) {
-
+            stopped = false;
         }
     }
 

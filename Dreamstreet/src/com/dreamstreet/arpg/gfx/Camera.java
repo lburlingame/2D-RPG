@@ -5,7 +5,7 @@ import com.dreamstreet.arpg.Game;
 /**
  * Created on 3/22/2015.
  */
-public final class Camera {
+public class Camera {
 
     private static final double MAX_SCALE = 6;
     private static final double MIN_SCALE = .3;

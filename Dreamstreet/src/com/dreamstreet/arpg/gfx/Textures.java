@@ -5,9 +5,12 @@ import java.awt.*;
 
 public class Textures {
 
-    private static Image TILE_STONE,TILE_GRASS,TILE_WATER,TILE_DEAD_GRASS,TILE_WALL,TILE_DOOR,ISOTILE_GRASS;
+    private static Image TILE_STONE,TILE_GRASS,TILE_WATER,TILE_DEAD_GRASS,TILE_WALL,TILE_DOOR,ISOTILE_GRASS,ISOTILE_WHITE,ISOTILE_BLACK;
     private static SpriteSheet tilesheet = new SpriteSheet("/tiles/tile_sheet.png");
-    private static SpriteSheet isosheet = new SpriteSheet("/tiles/isotile.png");
+    private static SpriteSheet isosheet = new SpriteSheet("/tiles/isotile643d2.png");
+    private static SpriteSheet whitesheet = new SpriteSheet("/tiles/whiteiso64.png");
+    private static SpriteSheet blacksheet = new SpriteSheet("/tiles/blackiso64.png");
+
 
     public static Image getTile(int id) {
         switch (id) {
@@ -23,6 +26,10 @@ public class Textures {
                 return getTileWall();
             case (6):
                 return getIsoTile();
+            case (7):
+                return getWhiteTile();
+            case (8):
+                return getBlackTile();
             case (100):
                 return getTileDoor();
             default:
@@ -67,9 +74,23 @@ public class Textures {
 
     private static Image getIsoTile() {
         if (ISOTILE_GRASS == null) {
-            ISOTILE_GRASS = new ImageIcon(isosheet.getSprite(0,0,88,43)).getImage();//6
+            ISOTILE_GRASS = new ImageIcon(isosheet.getSprite(0,0,64,47)).getImage();//6
         }
         return ISOTILE_GRASS;
+    }
+
+    private static Image getWhiteTile() {
+        if (ISOTILE_WHITE == null) {
+            ISOTILE_WHITE = new ImageIcon(whitesheet.getSprite(0,0,64,47)).getImage();//7
+        }
+        return ISOTILE_WHITE;
+    }
+
+    private static Image getBlackTile() {
+        if (ISOTILE_BLACK == null) {
+            ISOTILE_BLACK = new ImageIcon(blacksheet.getSprite(0,0,64,47)).getImage();//8
+        }
+        return ISOTILE_BLACK;
     }
 
 

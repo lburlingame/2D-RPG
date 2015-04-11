@@ -34,7 +34,7 @@ public class Sprite {
         this.imgscale = imgscale;
 		this.x = x;
 		this.y = y;
-        this.velocity = 3.0;
+        this.velocity = .5;
         this.dx = 0;
         this.dy = 0;
         this.width = 32;
@@ -116,10 +116,10 @@ public class Sprite {
         Vector2 isofeet = IsoCalculator.twoDToIso(feet);
         Vector2 isodest = IsoCalculator.twoDToIso(new Vector2(dest_x,dest_y));
 
-        g.setColor(Color.white);
+        g.setColor(Color.green);
         g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * imgscale * scale), (int) (height * imgscale * scale)); //draws rectangle around char
-        g.fillRect((int)((iso.x-xOffset + isofeet.x)*scale), (int)((iso.y - yOffset + isofeet.y)*scale),5,5);  // draws rectangle at characters x and y
-        g.fillRect((int)((isodest.x + isofeet.x - xOffset)*scale), (int) ((isodest.y + isofeet.y - yOffset) * scale),5,5); // draws character at character's "feet"
+        g.fillRect((int)((iso.x-xOffset + isofeet.x)*scale), (int)((iso.y - yOffset + isofeet.y)*scale),5,5);  // draws rect at character's "feet"
+        g.fillRect((int)((isodest.x + isofeet.x - xOffset)*scale), (int) ((isodest.y + isofeet.y - yOffset) * scale),5,5); // draws rectangle at character's destination point
         g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * imgscale * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
     }
 
