@@ -9,13 +9,15 @@ import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
 import com.dreamstreet.arpg.gfx.*;
+import com.dreamstreet.arpg.sfx.AudioPlayer;
 import com.dreamstreet.arpg.ui.UI;
+
 
 public class Game extends Canvas implements Runnable, MouseInputListener, MouseWheelListener {
 
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 480;  // 1920x1080
-	//public static final int WIDTH = 480;
+	//public static final int WIDTH = 640;  // 1920x1080
+	public static final int WIDTH = 480;
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
     public static final Dimension dimension = new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
@@ -36,7 +38,6 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
     private SpriteSheet nofacesheet = new SpriteSheet("/sprites/noface_sprite.png");
 
     private SpriteSheet lightsheet = new SpriteSheet("/effects/lightradius.png");
-	private SpriteSheet mapsheet = new SpriteSheet("/tiles/tile_sheet.png");
 
 	//character image and sprite
 	private BufferedImage lightobj = lightsheet.getSprite(0,0,66,36);
@@ -47,7 +48,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
     private BufferedImage skeletonchar = skeletonsheet.getSprite(0,0,32,32);
     private BufferedImage nofacechar = nofacesheet.getSprite(0,0,32,32);
 
-	private Sprite character = new Sprite(spritechar,1.0, 200,60);
+	private Sprite character = new Sprite(spritechar,1.0, 0,0);
     private Sprite skulltula = new Sprite(skulltulachar,2.0, 2000,2000);
     private Sprite kodama = new Sprite(kodamachar,.5, 2200,2000);
     private Sprite kodama1 = new Sprite(kodamachar,.65, 2300,2000);
@@ -65,7 +66,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	//private Lighting lightradius = new Lighting(lightobj, character.getX()-980,character.getY()-530); // use this if running on 480 width
 
 	//map
-	private TileMap map = new TileMap("res/levels/isotest_map.txt",mapsheet);
+	private TileMap map = new TileMap("res/levels/isotest2_map.txt");
     private Camera camera;
 
 
@@ -77,34 +78,47 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 
     private UI ui = new UI();
 
+    private AudioPlayer music = new AudioPlayer("res/audio/d2cave.wav");
+    private boolean audioPlay = true;
+
 	public Game() {
+        music.stop();
         camera = new Camera(3,.1);
         character.setCamera(camera);
         camera.centerCamera(character.getX(),character.getY(), 32*character.imgscale / 2, 32*character.imgscale/2);
 
+        kodama.move(-400,-400);
+        kodama1.move(400,300);
+        kodama2.move(200,200);
+        kodama3.move(0,0);
+        noface.move(-200, -900);
+        skulltula.move(-40, -400);
 
 
-	//	Random rand = new Random();
+
+        //	Random rand = new Random();
 		//for (int i = 0; i < rays.length; i++) {
 		//	rays[i] = new RayShadow(new Rectangle(rand.nextInt(2000), rand.nextInt(2000), rand.nextInt(200), rand.nextInt(200)), WIDTH*SCALE);
-	//	}
+        //	}
 
-		addKeyListener(new KeyAdapter() {
+        addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-
+                if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+                }
             }
 
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_Q) {
                     if (ui.currhealth + 200 > ui.maxhealth) {
                         ui.currhealth = ui.maxhealth;
-                    }else{
+                    } else {
                         ui.currhealth += 200;
                     }
                 }
                 if (e.getKeyCode() == KeyEvent.VK_S) {
                     character.stop();
+                    camera.stop();
                     stopped = true;
                 }
 
@@ -115,7 +129,25 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
                 }
 
                 if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+                }
 
+                if (e.getKeyCode() == KeyEvent.VK_M) {
+                    if (audioPlay) {
+                        music.stop();
+                        audioPlay = false;
+                    }else{
+                        music.start();
+                        audioPlay = true;
+                    }
+                }
+
+                if (e.getKeyCode() == KeyEvent.VK_EQUALS) {
+                    camera.zoomIn();
+                    camera.centerCamera(character.getX(), character.getY(), 32 * character.imgscale / 2, 32 * character.imgscale / 2);
+                }
+                if (e.getKeyCode() == KeyEvent.VK_MINUS){
+                    camera.zoomOut();
+                    camera.centerCamera(character.getX(), character.getY(), 32 * character.imgscale / 2, 32 * character.imgscale / 2);
                 }
 
 
@@ -207,6 +239,13 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
             camera.setDy(character.getDy());
         }
         character.tick();
+        /*
+        kodama.tick();
+        kodama1.tick();
+        kodama2.tick();
+        kodama3.tick();
+        skulltula.tick();
+        noface.tick();*/
 
         camera.tick();
         ui.tick();
@@ -228,10 +267,11 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 		}
 		Graphics g = bs.getDrawGraphics();
 
-        g.setColor(Color.BLACK);
+        g.setColor(new Color(51, 51, 52));
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
 		map.draw(g,camera);
 		character.draw(g,camera);
+        /*
 	    skulltula.draw(g,camera);
 		kodama.draw(g,camera);
         kodama1.draw(g,camera);
@@ -239,7 +279,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
         kodama3.draw(g, camera);
         skeleton.draw(g,camera);
         noface.draw(g,camera);
-        ui.draw(g);
+        */ui.draw(g);
 
       //  lightradius.draw(g,30);
 
@@ -257,12 +297,13 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	public void drawDebug(Graphics g) {
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
         g.setColor(Color.WHITE);
+        Vector2 curr = IsoCalculator.twoDToIso(new Vector2(character.getX(), character.getY()));
 
         g.drawString(fps + " ", 20, 40);
         g.drawString(character.getX() + ", " + character.getY(), 20, 70);
-        g.drawString(camera.getCartOffset().x + ", " + camera.getCartOffset().y, 20, 100);
-        g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 130);
-        g.drawString(camera.getScale() + " ", 20, 160);
+        g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 100);
+        g.drawString(curr.x + ", " + curr.y, 20, 130);
+       // g.drawString(camera.getScale() + " ", 20, 160);
         //g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
         //g.drawLine(WIDTH/2*SCALE,0,WIDTH/2*SCALE,HEIGHT*SCALE);
     }
@@ -299,7 +340,9 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
             stopped = false;
             clicked = true;
         }else if (e.getButton() == MouseEvent.BUTTON3) {
-
+            character.stop();
+            camera.stop();
+            stopped = true;
         }
     }
 
@@ -308,7 +351,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
         if (e.getButton() == MouseEvent.BUTTON1) {
             clicked = false;
         }else if (e.getButton() == MouseEvent.BUTTON3) {
-
+            stopped = false;
         }
     }
 

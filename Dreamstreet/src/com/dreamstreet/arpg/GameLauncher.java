@@ -46,8 +46,9 @@ public class GameLauncher extends Applet {
         game.frame.pack();
 
         game.frame.setResizable(false);
-        game.frame.setLocationRelativeTo(null);
-        game.frame.setVisible(true);        game.start();
+       // game.frame.setLocationRelativeTo(null);
+        game.frame.setVisible(true);
+        game.start();
         game.requestFocus();
     }
 

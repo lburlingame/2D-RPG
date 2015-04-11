@@ -5,7 +5,7 @@ import com.dreamstreet.arpg.Game;
 /**
  * Created on 3/22/2015.
  */
-public final class Camera {
+public class Camera {
 
     private static final double MAX_SCALE = 6;
     private static final double MIN_SCALE = .3;
@@ -60,6 +60,11 @@ public final class Camera {
     public void centerCamera(double x, double y, double width, double height) {
         this.xOffset =  x - ((SCREEN_CENTER_X - width * scale) / scale);
         this.yOffset =  y;
+    }
+
+    public void stop() {
+        dx = 0;
+        dy = 0;
     }
 
     public Vector2 getIsoOffset() {
