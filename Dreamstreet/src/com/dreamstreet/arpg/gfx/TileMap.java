@@ -24,11 +24,13 @@ public class TileMap {
     private int flicker_duration = 16;
     private double flicker_dist = 10;
 
-    private final float DAY_CYCLE = 3600.0f;
+    private final float DAY_CYCLE = 24*60.0f;
     private final float HOUR = DAY_CYCLE/24;
     private final float MINUTE = HOUR / 60;
-    private int current_time = (int)(HOUR * 15);
-    private float max_darkness = 1f;
+    private int current_time = (int)(HOUR * 13);
+    public static float max_darkness = 1f;
+
+    public String time = "";
 
 
 	public TileMap(String path){
@@ -75,7 +77,7 @@ public class TileMap {
                         }else if(id == 2){
                             tiles[rows][columns] = new Tile(columns, rows, 88,44,2, true);
                         }else if(id == 3){
-                            tiles[rows][columns] = new Tile(columns, rows, 88,44,3, true);
+                            tiles[rows][columns] = new Tile(columns, rows, 64,47,3, false);
                         }else if(id == 4){
                             tiles[rows][columns] = new Tile(columns, rows, 88,44,4, true);
                         }else if(id == 5){
@@ -120,9 +122,12 @@ public class TileMap {
         }
         if (current_time == DAY_CYCLE) {
             current_time = 0;
-            System.out.println("RESET");
         }
-        System.out.println((int)(current_time/HOUR) + ":" + (int)((current_time % HOUR) / MINUTE) + " o'clock");
+        time = (int)(current_time/HOUR) + ":";
+        if ((int)((current_time % HOUR) / MINUTE) < 10) {
+            time = time + "0";
+        }
+        time = time + (int)((current_time % HOUR) / MINUTE);
     }
 
 
@@ -149,7 +154,12 @@ public class TileMap {
                         }
                     }
                     g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-                    g.drawImage(Textures.getTile(-1), (int) ((curr.x - xOffset) * scale), (int) ((curr.y - yOffset) * scale), (int) (tiles[y][x].width * scale + 1), (int) (tiles[y][x].height * scale + 1), null);
+                    //clean up shadow picking system?
+                    if (tiles[y][x].id != 3) {
+                        g.drawImage(Textures.getTile(-1), (int) ((curr.x - xOffset) * scale), (int) ((curr.y - yOffset) * scale), (int) (tiles[y][x].width * scale + 1), (int) (tiles[y][x].height * scale + 1), null);
+                    }else{
+                        g.drawImage(Textures.getTile(-2), (int) ((curr.x - xOffset) * scale), (int) ((curr.y - yOffset) * scale), (int) (tiles[y][x].width * scale + 1), (int) (tiles[y][x].height * scale + 1), null);
+                    }
                     g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
                     g.setColor(Color.white);

@@ -5,13 +5,16 @@ import java.awt.*;
 
 public class Textures {
 
-    private static Image TILE_STONE,TILE_GRASS,TILE_WATER,TILE_DEAD_GRASS,TILE_WALL,TILE_DOOR,ISOTILE_GRASS,ISOTILE_WHITE,ISOTILE_BLACK,ISOTILE_SHADOW;
+    private static Image TILE_STONE,TILE_GRASS,TILE_WATER,TILE_DEAD_GRASS,TILE_WALL,TILE_DOOR,ISOTILE_GRASS,ISOTILE_WHITE,ISOTILE_BLACK,ISOTILE_SHADOW,ISOTILE_SHADOWWATER;
     private static SpriteSheet tilesheet = new SpriteSheet("/tiles/tile_sheet.png");
     private static SpriteSheet isosheet = new SpriteSheet("/tiles/isotile643d2.png");
+    private static SpriteSheet watersheet = new SpriteSheet("/tiles/isowatertile643d4.png");
     private static SpriteSheet grasssheet = new SpriteSheet("/tiles/isograsstile643d.png");
     private static SpriteSheet whitesheet = new SpriteSheet("/tiles/whiteiso64.png");
     private static SpriteSheet blacksheet = new SpriteSheet("/tiles/blackiso64.png");
     private static SpriteSheet shadowsheet = new SpriteSheet("/tiles/shadowtile64.png");
+    private static SpriteSheet shadowwatersheet = new SpriteSheet("/tiles/shadowwatertile64.png");
+
 
 
     public static Image getTile(int id) {
@@ -34,10 +37,12 @@ public class Textures {
                 return getBlackTile();
             case (-1):
                 return getShadowTile();
+            case (-2):
+                return getShadowWaterTile();
             case (100):
                 return getTileDoor();
             default:
-                return getTileGrass();
+                return getShadowWaterTile();
         }
     }
 
@@ -57,7 +62,7 @@ public class Textures {
 
     private static Image getTileWater() {
         if (TILE_WATER == null) {
-            TILE_WATER = new ImageIcon(tilesheet.getSprite(305,165,32,32)).getImage();//3
+            TILE_WATER = new ImageIcon(watersheet.getSprite(0,0,64,47)).getImage();//3
         }
         return TILE_WATER;
     }
@@ -104,6 +109,12 @@ public class Textures {
         return ISOTILE_SHADOW;
     }
 
+    private static Image getShadowWaterTile() {
+        if (ISOTILE_SHADOWWATER == null) {
+            ISOTILE_SHADOWWATER = new ImageIcon(shadowwatersheet.getSprite(0,0,64,47)).getImage();//8
+        }
+        return ISOTILE_SHADOWWATER;
+    }
 
     private static Image getTileDoor() {
         if (TILE_DOOR == null) {

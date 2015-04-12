@@ -305,6 +305,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
         g.drawString(character.getX() + ", " + character.getY(), 20, 70);
         g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 100);
         g.drawString(curr.x + ", " + curr.y, 20, 130);
+        g.drawString(map.time, Game.WIDTH * Game.SCALE - 100, 40);
        // g.drawString(camera.getScale() + " ", 20, 160);
         //g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
         //g.drawLine(WIDTH/2*SCALE,0,WIDTH/2*SCALE,HEIGHT*SCALE);

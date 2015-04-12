@@ -66,19 +66,20 @@ public class Sprite {
         }
 
         Tile dest = TileMap.getTile(x + dx + feet.x, y + feet.y);
-        if (dest != null) {
+        if (dest != null && dest.walkable) {
             x += dx;
             if (camera!=null) camera.setDx(dx);
         }else{
             if (camera!=null) camera.setDx(0);
         }
         dest = TileMap.getTile(x + feet.x, y + dy + feet.y);
-        if (dest != null) {
+        if (dest != null && dest.walkable) {
             y += dy;
             if (camera!=null) camera.setDy(dy);
         }else{
             if (camera!=null) camera.setDy(0);
         }
+
         if (dx != 0 || dy != 0) {
             animation_timer--;
             if (animation_timer == 0) {
@@ -99,7 +100,7 @@ public class Sprite {
         Vector2 iso = IsoCalculator.twoDToIso(new Vector2(x,y));
         Vector2 isofeet = IsoCalculator.twoDToIso(feet);
 
-        g.setColor(new Color(0, 0, 0, 46));
+        g.setColor(new Color(0, 0, 0, (int)(TileMap.max_darkness * 110 + 40)));
         g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset)* scale),(int)(width*scale*imgscale),(int)(height*scale*imgscale)/2);
         g.drawImage(img, (int)((iso.x - xOffset)*scale), (int)((iso.y-yOffset)*scale),(int)(32*scale*imgscale),(int)(32*scale*imgscale), null);
 
@@ -117,10 +118,13 @@ public class Sprite {
         Vector2 isodest = IsoCalculator.twoDToIso(new Vector2(dest_x,dest_y));
 
         g.setColor(Color.green);
-        g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * imgscale * scale), (int) (height * imgscale * scale)); //draws rectangle around char
-        g.fillRect((int)((iso.x-xOffset + isofeet.x)*scale), (int)((iso.y - yOffset + isofeet.y)*scale),5,5);  // draws rect at character's "feet"
-        g.fillRect((int)((isodest.x + isofeet.x - xOffset)*scale), (int) ((isodest.y + isofeet.y - yOffset) * scale),5,5); // draws rectangle at character's destination point
-        g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * imgscale * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
+      //  g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * imgscale * scale), (int) (height * imgscale * scale)); //draws rectangle around char
+       // g.fillRect((int)((iso.x-xOffset + isofeet.x)*scale), (int)((iso.y - yOffset + isofeet.y)*scale),5,5);  // draws rect at character's "feet"
+        if (Math.abs(dx) > 0 || Math.abs(dy) > 0) {
+            g.fillRect((int)((isodest.x + isofeet.x - xOffset)*scale), (int) ((isodest.y + isofeet.y - yOffset) * scale),(int)(1.2*scale)+1,(int)(1.2*scale)+1); // draws rectangle at character's destination point
+        }
+
+     //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * imgscale * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
     }
 
     private Direction findSlope()
