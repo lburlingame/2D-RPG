@@ -79,11 +79,11 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
     private UI ui = new UI();
 
     private AudioPlayer music = new AudioPlayer("res/audio/d2cave.wav");
-    private boolean audioPlay = true;
+    private boolean audioPlay = false;
 
 	public Game() {
         music.stop();
-        camera = new Camera(3,.1);
+        camera = new Camera(3,.3);
         character.setCamera(camera);
         camera.centerCamera(character.getX(),character.getY(), 32*character.imgscale / 2, 32*character.imgscale/2);
 
@@ -195,7 +195,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = true; // false here limits to 60 fps
+			boolean shouldRender = true;//true; // false here limits to 60 fps
 			
 			while(delta>=1){
 				ticks++;
@@ -239,6 +239,8 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
             camera.setDy(character.getDy());
         }
         character.tick();
+        map.tick();
+
         /*
         kodama.tick();
         kodama1.tick();
@@ -265,11 +267,11 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 			createBufferStrategy(3);
 			return;
 		}
-		Graphics g = bs.getDrawGraphics();
+        Graphics2D g = (Graphics2D)bs.getDrawGraphics();
 
-        g.setColor(new Color(51, 51, 52));
+        g.setColor(new Color(0, 0, 0));
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
-		map.draw(g,camera);
+		map.draw(g,camera,character);
 		character.draw(g,camera);
         /*
 	    skulltula.draw(g,camera);

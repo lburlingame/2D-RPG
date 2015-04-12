@@ -9,7 +9,9 @@ public class Tile {
     public int id;
     public boolean walkable;
 
-    public Tile(int width, int height, int id, boolean walkable) {
+    public Tile(int x, int y, int width, int height, int id, boolean walkable) {
+        this.x = x;
+        this.y = y;
         this.width = width;
         this.height = height;
         this.id = id;

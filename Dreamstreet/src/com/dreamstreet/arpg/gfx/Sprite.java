@@ -10,7 +10,7 @@ public class Sprite {
     private double x;
     private double y;
 
-    private Vector2 feet;
+    public Vector2 feet;
 
     private double velocity;
 
@@ -34,7 +34,7 @@ public class Sprite {
         this.imgscale = imgscale;
 		this.x = x;
 		this.y = y;
-        this.velocity = .5;
+        this.velocity = 3;
         this.dx = 0;
         this.dy = 0;
         this.width = 32;

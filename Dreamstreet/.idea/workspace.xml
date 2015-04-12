@@ -2,20 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f469562c-903f-4c6b-bf14-b230c907b189" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\programming\2D-RPG\Dreamstreet\bin\com\dreamstreet\arpg\sfx\MusicPlayer.class" afterPath="" />
-      <change type="DELETED" beforePath="C:\programming\2D-RPG\Dreamstreet\src\com\dreamstreet\arpg\sfx\MusicPlayer.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/Camera.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/Camera.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game$1.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game$2.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game$DebugLevel.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game$DebugLevel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/Textures.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/Textures.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/Sprite.class" afterPath="$PROJECT_DIR$/bin/com/dreamstreet/arpg/gfx/Sprite.class" />
+      <change type="MODIFICATION" beforePath="C:\programming\2D-RPG\Dreamstreet\bin\com\dreamstreet\arpg\gfx\TileMap.class" afterPath="C:\programming\2D-RPG\Dreamstreet\bin\com\dreamstreet\arpg\gfx\TileMap.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/tiles/blackiso64.png" afterPath="$PROJECT_DIR$/res/tiles/blackiso64.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/tiles/isotile643d2.png" afterPath="$PROJECT_DIR$/res/tiles/isotile643d2.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/item/Item.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/item/Item.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Textures.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Textures.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Tile.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Tile.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java" afterPath="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/levels/isotest2_map.txt" afterPath="$PROJECT_DIR$/bin/levels/isotest2_map.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/levels/isotest2_map.txt" afterPath="$PROJECT_DIR$/res/levels/isotest2_map.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -49,31 +46,11 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="2799" max-vertical-offset="6766">
-              <caret line="353" column="28" selection-start-line="353" selection-start-column="28" selection-end-line="353" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="6800">
+              <caret line="194" column="38" selection-start-line="194" selection-start-column="38" selection-end-line="194" selection-end-column="38" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IsoCalculator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/IsoCalculator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
-              <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="isotest_map.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/levels/isotest_map.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="691" max-vertical-offset="1105">
-              <caret line="42" column="51" selection-start-line="42" selection-start-column="51" selection-end-line="42" selection-end-column="51" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -81,44 +58,29 @@
       <file leaf-file-name="Camera.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1581">
-              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-              <folding>
-                <element signature="e#1694#1695#0" expanded="true" />
-                <element signature="e#1722#1723#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.0" vertical-offset="524" max-vertical-offset="1547">
+              <caret line="70" column="59" selection-start-line="70" selection-start-column="59" selection-end-line="70" selection-end-column="59" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Sprite.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Sprite.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46633416" vertical-offset="323" max-vertical-offset="3689">
-              <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="3689">
+              <caret line="77" column="45" selection-start-line="77" selection-start-column="45" selection-end-line="77" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TileMap.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TileMap.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1836" max-vertical-offset="2295">
-              <caret line="134" column="1" selection-start-line="134" selection-start-column="1" selection-end-line="134" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.42713568" vertical-offset="969" max-vertical-offset="3077">
+              <caret line="73" column="80" selection-start-line="73" selection-start-column="80" selection-end-line="73" selection-end-column="80" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Item.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/item/Item.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-              <caret line="12" column="85" selection-start-line="12" selection-start-column="85" selection-end-line="12" selection-end-column="85" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -126,8 +88,8 @@
       <file leaf-file-name="Textures.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Textures.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="1853">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="561" max-vertical-offset="2040">
+              <caret line="45" column="69" selection-start-line="45" selection-start-column="69" selection-end-line="45" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -136,18 +98,8 @@
       <file leaf-file-name="isotest2_map.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/levels/isotest2_map.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
-              <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Tile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="272" max-vertical-offset="408">
-              <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="133" max-vertical-offset="646">
+              <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -167,19 +119,20 @@
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/obj/Player.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/ui/Minimap.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/sfx/MusicPlayer.java" />
-        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Tile.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/level/LevelManager.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/level/Level.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/sfx/AudioPlayer.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/GameLauncher.java" />
         <option value="$PROJECT_DIR$/res/levels/isotest_map.txt" />
-        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/item/Item.java" />
-        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Textures.java" />
+        <option value="$PROJECT_DIR$/bin/levels/isotest2_map.txt" />
+        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java" />
+        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Tile.java" />
+        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java" />
+        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Textures.java" />
         <option value="$PROJECT_DIR$/res/levels/isotest2_map.txt" />
         <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java" />
-        <option value="$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java" />
       </list>
     </option>
   </component>
@@ -187,8 +140,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="127" />
-    <option name="width" value="1409" />
+    <option name="x" value="126" />
+    <option name="width" value="1410" />
     <option name="height" value="826" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -379,6 +332,24 @@
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tiles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dreamstreet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Dreamstreet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -398,28 +369,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dreamstreet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Dreamstreet" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="audio" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -698,12 +651,13 @@
       <workItem from="1428521058720" duration="4964000" />
       <workItem from="1428534458298" duration="17508000" />
       <workItem from="1428611177401" duration="23329000" />
-      <workItem from="1428697011653" duration="14028000" />
+      <workItem from="1428697011653" duration="17161000" />
+      <workItem from="1428782854596" duration="24423000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94426000" />
+    <option name="totallyTimeSpent" value="121982000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -726,13 +680,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="127" y="0" width="1409" height="826" extended-state="0" />
+    <frame x="126" y="0" width="1410" height="826" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32853025" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32708934" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -740,23 +694,23 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3631124" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36743516" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23869532" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23851852" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39913544" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885376" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -768,22 +722,22 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39913544" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32853025" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32708934" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3631124" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36743516" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885376" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23869532" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23851852" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
@@ -816,37 +770,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/ui/Minimap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="170" max-vertical-offset="510">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3723">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="707" max-vertical-offset="1360">
-          <caret line="59" column="23" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/GameLauncher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="515" max-vertical-offset="935">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/IsoCalculator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="226" max-vertical-offset="646">
@@ -893,10 +816,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1666">
           <caret line="9" column="46" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
-          <folding>
-            <element signature="e#1694#1695#0" expanded="true" />
-            <element signature="e#1722#1723#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -977,10 +897,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="864" max-vertical-offset="1428">
           <caret line="64" column="27" selection-start-line="64" selection-start-column="27" selection-end-line="64" selection-end-column="27" />
-          <folding>
-            <element signature="e#1694#1695#0" expanded="true" />
-            <element signature="e#1722#1723#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1118,14 +1035,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Tile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="408">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/GameLauncher.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2567237" vertical-offset="422" max-vertical-offset="952">
@@ -1153,15 +1062,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
           <caret line="12" column="85" selection-start-line="12" selection-start-column="85" selection-end-line="12" selection-end-column="85" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/levels/isotest_map.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1105">
+          <caret line="11" column="37" selection-start-line="11" selection-start-column="37" selection-end-line="11" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/levels/isotest2_map.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="323">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/levels/isotest_map.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="691" max-vertical-offset="1105">
+        <state vertical-scroll-proportion="0.055555556" vertical-offset="691" max-vertical-offset="1105">
           <caret line="42" column="51" selection-start-line="42" selection-start-column="51" selection-end-line="42" selection-end-column="51" />
           <folding />
         </state>
@@ -1169,61 +1091,79 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/IsoCalculator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
-          <caret line="3" column="18" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="646">
+          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/tiles/shadowtile64.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="881" max-vertical-offset="1547">
+          <caret line="70" column="59" selection-start-line="70" selection-start-column="59" selection-end-line="70" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Tile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24817519" vertical-offset="0" max-vertical-offset="442">
+          <caret line="6" column="21" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_11/src.zip!/java/awt/AlphaComposite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3211679" vertical-offset="11003" max-vertical-offset="13124">
+          <caret line="682" column="0" selection-start-line="682" selection-start-column="0" selection-end-line="682" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="3689">
+          <caret line="77" column="45" selection-start-line="77" selection-start-column="45" selection-end-line="77" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Textures.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="1853">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/levels/isotest2_map.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Camera.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="51" max-vertical-offset="1581">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-          <folding>
-            <element signature="e#1694#1695#0" expanded="true" />
-            <element signature="e#1722#1723#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1836" max-vertical-offset="2295">
-          <caret line="134" column="1" selection-start-line="134" selection-start-column="1" selection-end-line="134" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="561" max-vertical-offset="2040">
+          <caret line="45" column="69" selection-start-line="45" selection-start-column="69" selection-end-line="45" selection-end-column="69" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2799" max-vertical-offset="6766">
-          <caret line="353" column="28" selection-start-line="353" selection-start-column="28" selection-end-line="353" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="3213" max-vertical-offset="6800">
+          <caret line="194" column="38" selection-start-line="194" selection-start-column="38" selection-end-line="194" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/Sprite.java">
+    <entry file="file://$PROJECT_DIR$/res/levels/isotest2_map.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46633416" vertical-offset="323" max-vertical-offset="3689">
-          <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="133" max-vertical-offset="646">
+          <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/gfx/TileMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42713568" vertical-offset="969" max-vertical-offset="3077">
+          <caret line="73" column="80" selection-start-line="73" selection-start-column="80" selection-end-line="73" selection-end-column="80" />
           <folding />
         </state>
       </provider>
