@@ -72,23 +72,13 @@ public class TileMap {
                         int id = Integer.parseInt(val);
                         if (id == 0) {
                             tiles[rows][columns] = null;
-                        }else if(id == 1){
-                            tiles[rows][columns] = new Tile(columns, rows, 64,47,1, true);
-                        }else if(id == 2){
-                            tiles[rows][columns] = new Tile(columns, rows, 88,44,2, true);
-                        }else if(id == 3){
-                            tiles[rows][columns] = new Tile(columns, rows, 64,47,3, false);
-                        }else if(id == 4){
-                            tiles[rows][columns] = new Tile(columns, rows, 88,44,4, true);
-                        }else if(id == 5){
-                            tiles[rows][columns] = new Tile(columns, rows, 88,44,5, true);
-                        }else if(id == 6){
-                            tiles[rows][columns] = new Tile(columns, rows, 64,47,6, true);
-                        }else if(id == 7){
-                            tiles[rows][columns] = new Tile(columns, rows, 64,47,7, true);
-                        }else if(id == 8){
-                            tiles[rows][columns] = new Tile(columns, rows, 64,47,8, true);
-                        }else if(id > 99){
+                        }else if(id < 100){
+                            boolean walkable = true;
+                            if (id == 3) {
+                                walkable = false;
+                            }
+                            tiles[rows][columns] = new Tile(columns, rows, 64,47,id, walkable);
+                        }else if(id >= 100){
                             tiles[rows][columns] = new Tile(columns, rows, 88,44,100, true);
                         }
                         columns++;
@@ -173,6 +163,7 @@ public class TileMap {
     public static Tile getTile(double x, double y) {
         double tilex = x / 32 ;
         double tiley = y / 32;
+
 
         if (tilex < 0 || tilex >= columns) {
             currentx = -1;
