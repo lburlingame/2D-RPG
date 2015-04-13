@@ -7,7 +7,7 @@ import com.dreamstreet.arpg.Game;
  */
 public class Camera {
 
-    private static final double MAX_SCALE = 6;
+    private static final double MAX_SCALE = 12;
     private static final double MIN_SCALE = .3;
     private static final double panspeed = 25;
 

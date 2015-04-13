@@ -66,7 +66,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	//private Lighting lightradius = new Lighting(lightobj, character.getX()-980,character.getY()-530); // use this if running on 480 width
 
 	//map
-	private TileMap map = new TileMap("res/levels/isotest2_map.txt");
+	private TileMap map = new TileMap("res/levels/isotest3_map.txt");
     private Camera camera;
 
 
@@ -79,7 +79,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
     private UI ui = new UI();
 
     private AudioPlayer music = new AudioPlayer("res/audio/d2cave.wav");
-    private boolean audioPlay = true;
+    private boolean audioPlay = false;
 
 	public Game() {
         music.stop();
@@ -195,7 +195,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = true; // false here limits to 60 fps
+			boolean shouldRender = false;//true; // false here limits to 60 fps
 			
 			while(delta>=1){
 				ticks++;
@@ -239,6 +239,8 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
             camera.setDy(character.getDy());
         }
         character.tick();
+        map.tick();
+
         /*
         kodama.tick();
         kodama1.tick();
@@ -265,11 +267,11 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 			createBufferStrategy(3);
 			return;
 		}
-		Graphics g = bs.getDrawGraphics();
+        Graphics2D g = (Graphics2D)bs.getDrawGraphics();
 
-        g.setColor(new Color(51, 51, 52));
+        g.setColor(new Color(0, 0, 0));
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
-		map.draw(g,camera);
+		map.draw(g,camera,character);
 		character.draw(g,camera);
         /*
 	    skulltula.draw(g,camera);
@@ -303,6 +305,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
         g.drawString(character.getX() + ", " + character.getY(), 20, 70);
         g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 100);
         g.drawString(curr.x + ", " + curr.y, 20, 130);
+        g.drawString(map.time, Game.WIDTH * Game.SCALE - 100, 40);
        // g.drawString(camera.getScale() + " ", 20, 160);
         //g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
         //g.drawLine(WIDTH/2*SCALE,0,WIDTH/2*SCALE,HEIGHT*SCALE);
