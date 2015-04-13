@@ -34,7 +34,7 @@ public class Sprite {
         this.imgscale = imgscale;
 		this.x = x;
 		this.y = y;
-        this.velocity = 3;
+        this.velocity = 2;
         this.dx = 0;
         this.dy = 0;
         this.width = 32;

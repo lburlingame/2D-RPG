@@ -66,7 +66,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	//private Lighting lightradius = new Lighting(lightobj, character.getX()-980,character.getY()-530); // use this if running on 480 width
 
 	//map
-	private TileMap map = new TileMap("res/levels/isotest2_map.txt");
+	private TileMap map = new TileMap("res/levels/isotest3_map.txt");
     private Camera camera;
 
 
@@ -83,7 +83,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 
 	public Game() {
         music.stop();
-        camera = new Camera(3,.3);
+        camera = new Camera(3,.1);
         character.setCamera(camera);
         camera.centerCamera(character.getX(),character.getY(), 32*character.imgscale / 2, 32*character.imgscale/2);
 
@@ -195,7 +195,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = true;//true; // false here limits to 60 fps
+			boolean shouldRender = false;//true; // false here limits to 60 fps
 			
 			while(delta>=1){
 				ticks++;

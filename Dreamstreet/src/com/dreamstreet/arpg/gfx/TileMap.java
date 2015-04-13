@@ -19,12 +19,11 @@ public class TileMap {
     public static int currentx = 0;
     public static int currenty = 0;
 
-
     private int flicker_timer = 0;
     private int flicker_duration = 16;
     private double flicker_dist = 10;
 
-    private final float DAY_CYCLE = 24*60.0f;
+    private final float DAY_CYCLE = 3*24*60.0f;
     private final float HOUR = DAY_CYCLE/24;
     private final float MINUTE = HOUR / 60;
     private int current_time = (int)(HOUR * 13);
@@ -100,15 +99,16 @@ public class TileMap {
         flicker_timer++;
         if (flicker_timer == flicker_duration) {
             flicker_timer = 0;
-            flicker_dist = Math.random()*1.5+8.5;
+            flicker_dist = Math.random()*1.5+6.5;
             flicker_duration = (int)(Math.random()*6) + 8;
         }
 
-        max_darkness = 0;
         current_time++;
-        max_darkness = (float)((Math.cos(current_time/DAY_CYCLE * 3.14 * 2)));
+        max_darkness = (float)((Math.cos(current_time/DAY_CYCLE * 3.14 * 2))*1.5);
         if (max_darkness < 0) {
             max_darkness = 0;
+        }else if (max_darkness > 1) {
+            max_darkness = 1;
         }
         if (current_time == DAY_CYCLE) {
             current_time = 0;
@@ -180,3 +180,24 @@ public class TileMap {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+  flicker_timer++;
+        if (flicker_timer == flicker_duration) {
+            flicker_timer = 0;
+            flicker_dist = Math.random()*1.5+8.5;
+            flicker_duration = (int)(Math.random()*6) + 8;
+        }
+ */
