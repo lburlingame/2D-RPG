@@ -143,16 +143,19 @@ public class TileMap {
                             opacity = max_darkness;
                         }
                     }
-                    g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
-                    //clean up shadow picking system?
-                    if (tiles[y][x].id != 3) {
-                        g.drawImage(Textures.getTile(-1), (int) ((curr.x - xOffset) * scale), (int) ((curr.y - yOffset) * scale), (int) (tiles[y][x].width * scale + 1), (int) (tiles[y][x].height * scale + 1), null);
-                    }else{
-                        g.drawImage(Textures.getTile(-2), (int) ((curr.x - xOffset) * scale), (int) ((curr.y - yOffset) * scale), (int) (tiles[y][x].width * scale + 1), (int) (tiles[y][x].height * scale + 1), null);
-                    }
-                    g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+                    if (opacity != 0) {
+                        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
+                        //clean up shadow picking system?
+                        if (tiles[y][x].id != 3) {
+                            g.drawImage(Textures.getTile(-1), (int) ((curr.x - xOffset) * scale), (int) ((curr.y - yOffset) * scale), (int) (tiles[y][x].width * scale + 1), (int) (tiles[y][x].height * scale + 1), null);
+                        }else{
+                            g.drawImage(Textures.getTile(-2), (int) ((curr.x - xOffset) * scale), (int) ((curr.y - yOffset) * scale), (int) (tiles[y][x].width * scale + 1), (int) (tiles[y][x].height * scale + 1), null);
+                        }
+                        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
-                    g.setColor(Color.white);
+                    }
+
+                    //g.setColor(Color.white);
                     //g.drawRect((int)((curr.x-xOffset)*scale),(int)((curr.y-yOffset)*scale), 3,3);
                     //   g.setColor(Color.RED);
                 }

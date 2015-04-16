@@ -39,7 +39,7 @@ public class Sprite {
         this.dy = 0;
         this.width = 32;
         this.height = 32;
-        feet = IsoCalculator.isoTo2D(new Vector2((width - 16) * imgscale, (height - 4) * imgscale));
+        feet = IsoCalculator.isoTo2D(new Vector2((width/2) * imgscale, (height/8*7) * imgscale));
 
     }
 
@@ -101,8 +101,8 @@ public class Sprite {
         Vector2 isofeet = IsoCalculator.twoDToIso(feet);
 
         g.setColor(new Color(0, 0, 0, (int)(TileMap.max_darkness * 110 + 40)));
-        g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset)* scale),(int)(width*scale*imgscale),(int)(height*scale*imgscale)/2);
-        g.drawImage(img, (int)((iso.x - xOffset)*scale), (int)((iso.y-yOffset)*scale),(int)(32*scale*imgscale),(int)(32*scale*imgscale), null);
+    //    g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset)* scale),(int)(width*scale*imgscale),(int)(height*scale*imgscale)/2);
+        g.drawImage(img, (int)((iso.x - xOffset)*scale), (int)((iso.y-yOffset)*scale),(int)(width*scale*imgscale),(int)(height*scale*imgscale), null);
 
         drawDebug(g,camera);
     }

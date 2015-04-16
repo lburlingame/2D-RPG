@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
     public static final Dimension dimension = new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
-	public static final String NAME = "The Dream Maker";
+	public static final String NAME = "Dreammachine";
     public JFrame frame;
     private Thread thread;
 
@@ -31,7 +31,9 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	public int tickCount = 0;
 
 	//spritesheets for map and character
-	public static SpriteSheet spritesheet = new SpriteSheet("/sprites/bear_sheet.png");
+//	public static SpriteSheet spritesheet = new SpriteSheet("/sprites/character_sprite.png");
+    public static SpriteSheet spritesheet = new SpriteSheet("/sprites/bear_sheet.png");
+
     private SpriteSheet skulltulasheet = new SpriteSheet("/sprites/skulltula_sprite.png");
     private SpriteSheet kodamasheet = new SpriteSheet("/sprites/kodama_sprite.png");
     private SpriteSheet skeletonsheet = new SpriteSheet("/sprites/skeleton_sprite.png");
@@ -195,7 +197,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = false;//true; // false here limits to 60 fps
+			boolean shouldRender = true; // false here limits to 60 fps
 			
 			while(delta>=1){
 				ticks++;
