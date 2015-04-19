@@ -5,10 +5,10 @@ package com.dreamstreet.arpg.gfx;
  */
 public class Direction {
 
-    public int xdir;
+    public byte xdir;
     public double slope;
 
-    public Direction(int xdir, double slope) {
+    public Direction(byte xdir, double slope) {
         this.xdir = xdir;
         this.slope = slope;
     }

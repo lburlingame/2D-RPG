@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
     public static final Dimension dimension = new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
-	public static final String NAME = "Dreammachine";
+	public static final String NAME = "Dreammachine 00";
     public JFrame frame;
     private Thread thread;
 
@@ -125,7 +125,6 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
                 }
 
                 if (e.getKeyCode() == KeyEvent.VK_A) {
-
                 }
                 if (e.getKeyCode() == KeyEvent.VK_D) {
                 }
@@ -151,6 +150,12 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
                     camera.zoomOut();
                     camera.centerCamera(character.getX(), character.getY(), 32 * character.imgscale / 2, 32 * character.imgscale / 2);
                 }
+
+                if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    character.dz = -4.5; // -4.5
+                }
+
+
 
 
             }
@@ -197,7 +202,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = true; // false here limits to 60 fps
+			boolean shouldRender = false; // false here limits to 60 fps
 			
 			while(delta>=1){
 				ticks++;
@@ -221,6 +226,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 				lastTimer+=1000;
 				fps = frames;
 				frames = 0;
+                frame.setTitle("Dreammachine " + ticks );
 				ticks =0;
 			}
 		}
@@ -278,7 +284,8 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
         /*
 	    skulltula.draw(g,camera);
 		kodama.draw(g,camera);
-        kodama1.draw(g,camera);
+        kodama1.draw(g,camera);/]
+
         kodama2.draw(g, camera);
         kodama3.draw(g, camera);
         skeleton.draw(g,camera);
@@ -301,13 +308,18 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	public void drawDebug(Graphics g) {
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
         g.setColor(Color.WHITE);
-        Vector2 curr = IsoCalculator.twoDToIso(new Vector2(character.getX(), character.getY()));
+        Vector2 curr = IsoCalculator.twoDToIso(new Vector3(character.getX(), character.getY(), 0));
 
         g.drawString(fps + " ", 20, 40);
+
+
+
+        /*
         g.drawString(character.getX() + ", " + character.getY(), 20, 70);
         g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 100);
         g.drawString(curr.x + ", " + curr.y, 20, 130);
-        g.drawString(map.time, Game.WIDTH * Game.SCALE - 100, 40);
+        g.drawString(map.time, Game.WIDTH * Game.SCALE - 100, 40);*/
+
        // g.drawString(camera.getScale() + " ", 20, 160);
         //g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
         //g.drawLine(WIDTH/2*SCALE,0,WIDTH/2*SCALE,HEIGHT*SCALE);
@@ -344,10 +356,21 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
         //    character.move(e.getX() / camera.getScale() + camera.getXOffset(), e.getY() / camera.getScale() + camera.getYOffset());
             stopped = false;
             clicked = true;
+
+            Point mLoc = MouseInfo.getPointerInfo().getLocation();
+            Point frameLoc = this.getLocationOnScreen();
+            mLoc.x -= frameLoc.x;
+            mLoc.y -= frameLoc.y;
+            mLoc = IsoCalculator.isoTo2D(mLoc);
+
+            Vector2 offset = camera.getCartOffset();
+            character.fireball.use(new Vector2(character.getX(),character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
+
         }else if (e.getButton() == MouseEvent.BUTTON3) {
             character.stop();
             camera.stop();
             stopped = true;
+            character.fireball.charge(new Vector2(character.getX(),character.getY()));
         }
     }
 
@@ -357,6 +380,14 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
             clicked = false;
         }else if (e.getButton() == MouseEvent.BUTTON3) {
             stopped = false;
+            Point mLoc = MouseInfo.getPointerInfo().getLocation();
+            Point frameLoc = this.getLocationOnScreen();
+            mLoc.x -= frameLoc.x;
+            mLoc.y -= frameLoc.y;
+            mLoc = IsoCalculator.isoTo2D(mLoc);
+
+            Vector2 offset = camera.getCartOffset();
+            character.fireball.use(new Vector2(character.getX(),character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
         }
     }
 

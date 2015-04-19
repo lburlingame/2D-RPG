@@ -1,6 +1,7 @@
 package com.dreamstreet.arpg.gfx;
 
 import com.dreamstreet.arpg.Game;
+import com.dreamstreet.arpg.item.Item;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,8 +10,10 @@ public class Sprite {
 
     private double x;
     private double y;
+    public double z;
 
-    public Vector2 feet;
+    public double dz = 0;
+    public Vector3 feet;
 
     private double velocity;
 
@@ -28,12 +31,14 @@ public class Sprite {
     private int animation_timer = 3;
 
     private Camera camera;
-	
+	public Item fireball = new Item();
+
 	public Sprite(BufferedImage img, double imgscale, double x, double y) {
         this.img = img;
         this.imgscale = imgscale;
 		this.x = x;
 		this.y = y;
+        this.z = 0;
         this.velocity = 2;
         this.dx = 0;
         this.dy = 0;
@@ -65,6 +70,12 @@ public class Sprite {
             animation_timer = 3;
         }
 
+        dz += TileMap.GRAVITY;
+        z += dz;
+        if (z > 0) {
+            z = 0;
+        }
+
         Tile dest = TileMap.getTile(x + dx + feet.x, y + feet.y);
         if (dest != null && dest.walkable) {
             x += dx;
@@ -88,6 +99,8 @@ public class Sprite {
                 frame = frame % 8;
             }
         }
+
+        fireball.tick();
     }
 	
 	public void draw(Graphics g, Camera camera){
@@ -97,13 +110,14 @@ public class Sprite {
         double scale = camera.getScale();
 
         img = Game.spritesheet.getSprite((int)(width * frame), 0, 32, 32);
-        Vector2 iso = IsoCalculator.twoDToIso(new Vector2(x,y));
+        Vector2 iso = IsoCalculator.twoDToIso(new Vector3(x,y, z));
         Vector2 isofeet = IsoCalculator.twoDToIso(feet);
 
         g.setColor(new Color(0, 0, 0, (int)(TileMap.max_darkness * 110 + 40)));
-    //    g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset)* scale),(int)(width*scale*imgscale),(int)(height*scale*imgscale)/2);
+        g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset-z)* scale),(int)(width*scale*imgscale),(int)(height*scale*imgscale)/2);
         g.drawImage(img, (int)((iso.x - xOffset)*scale), (int)((iso.y-yOffset)*scale),(int)(width*scale*imgscale),(int)(height*scale*imgscale), null);
 
+        fireball.draw(g, camera);
         drawDebug(g,camera);
     }
 
@@ -113,9 +127,9 @@ public class Sprite {
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        Vector2 iso = IsoCalculator.twoDToIso(new Vector2(x,y));
+        Vector2 iso = IsoCalculator.twoDToIso(new Vector3(x,y, 0));
         Vector2 isofeet = IsoCalculator.twoDToIso(feet);
-        Vector2 isodest = IsoCalculator.twoDToIso(new Vector2(dest_x,dest_y));
+        Vector2 isodest = IsoCalculator.twoDToIso(new Vector3(dest_x,dest_y, 0));
 
         g.setColor(Color.green);
       //  g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * imgscale * scale), (int) (height * imgscale * scale)); //draws rectangle around char
@@ -127,58 +141,26 @@ public class Sprite {
      //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * imgscale * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
     }
 
-    private Direction findSlope()
-    {
-        double rise = dest_y - y;
-        double run = dest_x - x;
-
-        int xdir = 0;
-        double slope = 0;
-        if (run == 0 && rise > 0) {
-            slope = 2000;
-            xdir = 0;
-        }else if (run == 0 && rise < 0) {
-            slope = -2000;
-            xdir = 0;
-        }else if (run != 0) {
-            slope = rise / run;
-            if (run > 0) {
-                xdir = 1;
-            }else{
-                xdir = -1;
-            }
-        }
-
-        return new Direction(xdir, slope);
-    }
-
-    public double findDX(double slope) {
-        return Math.sqrt(Math.pow(velocity, 2) / (1 + Math.pow(slope, 2)));
-    }
-
-    public static double findDistance(double x, double y) {
-        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-    }
 
     public void move(double dest_x, double dest_y)
     {
-        if (findDistance(dest_x - x - feet.x, dest_y - feet.y - y) > velocity) {
+        if (Util.findDistance(dest_x - x - feet.x, dest_y - feet.y - y) > velocity) {
             this.dest_x = dest_x - feet.x;
             this.dest_y = dest_y - feet.y;
 
-            Direction dir = findSlope();
+            Direction dir = Util.findSlope(x, y, this.dest_x, this.dest_y);
 
-            dx = findDX(dir.slope) * dir.xdir;
+            dx = Util.findDX(velocity, dir.slope) * dir.xdir;
             dy = dir.slope * dx;
 
-
-            if (dir.slope == 2000 || dir.slope == -2000)
+            if (dir.slope == 200000 || dir.slope == -200000)
             {
                 dy = velocity * dir.slope / Math.abs(dir.slope);
             }
         }
-
     }
+
+
 
     public void stop() {
         frame = 0;

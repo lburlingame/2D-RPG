@@ -52,7 +52,7 @@ public abstract class Mob extends Entity{
         double rise = dest_y - y;
         double run = dest_x - x;
 
-        int xdir = 0;
+        byte xdir = 0;
         double slope = 0;
         if (run == 0 && rise > 0) {
             slope = 2000;

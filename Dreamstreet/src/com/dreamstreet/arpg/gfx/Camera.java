@@ -8,7 +8,7 @@ import com.dreamstreet.arpg.Game;
 public class Camera {
 
     private static final double MAX_SCALE = 12;
-    private static final double MIN_SCALE = .3;
+    private static final double MIN_SCALE = 1;
     private static final double panspeed = 25;
 
     private int SCREEN_CENTER_X;
@@ -27,8 +27,8 @@ public class Camera {
         SCREEN_CENTER_X = Game.WIDTH * Game.SCALE / 2;
         SCREEN_CENTER_Y = Game.HEIGHT  * Game.SCALE / 2;
 
-        xOffset = -5;
-        yOffset = -5;
+        xOffset = 0;
+        yOffset = 0;
         dx = 0;
         dy = 0;
 
@@ -53,8 +53,12 @@ public class Camera {
     }
 
     public void tick() {
-        xOffset += dx;
-        yOffset += dy;
+        if (dx > 0 || dy > 0 || dx < 0 || dy < 0) {
+            xOffset += dx;
+            yOffset += dy;
+
+
+        }
     }
 
     public void centerCamera(double x, double y, double width, double height) {
@@ -68,7 +72,7 @@ public class Camera {
     }
 
     public Vector2 getIsoOffset() {
-        return IsoCalculator.twoDToIso(new Vector2(xOffset,yOffset));
+        return IsoCalculator.twoDToIso(new Vector3(xOffset,yOffset, 0));
     }
 
     public Vector2 getCartOffset() {

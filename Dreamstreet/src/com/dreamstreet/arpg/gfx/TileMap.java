@@ -30,6 +30,7 @@ public class TileMap {
     public static float max_darkness = 1f;
 
     public String time = "";
+    public static final double GRAVITY = .3;
 
 
 	public TileMap(String path){
@@ -76,9 +77,9 @@ public class TileMap {
                             if (id == 3) {
                                 walkable = false;
                             }
-                            tiles[rows][columns] = new Tile(columns, rows, 64,47,id, walkable);
+                            tiles[rows][columns] = new Tile(columns, rows, 0, 64,47,id, walkable);
                         }else if(id >= 100){
-                            tiles[rows][columns] = new Tile(columns, rows, 88,44,100, true);
+                            tiles[rows][columns] = new Tile(columns, rows, -15, 64,47,1, true);
                         }
                         columns++;
                     }
@@ -133,11 +134,11 @@ public class TileMap {
         for(int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
                 if (tiles[y][x] != null) {
-                    Vector2 curr = IsoCalculator.twoDToIso(new Vector2(x * 32 - 16, y * 32 + 16));
+                    Vector2 curr = IsoCalculator.twoDToIso(new Vector3(x * 32 - 16, y * 32 + 16, tiles[y][x].z));
                     g.drawImage(Textures.getTile(tiles[y][x].id),(int)((curr.x-xOffset)*scale),(int)((curr.y-yOffset)*scale),(int)(tiles[y][x].width*scale + 1),(int)(tiles[y][x].height*scale + 1),null);
                     float opacity = 1.0f;
                     if (player != null) {
-                        double distance = Sprite.findDistance(x - player.x, y - player.y);
+                        double distance = Util.findDistance(x - player.x, y - player.y);
                         opacity = (float)(distance/flicker_dist);
                         if (opacity > max_darkness) {
                             opacity = max_darkness;

@@ -16,10 +16,12 @@ public class IsoCalculator {
         return temp;
     }
 
-    public static Vector2 isoTo2D(Vector2 iso) {
-        Vector2 temp = new Vector2(0, 0);
+    public static Vector3 isoTo2D(Vector2 iso) {
+        Vector3 temp = new Vector3(0, 0, 0);
         temp.x = (2 * iso.y + iso.x) / 2;
         temp.y = (2 * iso.y - iso.x) / 2;
+        temp.z = 0;
+
         return temp;
     }
 
