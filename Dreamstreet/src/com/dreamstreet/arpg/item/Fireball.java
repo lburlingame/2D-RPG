@@ -21,6 +21,9 @@ public class Fireball {
 
     private double radius;
 
+    private int duration;
+    private boolean active;
+
     public Fireball(double x, double y, double dx, double dy, double radius) {
         if (FIREBALL == null) {
             FIREBALL = spellsheet.getSprite(0,0,32,32);
@@ -30,12 +33,18 @@ public class Fireball {
         this.dx = dx;
         this.dy = dy;
         this.radius = radius;
+        this.duration = 180;
+        active = false;
     }
 
 
     public void tick() {
         this.x += dx;
         this.y += dy;
+
+        if (duration > 0 && active) {
+            duration --;
+        }
     }
 
     public void draw(Graphics g, Camera camera) {
@@ -44,23 +53,27 @@ public class Fireball {
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        Vector2 iso = IsoCalculator.twoDToIso(new Vector3(x, y, 0));
+        Vector2 iso = IsoCalculator.twoDToIso(new Vector3(x, y, -5));
 
 
         g.drawImage(FIREBALL, (int)((iso.x-xOffset - radius)*scale), (int)((iso.y-yOffset- radius)*scale), (int)((radius *2)*scale), (int)((radius * 2)*scale), null);
     }
 
-
-    public void setDx(double dx) {
+    public void shoot(double dx, double dy) {
         this.dx = dx;
-    }
-
-    public void setDy(double dy) {
         this.dy = dy;
+        this.active = true;
     }
 
     public void setRadius(double radius) {
         this.radius = radius;
     }
 
+    public int getDuration() {
+        return duration;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
 }

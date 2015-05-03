@@ -165,7 +165,7 @@ public class TileMap {
 	}
 
     public static Tile getTile(double x, double y) {
-        double tilex = x / 32 ;
+        double tilex = x / 32;
         double tiley = y / 32;
 
 

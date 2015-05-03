@@ -1,6 +1,7 @@
 package com.dreamstreet.arpg.gfx;
 
 import com.dreamstreet.arpg.Game;
+import com.dreamstreet.arpg.input.InputComponent;
 import com.dreamstreet.arpg.item.Item;
 
 import java.awt.*;
@@ -25,53 +26,56 @@ public class Sprite {
 
     private double width;
     private double height;
-	private BufferedImage img;
+
+
+    private BufferedImage img;
+    private InputComponent input;
     public double imgscale;
     private int frame = 0;
     private int animation_timer = 3;
 
-    private Camera camera;
 	public Item fireball = new Item();
 
-	public Sprite(BufferedImage img, double imgscale, double x, double y) {
+	public Sprite(BufferedImage img, InputComponent input, double imgscale, Vector3 pos) {
         this.img = img;
+        this.input = input;
         this.imgscale = imgscale;
-		this.x = x;
-		this.y = y;
-        this.z = 0;
+        this.x = pos.x;
+		this.y = pos.y;
+        this.z = pos.z;
         this.velocity = 2;
         this.dx = 0;
         this.dy = 0;
-        this.width = 32;
-        this.height = 32;
-        feet = IsoCalculator.isoTo2D(new Vector2((width/2) * imgscale, (height/8*7) * imgscale));
+        this.width = img.getWidth() * imgscale;
+        this.height = img.getHeight() * imgscale;
+        feet = IsoCalculator.isoTo2D(new Vector2((width/2), (height/8*7)));
 
+        input.setCharacter(this);
     }
 
     public void tick() {
+        input.tick();
+
+
         if ((x + dx > dest_x && dx > 0) || (x + dx < dest_x && dx < 0)) {
-            if (camera!=null) {
-                camera.setDx(0);
-                camera.setxOffset(camera.getxOffset() + dest_x - x);
-            }
+
             dx = 0;
             x = dest_x;
             frame = 0;
             animation_timer = 3;
         }
         if ((y + dy > dest_y && dy > 0) || (y + dy < dest_y && dy < 0)) {
-            if (camera != null) {
-                camera.setDy(0);
-                camera.setyOffset(camera.getyOffset() + dest_y - y);
-            }
+
             dy = 0;
             y = dest_y;
             frame = 0;
             animation_timer = 3;
         }
 
-        dz += TileMap.GRAVITY;
-        z += dz;
+        if (z < 0 || dz < 0) {
+            dz += TileMap.GRAVITY;
+            z += dz;
+        }
         if (z > 0) {
             z = 0;
         }
@@ -79,17 +83,13 @@ public class Sprite {
         Tile dest = TileMap.getTile(x + dx + feet.x, y + feet.y);
         if (dest != null && dest.walkable) {
             x += dx;
-            if (camera!=null) camera.setDx(dx);
-        }else{
-            if (camera!=null) camera.setDx(0);
         }
+
         dest = TileMap.getTile(x + feet.x, y + dy + feet.y);
         if (dest != null && dest.walkable) {
             y += dy;
-            if (camera!=null) camera.setDy(dy);
-        }else{
-            if (camera!=null) camera.setDy(0);
         }
+
 
         if (dx != 0 || dy != 0) {
             animation_timer--;
@@ -109,16 +109,15 @@ public class Sprite {
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        img = Game.spritesheet.getSprite((int)(width * frame), 0, 32, 32);
+        img = Game.spritesheet.getSprite((int)(width/imgscale * frame), 0, 32, 32);
         Vector2 iso = IsoCalculator.twoDToIso(new Vector3(x,y, z));
         Vector2 isofeet = IsoCalculator.twoDToIso(feet);
 
         g.setColor(new Color(0, 0, 0, (int)(TileMap.max_darkness * 110 + 40)));
-        g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset-z)* scale),(int)(width*scale*imgscale),(int)(height*scale*imgscale)/2);
-        g.drawImage(img, (int)((iso.x - xOffset)*scale), (int)((iso.y-yOffset)*scale),(int)(width*scale*imgscale),(int)(height*scale*imgscale), null);
+        g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset-z)* scale),(int)(width*scale),(int)(height*scale)/2);
+        g.drawImage(img, (int)((iso.x - xOffset)*scale), (int)((iso.y-yOffset)*scale),(int)(width*scale),(int)(height*scale), null);
 
         fireball.draw(g, camera);
-        drawDebug(g,camera);
     }
 
     public void drawDebug(Graphics g, Camera camera) {
@@ -150,7 +149,7 @@ public class Sprite {
 
             Direction dir = Util.findSlope(x, y, this.dest_x, this.dest_y);
 
-            dx = Util.findDX(velocity, dir.slope) * dir.xdir;
+            dx = Util.findX(velocity, dir.slope) * dir.xdir;
             dy = dir.slope * dx;
 
             if (dir.slope == 200000 || dir.slope == -200000)
@@ -171,6 +170,9 @@ public class Sprite {
         dy = 0;
     }
 
+    public void jump() {
+        dz = -4.5;
+    }
 
     public double getX() {
         return x;
@@ -213,10 +215,14 @@ public class Sprite {
     public double getDest_x() {
         return dest_x;
     }
-    public void setCamera(Camera camera) {
-        this.camera = camera;
+
+    public double getWidth() {
+        return width;
     }
 
+    public double getHeight() {
+        return height;
+    }
 
 
 }

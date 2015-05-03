@@ -1,7 +1,7 @@
 package com.dreamstreet.arpg.obj;
 
 import com.dreamstreet.arpg.gfx.Camera;
-import com.dreamstreet.arpg.input.InputHandler;
+import com.dreamstreet.arpg.input.InputComponent;
 
 import java.awt.*;
 
@@ -10,17 +10,17 @@ import java.awt.*;
  */
 public class Player extends Mob {
 
-    private InputHandler input;
+    private InputComponent input;
     private Camera camera;
 
     private boolean stopped = false;
 
-    public Player(int spriteid, String name, double x, double y, double width, double height, double imgscale, double velocity, InputHandler input) {
+    public Player(int spriteid, String name, double x, double y, double width, double height, double imgscale, double velocity, InputComponent input) {
         super(spriteid, name, x, y, width, height, imgscale, velocity);
         this.input = input;
     }
 
-
+/*
     @Override
     public void tick() {
         super.tick();
@@ -39,7 +39,7 @@ public class Player extends Mob {
                 camera.zoomOut();
             }
         }
-    }
+    }*/
 
     @Override
     public void draw(Graphics g) {

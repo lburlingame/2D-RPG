@@ -13,14 +13,13 @@ public class Item {
 
     private boolean available = true;
     private boolean charging = false;
-    private int cooldown = 30;
+    private int cooldown = 1;
     private int tick = 0;
 
-
-    private static final int MAX_POWER = 120;
+    private static final int MAX_POWER = 90;
     private float current_power = 0;
-    private double speed = 4;
-    private double base_radius = 20;
+    private double speed = 3;
+    private double base_radius = 10;  // 10
 
     private ArrayList<Fireball> fireballs = new ArrayList();
     private Fireball current = null;
@@ -36,8 +35,6 @@ public class Item {
             current_power = 0;
             charging = true;
             available = false;
-
-
             return -1;
         }
         return tick;
@@ -46,11 +43,11 @@ public class Item {
     public void use(Vector2 loc, Vector2 dest) {
         if (charging) {
             charging = false;
-            double bonus_speed = current_power / 12;
+            double bonus_speed = current_power / 10;
 
             Direction dir = Util.findSlope(loc.x + 16, loc.y + 16, dest.x, dest.y);
 
-            double dx = Util.findDX(speed + bonus_speed, dir.slope) * dir.xdir;
+            double dx = Util.findX(speed + bonus_speed, dir.slope) * dir.xdir;
             double dy = dir.slope * dx;
 
             if (dir.slope == 200000 || dir.slope == -200000)
@@ -58,16 +55,13 @@ public class Item {
                 dy = speed * dir.slope / Math.abs(dir.slope);
             }
 
-            current.setDx(dx);
-            current.setDy(dy);
+            current.shoot(dx, dy);
         }
-
     }
 
     public void tick() {
         if (!available && !charging) {
             tick++;
-            System.out.println(tick);
             if (tick == cooldown) {
                 tick = 0;
                 available = true;
@@ -79,11 +73,16 @@ public class Item {
             double bonus_radius = current_power / 2;
             current.setRadius(base_radius + bonus_radius);
 
-            System.out.println(current_power);
         }
 
         for (int i = 0; i < fireballs.size(); i++) {
-            fireballs.get(i).tick();
+            if (fireballs.get(i).getDuration() <= 0 && fireballs.get(i).isActive()) {
+                fireballs.set(i, null);
+                fireballs.remove(i);
+                i--;
+            }else{
+                fireballs.get(i).tick();
+            }
         }
     }
 

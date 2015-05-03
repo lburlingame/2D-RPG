@@ -10,6 +10,8 @@ public class Util {
         return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
     }
 
+
+
     public static Direction findSlope(double x, double y, double dest_x, double dest_y)
     {
         double rise = dest_y - y;
@@ -35,8 +37,8 @@ public class Util {
         return new Direction(xdir, slope);
     }
 
-    public static double findDX(double velocity, double slope) {
-        return Math.sqrt(Math.pow(velocity, 2) / (1 + Math.pow(slope, 2)));
+    public static double findX(double hypotenuse, double slope) {
+        return Math.sqrt(Math.pow(hypotenuse, 2) / (1 + Math.pow(slope, 2)));
     }
 
 
