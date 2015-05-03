@@ -68,7 +68,7 @@ public class Game extends Canvas implements Runnable {
     public boolean audioPlay = false;
 
 	public Game() {
-        System.setProperty("sun.java2d.opengl","True");
+      //  System.setProperty("sun.java2d.opengl","True");
         camera.setTarget(character);
         camera.centerCamera();
         music.stop();
@@ -90,7 +90,7 @@ public class Game extends Canvas implements Runnable {
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = true; // false here limits to 60 fps
+			boolean shouldRender = false; // false here limits to 60 fps
 
 			while(delta>=1){
 				ticks++;
@@ -98,12 +98,11 @@ public class Game extends Canvas implements Runnable {
 				delta--;
 				shouldRender = true;
 			}
-/*
 			try{
 				Thread.sleep(5);
 			}catch(InterruptedException e){
 				e.printStackTrace();
-			}*/
+			}
 
 			if(shouldRender){
 				frames++;

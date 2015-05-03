@@ -32,7 +32,7 @@ public class Camera {
         SCREEN_CENTER_Y = Game.HEIGHT  * Game.SCALE / 2;
 
         scale = 2.5;
-        zoom = .1;
+        zoom = .125;
 
         xOffset = 0;
         yOffset = 0;
@@ -41,16 +41,16 @@ public class Camera {
     }
 
     public void zoomIn() {
-        if (scale+zoom*scale < MAX_SCALE) {
-            scale += zoom * scale;
+        if (scale + zoom < MAX_SCALE) {
+            scale += zoom;
         }else{
             scale = MAX_SCALE;
         }
     }
 
     public void zoomOut() {
-        if (scale-zoom*scale > MIN_SCALE) {
-            scale -= zoom * scale;
+        if (scale - zoom > MIN_SCALE) {
+            scale -= zoom;
         }else{
             scale = MIN_SCALE;
         }
