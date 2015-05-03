@@ -115,7 +115,7 @@ public class Sprite {
 
         g.setColor(new Color(0, 0, 0, (int)(TileMap.max_darkness * 110 + 40)));
         g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset-z)* scale),(int)(width*scale),(int)(height*scale)/2);
-        g.drawImage(img, (int)((iso.x - xOffset)*scale), (int)((iso.y-yOffset)*scale),(int)(width*scale),(int)(height*scale), null);
+        g.drawImage(img, (int)((iso.x - xOffset)*scale - .5), (int)((iso.y-yOffset)*scale - .5),(int)(width*scale - .5),(int)(height*scale - .5), null);
 
         fireball.draw(g, camera);
     }

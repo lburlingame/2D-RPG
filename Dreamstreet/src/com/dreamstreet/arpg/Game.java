@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 import com.dreamstreet.arpg.gfx.*;
-import com.dreamstreet.arpg.input.InputComponent;
 import com.dreamstreet.arpg.input.NPCInput;
 import com.dreamstreet.arpg.input.NullInput;
 import com.dreamstreet.arpg.input.PlayerInput;
@@ -60,7 +59,7 @@ public class Game extends Canvas implements Runnable {
     private Sprite character = new Sprite(spritechar, new PlayerInput(this, camera), 1.0, new Vector3(0,0,0));
     private Sprite skulltula = new Sprite(spritechar, new NPCInput(this), 2.0, new Vector3(110,140,0));
     private Sprite character1 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(50,50,0));
-    private Sprite character2 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(180,50,0));
+    private Sprite character2 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(180,20,0));
     private Sprite character3 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(20,180,0));
 
     private UI ui = new UI();
@@ -69,7 +68,7 @@ public class Game extends Canvas implements Runnable {
     public boolean audioPlay = false;
 
 	public Game() {
-    //    System.setProperty("sun.java2d.opengl","True");
+        System.setProperty("sun.java2d.opengl","True");
         camera.setTarget(character);
         camera.centerCamera();
         music.stop();

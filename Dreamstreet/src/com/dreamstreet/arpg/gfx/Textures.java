@@ -1,11 +1,14 @@
 package com.dreamstreet.arpg.gfx;
 
+import com.dreamstreet.arpg.Game;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Textures {
 
-    private static Image TILE_STONE,TILE_GRASS,TILE_WATER,TILE_DEAD_GRASS,TILE_WALL,TILE_DOOR,ISOTILE_GRASS,ISOTILE_WHITE,ISOTILE_BLACK,ISOTILE_SHADOW,ISOTILE_SHADOWWATER;
+    private static BufferedImage TILE_STONE,TILE_GRASS,TILE_WATER,TILE_DEAD_GRASS,TILE_WALL,TILE_DOOR,ISOTILE_GRASS,ISOTILE_WHITE,ISOTILE_BLACK,ISOTILE_SHADOW,ISOTILE_SHADOWWATER;
     private static SpriteSheet tilesheet = new SpriteSheet("/tiles/tile_sheet.png");
     private static SpriteSheet isosheet = new SpriteSheet("/tiles/isotile643d2.png");
     private static SpriteSheet watersheet = new SpriteSheet("/tiles/isowatertile643d4.png");
@@ -48,77 +51,77 @@ public class Textures {
 
     private static Image getTileGrass() {
         if (TILE_GRASS == null) {
-            TILE_GRASS = new ImageIcon(grasssheet.getSprite(0,0,64,47)).getImage();//1
+            TILE_GRASS = Game.toCompatibleImage(grasssheet.getSprite(0,0,64,47));//1
         }
         return TILE_GRASS;
     }
 
     private static Image getTileStone() {
         if (TILE_STONE == null) {
-            TILE_STONE = new ImageIcon(tilesheet.getSprite(173,0,32,32)).getImage();//2
+            TILE_STONE = Game.toCompatibleImage(tilesheet.getSprite(173,0,32,32));//2
         }
         return TILE_STONE;
     }
 
     private static Image getTileWater() {
         if (TILE_WATER == null) {
-            TILE_WATER = new ImageIcon(watersheet.getSprite(0,0,64,47)).getImage();//3
+            TILE_WATER = Game.toCompatibleImage(watersheet.getSprite(0,0,64,47));//3
         }
         return TILE_WATER;
     }
 
     private static Image getTileDeadGrass() {
         if (TILE_DEAD_GRASS == null) {
-            TILE_DEAD_GRASS = new ImageIcon(tilesheet.getSprite(107,33,32,32)).getImage();//4
+            TILE_DEAD_GRASS = Game.toCompatibleImage(tilesheet.getSprite(107,33,32,32));//4
         }
         return TILE_DEAD_GRASS;
     }
 
     private static Image getTileWall() {
         if (TILE_WALL == null) {
-            TILE_WALL = new ImageIcon(tilesheet.getSprite(74,132,32,32)).getImage();//5
+            TILE_WALL = tilesheet.getSprite(74,132,32,32);//5
         }
         return TILE_WALL;
     }
 
     private static Image getIsoTile() {
         if (ISOTILE_GRASS == null) {
-            ISOTILE_GRASS = new ImageIcon(isosheet.getSprite(0,0,64,47)).getImage();//6
+            ISOTILE_GRASS = Game.toCompatibleImage(isosheet.getSprite(0,0,64,47));//6
         }
         return ISOTILE_GRASS;
     }
 
     private static Image getWhiteTile() {
         if (ISOTILE_WHITE == null) {
-            ISOTILE_WHITE = new ImageIcon(whitesheet.getSprite(0,0,64,47)).getImage();//7
+            ISOTILE_WHITE = whitesheet.getSprite(0,0,64,47);//7
         }
         return ISOTILE_WHITE;
     }
 
     private static Image getBlackTile() {
         if (ISOTILE_BLACK == null) {
-            ISOTILE_BLACK = new ImageIcon(blacksheet.getSprite(0,0,64,47)).getImage();//8
+            ISOTILE_BLACK = blacksheet.getSprite(0,0,64,47);//8
         }
         return ISOTILE_BLACK;
     }
 
     private static Image getShadowTile() {
         if (ISOTILE_SHADOW == null) {
-            ISOTILE_SHADOW = new ImageIcon(shadowsheet.getSprite(0,0,64,47)).getImage();//8
+            ISOTILE_SHADOW = Game.toCompatibleImage(shadowsheet.getSprite(0,0,64,47));//8
         }
         return ISOTILE_SHADOW;
     }
 
     private static Image getShadowWaterTile() {
         if (ISOTILE_SHADOWWATER == null) {
-            ISOTILE_SHADOWWATER = new ImageIcon(shadowwatersheet.getSprite(0,0,64,47)).getImage();//8
+            ISOTILE_SHADOWWATER = Game.toCompatibleImage(shadowwatersheet.getSprite(0,0,64,47));//8
         }
         return ISOTILE_SHADOWWATER;
     }
 
     private static Image getTileDoor() {
         if (TILE_DOOR == null) {
-            TILE_DOOR = new ImageIcon(tilesheet.getSprite(272,33,32,32)).getImage();//100+
+            TILE_DOOR = tilesheet.getSprite(272,33,32,32);//100+
         }
         return TILE_DOOR;
     }
