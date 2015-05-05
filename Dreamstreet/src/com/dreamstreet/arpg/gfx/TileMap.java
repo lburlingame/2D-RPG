@@ -1,6 +1,7 @@
 package com.dreamstreet.arpg.gfx;
 
 import com.dreamstreet.arpg.Game;
+import com.dreamstreet.arpg.ui.DayCycle;
 
 import javax.print.attribute.standard.MediaSize;
 import java.awt.*;
@@ -19,17 +20,7 @@ public class TileMap {
     public static int currentx = 0;
     public static int currenty = 0;
 
-    private int flicker_timer = 0;
-    private int flicker_duration = 16;
-    private double flicker_dist = 10;
 
-    private final float DAY_CYCLE = 3*24*60.0f;
-    private final float HOUR = DAY_CYCLE/24;
-    private final float MINUTE = HOUR / 60;
-    private int current_time = (int)(HOUR * 13);
-    public static float max_darkness = 1f;
-
-    public String time = "";
     public static final double GRAVITY = .3;
 
 
@@ -97,32 +88,11 @@ public class TileMap {
 
 
     public void tick() {
-        flicker_timer++;
-        if (flicker_timer == flicker_duration) {
-            flicker_timer = 0;
-            flicker_dist = Math.random()*1.5+6.5;
-            flicker_duration = (int)(Math.random()*6) + 8;
-        }
 
-        current_time++;
-        max_darkness = (float)((Math.cos(current_time/DAY_CYCLE * 3.14 * 2))*1.5);
-        if (max_darkness < 0) {
-            max_darkness = 0;
-        }else if (max_darkness > 1) {
-            max_darkness = 1;
-        }
-        if (current_time == DAY_CYCLE) {
-            current_time = 0;
-        }
-        time = (int)(current_time/HOUR) + ":";
-        if ((int)((current_time % HOUR) / MINUTE) < 10) {
-            time = time + "0";
-        }
-        time = time + (int)((current_time % HOUR) / MINUTE);
     }
 
 
-	public void draw(Graphics2D g, Camera camera,Sprite charx){
+	public void draw(Graphics2D g, Camera camera,Sprite charx, DayCycle cycle){
         Vector2 offset = camera.getIsoOffset();
         double xOffset = offset.x;
         double yOffset = offset.y;
@@ -137,13 +107,13 @@ public class TileMap {
                     Vector2 curr = IsoCalculator.twoDToIso(new Vector3(x * 32 - 16, y * 32 + 16, tiles[y][x].z));
                     g.drawImage(Textures.getTile(tiles[y][x].id),(int)((curr.x-xOffset)*scale),(int)((curr.y-yOffset)*scale),(int)(tiles[y][x].width*scale + 1),(int)(tiles[y][x].height*scale + 1),null);
                     float opacity = 1.0f;
-                    if (player != null) {
+                  //  if (player != null) {
                         double distance = Util.findDistance(x - player.x, y - player.y);
-                        opacity = (float)(distance/flicker_dist);
-                        if (opacity > max_darkness) {
-                            opacity = max_darkness;
+                        opacity = (float)(distance/cycle.getLightDist());
+                        if (opacity > cycle.getMaxDarkness()) {
+                            opacity = cycle.getMaxDarkness();
                         }
-                    }
+                  //  }
                     if (opacity != 0) {
                         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, opacity));
                         //clean up shadow picking system?
@@ -168,6 +138,7 @@ public class TileMap {
         double tilex = x / 32;
         double tiley = y / 32;
 
+     //   System.out.println(tilex + ", " + tiley + "             :             " + x + ", " + y);
 
         if (tilex < 0 || tilex >= columns) {
             currentx = -1;

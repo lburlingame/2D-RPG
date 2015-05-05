@@ -3,6 +3,7 @@ package com.dreamstreet.arpg.gfx;
 import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.input.InputComponent;
 import com.dreamstreet.arpg.item.Item;
+import com.dreamstreet.arpg.ui.DayCycle;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -80,12 +81,12 @@ public class Sprite implements Comparable<Sprite>{
             z = 0;
         }
 
-        Tile dest = TileMap.getTile(x + dx + feet.x, y + feet.y);
+        Tile dest = TileMap.getTile(x + feet.x + dx, y + feet.y);
         if (dest != null && dest.walkable) {
             x += dx;
         }
 
-        dest = TileMap.getTile(x + feet.x, y + dy + feet.y);
+        dest = TileMap.getTile(x + feet.x, y + feet.y + dy);
         if (dest != null && dest.walkable) {
             y += dy;
         }
@@ -113,7 +114,7 @@ public class Sprite implements Comparable<Sprite>{
         Vector2 iso = IsoCalculator.twoDToIso(new Vector3(x,y, z));
         Vector2 isofeet = IsoCalculator.twoDToIso(feet);
 
-        g.setColor(new Color(0, 0, 0, (int)(TileMap.max_darkness * 110 + 40)));
+        g.setColor(new Color(0, 0, 0, (int)(DayCycle.max_darkness * 110 + 40)));
         g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset-z)* scale),(int)(width*scale),(int)(height*scale)/2);
         g.drawImage(img, (int)((iso.x - xOffset)*scale - .5), (int)((iso.y-yOffset)*scale - .5),(int)(width*scale - .5),(int)(height*scale - .5), null);
 

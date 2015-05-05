@@ -12,6 +12,8 @@ import com.dreamstreet.arpg.input.NPCInput;
 import com.dreamstreet.arpg.input.NullInput;
 import com.dreamstreet.arpg.input.PlayerInput;
 import com.dreamstreet.arpg.sfx.AudioPlayer;
+import com.dreamstreet.arpg.ui.DayCycle;
+import com.dreamstreet.arpg.ui.MessageBox;
 import com.dreamstreet.arpg.ui.UI;
 import java.util.Arrays;
 
@@ -63,20 +65,22 @@ public class Game extends Canvas implements Runnable {
     private Sprite character2 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(180,20,0));
     private Sprite character3 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(20,180,0));
 
-    private Sprite[] chars = new Sprite[5];
+    private Sprite[] chars = new Sprite[1];
 
     private UI ui = new UI();
+    private DayCycle dayCycle = new DayCycle(dimension.width - 128, 128, 48);
 
     public AudioPlayer music = new AudioPlayer("res/audio/d2cave.wav");
     public boolean audioPlay = false;
     private int curr = 0;
 
+    private MessageBox box1 = new MessageBox("This is a test of the message box system. Hopefully I can get this shit to work asap!");
     public Game() {
         chars[0] = character;
-        chars[1] = skulltula;
-        chars[2] = character1;
-        chars[3] = character2;
-        chars[4] = character3;
+     //   chars[1] = skulltula;
+      //  chars[2] = character1;
+       // chars[3] = character2;
+      //  chars[4] = character3;
 
         //  System.setProperty("sun.java2d.opengl","True");
         camera.setTarget(character);
@@ -107,8 +111,9 @@ public class Game extends Canvas implements Runnable {
 				delta--;
 				shouldRender = true;
 			}
+
 		/*	try{
-				Thread.sleep(5);
+				Thread.sleep(4);
 			}catch(InterruptedException e){
 				e.printStackTrace();
 			}*/
@@ -131,11 +136,9 @@ public class Game extends Canvas implements Runnable {
 
 
 	public void tick(){
-        character.tick();
-        skulltula.tick();
-        character1.tick();
-        character2.tick();
-        character3.tick();
+        for (int i = 0; i < chars.length; i++) {
+            chars[i].tick();
+        }
 
 
         camera.tick();
@@ -150,7 +153,7 @@ public class Game extends Canvas implements Runnable {
         noface.tick();*/
 
         ui.tick();
-
+        dayCycle.tick();
 
 		//for (int i = 0 ; i < rays.length; i++) {
 		//	rays[i].obstacle.x -= dx;
@@ -169,7 +172,7 @@ public class Game extends Canvas implements Runnable {
 
         g.setColor(new Color(0, 0, 0));
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
-		map.draw(g,camera,character);
+		map.draw(g,camera,character, dayCycle);
 
         Arrays.sort(chars);
 
@@ -188,7 +191,7 @@ public class Game extends Canvas implements Runnable {
         noface.draw(g,camera);
         */
         ui.draw(g);
-
+        dayCycle.draw(g);
 	//	for (int i = 0; i < rays.length; i++) {
 	//		rays[i].draw(g);
 	//	}
@@ -196,6 +199,7 @@ public class Game extends Canvas implements Runnable {
             drawDebug(g);
         }
 
+        box1.draw(g);
 		g.dispose();
 		bs.show();
 	}
@@ -209,12 +213,13 @@ public class Game extends Canvas implements Runnable {
         g.drawString(fps + " ", 20, 40);
 
 
-        g.drawString(character.getX() + ", " + character.getY(), 20, 70);
+        g.drawString(character.getX() + character.feet.x + ", " + (character.getY() + character.feet.y), 20, 70);
+        g.drawString(TileMap.currentx + ", " + TileMap.currenty, 20, 100);
 
         /*
         g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 100);
         g.drawString(curr.x + ", " + curr.y, 20, 130);*/
-        g.drawString(map.time, Game.WIDTH * Game.SCALE - 100, 40);
+        g.drawString(dayCycle.time, Game.WIDTH * Game.SCALE - 100, 40);
 
        // g.drawString(camera.getScale() + " ", 20, 160);
        // g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
