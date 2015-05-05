@@ -1,19 +1,23 @@
 package com.dreamstreet.arpg;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import javax.swing.*;
-import javax.swing.event.MouseInputListener;
 
 import com.dreamstreet.arpg.gfx.*;
+import com.dreamstreet.arpg.input.InputComponent;
+import com.dreamstreet.arpg.input.NPCInput;
+import com.dreamstreet.arpg.input.NullInput;
+import com.dreamstreet.arpg.input.PlayerInput;
 import com.dreamstreet.arpg.sfx.AudioPlayer;
+import com.dreamstreet.arpg.ui.DayCycle;
+import com.dreamstreet.arpg.ui.MessageBox;
 import com.dreamstreet.arpg.ui.UI;
+import java.util.Arrays;
 
-
-public class Game extends Canvas implements Runnable, MouseInputListener, MouseWheelListener {
+public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	//public static final int WIDTH = 640;  // 1920x1080
@@ -21,7 +25,7 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
     public static final Dimension dimension = new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
-	public static final String NAME = "The Dream Maker";
+	public static final String NAME = "00";
     public JFrame frame;
     private Thread thread;
 
@@ -30,173 +34,77 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 
 	public int tickCount = 0;
 
-	//spritesheets for map and character
-	public static SpriteSheet spritesheet = new SpriteSheet("/sprites/bear_sheet.png");
+	//map
+	private TileMap map = new TileMap("res/levels/isotest3_map.txt");
+
+    private Camera camera = new Camera(null);
+
+    int fps = 0;
+
+
+    //spritesheets for map and character
+    public static SpriteSheet spritesheet = new SpriteSheet("/sprites/bear_sheet.png");
+
     private SpriteSheet skulltulasheet = new SpriteSheet("/sprites/skulltula_sprite.png");
     private SpriteSheet kodamasheet = new SpriteSheet("/sprites/kodama_sprite.png");
     private SpriteSheet skeletonsheet = new SpriteSheet("/sprites/skeleton_sprite.png");
     private SpriteSheet nofacesheet = new SpriteSheet("/sprites/noface_sprite.png");
 
-    private SpriteSheet lightsheet = new SpriteSheet("/effects/lightradius.png");
 
-	//character image and sprite
-	private BufferedImage lightobj = lightsheet.getSprite(0,0,66,36);
+    //character image and sprite
 
-	private BufferedImage spritechar = spritesheet.getSprite(0,0,32,32);
+    private BufferedImage spritechar = spritesheet.getSprite(0,0,32,32);
     private BufferedImage skulltulachar = skulltulasheet.getSprite(0,0,32,32);
     private BufferedImage kodamachar = kodamasheet.getSprite(0,0,32,32);
     private BufferedImage skeletonchar = skeletonsheet.getSprite(0,0,32,32);
     private BufferedImage nofacechar = nofacesheet.getSprite(0,0,32,32);
 
-	private Sprite character = new Sprite(spritechar,1.0, 0,0);
-    private Sprite skulltula = new Sprite(skulltulachar,2.0, 2000,2000);
-    private Sprite kodama = new Sprite(kodamachar,.5, 2200,2000);
-    private Sprite kodama1 = new Sprite(kodamachar,.65, 2300,2000);
-    private Sprite kodama2 = new Sprite(kodamachar,.95, 2150,2200);
-    private Sprite kodama3 = new Sprite(kodamachar,.65, 2235,2100);
+    private Sprite character = new Sprite(spritechar, new PlayerInput(this, camera), 1.0, new Vector3(0,0,0));
+    private Sprite skulltula = new Sprite(spritechar, new NPCInput(this), 2.0, new Vector3(110,140,0));
+    private Sprite character1 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(50,50,0));
+    private Sprite character2 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(180,20,0));
+    private Sprite character3 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(20,180,0));
 
-
-    private Sprite skeleton = new Sprite(skeletonchar,2.0, 2400,2000);
-    private Sprite noface = new Sprite(nofacechar,18.0, 2600,2000);
-
-
-
-
-    private Lighting lightradius = new Lighting(lightobj);  // use if width is 640
-	//private Lighting lightradius = new Lighting(lightobj, character.getX()-980,character.getY()-530); // use this if running on 480 width
-
-	//map
-	private TileMap map = new TileMap("res/levels/isotest3_map.txt");
-    private Camera camera;
-
-
-//	private RayShadow[] rays = new RayShadow[20];
-	int fps = 0;
-
-    private boolean clicked = false;
-    private boolean stopped = false;
+    private Sprite[] chars = new Sprite[1];
 
     private UI ui = new UI();
+    private DayCycle dayCycle = new DayCycle(dimension.width - 128, 128, 48);
 
-    private AudioPlayer music = new AudioPlayer("res/audio/d2cave.wav");
-    private boolean audioPlay = false;
+    public AudioPlayer music = new AudioPlayer("res/audio/d2cave.wav");
+    public boolean audioPlay = false;
+    private int curr = 0;
 
-	public Game() {
+    private MessageBox box1 = new MessageBox("This is a test of the message box system. Hopefully I can get this shit to work asap!");
+    public Game() {
+        chars[0] = character;
+     //   chars[1] = skulltula;
+      //  chars[2] = character1;
+       // chars[3] = character2;
+      //  chars[4] = character3;
+
+        //  System.setProperty("sun.java2d.opengl","True");
+        camera.setTarget(character);
         music.stop();
-        camera = new Camera(3,.1);
-        character.setCamera(camera);
-        camera.centerCamera(character.getX(),character.getY(), 32*character.imgscale / 2, 32*character.imgscale/2);
-
-        kodama.move(-400,-400);
-        kodama1.move(400,300);
-        kodama2.move(200,200);
-        kodama3.move(0,0);
-        noface.move(-200, -900);
-        skulltula.move(-40, -400);
-
-
-
-        //	Random rand = new Random();
-		//for (int i = 0; i < rays.length; i++) {
-		//	rays[i] = new RayShadow(new Rectangle(rand.nextInt(2000), rand.nextInt(2000), rand.nextInt(200), rand.nextInt(200)), WIDTH*SCALE);
-        //	}
-
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
-                }
-            }
-
-            public void keyReleased(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_Q) {
-                    if (ui.currhealth + 200 > ui.maxhealth) {
-                        ui.currhealth = ui.maxhealth;
-                    } else {
-                        ui.currhealth += 200;
-                    }
-                }
-                if (e.getKeyCode() == KeyEvent.VK_S) {
-                    character.stop();
-                    camera.stop();
-                    stopped = true;
-                }
-
-                if (e.getKeyCode() == KeyEvent.VK_A) {
-
-                }
-                if (e.getKeyCode() == KeyEvent.VK_D) {
-                }
-
-                if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
-                }
-
-                if (e.getKeyCode() == KeyEvent.VK_M) {
-                    if (audioPlay) {
-                        music.stop();
-                        audioPlay = false;
-                    }else{
-                        music.start();
-                        audioPlay = true;
-                    }
-                }
-
-                if (e.getKeyCode() == KeyEvent.VK_EQUALS) {
-                    camera.zoomIn();
-                    camera.centerCamera(character.getX(), character.getY(), 32 * character.imgscale / 2, 32 * character.imgscale / 2);
-                }
-                if (e.getKeyCode() == KeyEvent.VK_MINUS){
-                    camera.zoomOut();
-                    camera.centerCamera(character.getX(), character.getY(), 32 * character.imgscale / 2, 32 * character.imgscale / 2);
-                }
-
-
-            }
-
-            public void keyTyped(KeyEvent e) {
-
-            }
-        });
-
-        addMouseListener(this);
-        addMouseMotionListener(this);
-        addMouseWheelListener(this);
 	}
-	
-	public synchronized void start() {
-		running = true;
-		thread = new Thread(this, NAME + "_main");
-        thread.start();
-	}
-	
-	public synchronized void stop() {
-		running = false;
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 	@Override
 	public void run() {
 		//limit fps approx. 60
 		long lastTime = System.nanoTime();
 		double nsPerTick = 1000000000D/60D;
-		
+
 		int ticks = 0;
 		int frames = 0;
-		
+
 		long lastTimer = System.currentTimeMillis();
 		double delta = 0;
-		
+
 		while(running){
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = false;//true; // false here limits to 60 fps
-			
+			boolean shouldRender = true; // false here limits to 60 fps
+
 			while(delta>=1){
 				ticks++;
 				tick();
@@ -204,41 +112,37 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 				shouldRender = true;
 			}
 
-			try{
-				Thread.sleep(2);
+		/*	try{
+				Thread.sleep(4);
 			}catch(InterruptedException e){
 				e.printStackTrace();
-			}
+			}*/
 
 			if(shouldRender){
 				frames++;
 				render();
 			}
-			
+
 			if(System.currentTimeMillis()-lastTimer >= 1000){
 				lastTimer+=1000;
 				fps = frames;
 				frames = 0;
-				ticks =0;
+                frame.setTitle("" + ticks );
+				ticks = 0;
 			}
 		}
-		
-	}
-	
-	public void tick(){
-        if (clicked && !stopped) {
-            Point mLoc = MouseInfo.getPointerInfo().getLocation();
-            Point frameLoc = this.getLocationOnScreen();
-            mLoc.x -= frameLoc.x;
-            mLoc.y -= frameLoc.y;
-            mLoc = IsoCalculator.isoTo2D(mLoc);
 
-            Vector2 offset = camera.getCartOffset();
-            character.move(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y);
-            camera.setDx(character.getDx());
-            camera.setDy(character.getDy());
+	}
+
+
+	public void tick(){
+        for (int i = 0; i < chars.length; i++) {
+            chars[i].tick();
         }
-        character.tick();
+
+
+        camera.tick();
+
         map.tick();
 
         /*
@@ -246,12 +150,10 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
         kodama1.tick();
         kodama2.tick();
         kodama3.tick();
-        skulltula.tick();
         noface.tick();*/
 
-        camera.tick();
         ui.tick();
-
+        dayCycle.tick();
 
 		//for (int i = 0 ; i < rays.length; i++) {
 		//	rays[i].obstacle.x -= dx;
@@ -259,7 +161,6 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 		//	rays[i].tick(character.getX()+50,character.getY()+25);
 	//	}
 	}
-
 
 	public void render(){
 		BufferStrategy bs = getBufferStrategy();
@@ -271,20 +172,26 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
 
         g.setColor(new Color(0, 0, 0));
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
-		map.draw(g,camera,character);
-		character.draw(g,camera);
+		map.draw(g,camera,character, dayCycle);
+
+        Arrays.sort(chars);
+
+        for (int i = 0; i < chars.length; i++) {
+            chars[i].draw(g, camera);
+        }
+
+
         /*
-	    skulltula.draw(g,camera);
 		kodama.draw(g,camera);
-        kodama1.draw(g,camera);
+        kodama1.draw(g,camera);/]
+
         kodama2.draw(g, camera);
         kodama3.draw(g, camera);
         skeleton.draw(g,camera);
         noface.draw(g,camera);
-        */ui.draw(g);
-
-      //  lightradius.draw(g,30);
-
+        */
+        ui.draw(g);
+        dayCycle.draw(g);
 	//	for (int i = 0; i < rays.length; i++) {
 	//		rays[i].draw(g);
 	//	}
@@ -292,23 +199,34 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
             drawDebug(g);
         }
 
+        box1.draw(g);
 		g.dispose();
 		bs.show();
 	}
 
+
 	public void drawDebug(Graphics g) {
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
         g.setColor(Color.WHITE);
-        Vector2 curr = IsoCalculator.twoDToIso(new Vector2(character.getX(), character.getY()));
+        Vector2 curr = IsoCalculator.twoDToIso(new Vector3(character.getX(), character.getY(), 0));
 
         g.drawString(fps + " ", 20, 40);
-        g.drawString(character.getX() + ", " + character.getY(), 20, 70);
+
+
+        g.drawString(character.getX() + character.feet.x + ", " + (character.getY() + character.feet.y), 20, 70);
+        g.drawString(TileMap.currentx + ", " + TileMap.currenty, 20, 100);
+
+        /*
         g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 100);
-        g.drawString(curr.x + ", " + curr.y, 20, 130);
-        g.drawString(map.time, Game.WIDTH * Game.SCALE - 100, 40);
+        g.drawString(curr.x + ", " + curr.y, 20, 130);*/
+        g.drawString(dayCycle.time, Game.WIDTH * Game.SCALE - 100, 40);
+
        // g.drawString(camera.getScale() + " ", 20, 160);
-        //g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
+       // g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
         //g.drawLine(WIDTH/2*SCALE,0,WIDTH/2*SCALE,HEIGHT*SCALE);
+        chars[this.curr].drawDebug(g, camera);
+
+
     }
 
     public void debug(DebugLevel level, String msg) {
@@ -331,65 +249,41 @@ public class Game extends Canvas implements Runnable, MouseInputListener, MouseW
     }
 
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
 
+
+    public boolean isRunning() {
+        return running;
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
-        //    character.move(e.getX() / camera.getScale() + camera.getXOffset(), e.getY() / camera.getScale() + camera.getYOffset());
-            stopped = false;
-            clicked = true;
-        }else if (e.getButton() == MouseEvent.BUTTON3) {
-            character.stop();
-            camera.stop();
-            stopped = true;
+
+    public synchronized void start() {
+        running = true;
+        thread = new Thread(this, NAME + "_main");
+        thread.start();
+    }
+
+    public synchronized void stop() {
+        running = false;
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            clicked = false;
-        }else if (e.getButton() == MouseEvent.BUTTON3) {
-            stopped = false;
-        }
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        int notches = e.getWheelRotation();
-        if (notches < 0) {
-            camera.zoomIn();
-        } else {
-            camera.zoomOut();
-        }
-        camera.centerCamera(character.getX(), character.getY(), 32 * character.imgscale / 2, 32 * character.imgscale / 2);
-    }
 
     public static enum DebugLevel {
         INFO, WARNING, SEVERE
+    }
+
+    public void changeCharacter() {
+        int prev = curr;
+        curr++;
+        curr = curr % chars.length;
+        System.out.println(curr);
+        camera.setTarget(chars[curr]);
+
+        chars[curr].setInput(chars[prev].getInput());
+        chars[prev].setInput(new NPCInput(this));
     }
 }

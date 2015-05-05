@@ -1,16 +1,21 @@
 package com.dreamstreet.arpg.gfx;
 
 import com.dreamstreet.arpg.Game;
+import com.dreamstreet.arpg.input.InputComponent;
+import com.dreamstreet.arpg.item.Item;
+import com.dreamstreet.arpg.ui.DayCycle;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Sprite {
+public class Sprite implements Comparable<Sprite>{
 
     private double x;
     private double y;
+    public double z;
 
-    public Vector2 feet;
+    public double dz = 0;
+    public Vector3 feet;
 
     private double velocity;
 
@@ -22,63 +27,70 @@ public class Sprite {
 
     private double width;
     private double height;
-	private BufferedImage img;
+
+
+    private BufferedImage img;
+    private InputComponent input;
     public double imgscale;
     private int frame = 0;
     private int animation_timer = 3;
 
-    private Camera camera;
-	
-	public Sprite(BufferedImage img, double imgscale, double x, double y) {
+	public Item fireball = new Item();
+
+	public Sprite(BufferedImage img, InputComponent input, double imgscale, Vector3 pos) {
         this.img = img;
+        this.input = input;
         this.imgscale = imgscale;
-		this.x = x;
-		this.y = y;
+        this.x = pos.x;
+		this.y = pos.y;
+        this.z = pos.z;
         this.velocity = 2;
         this.dx = 0;
         this.dy = 0;
-        this.width = 32;
-        this.height = 32;
-        feet = IsoCalculator.isoTo2D(new Vector2((width - 16) * imgscale, (height - 4) * imgscale));
+        this.width = img.getWidth() * imgscale;
+        this.height = img.getHeight() * imgscale;
+        feet = IsoCalculator.isoTo2D(new Vector2((width/2), (height/8*7)));
 
+        input.setCharacter(this);
     }
 
     public void tick() {
+        input.tick();
+
+
         if ((x + dx > dest_x && dx > 0) || (x + dx < dest_x && dx < 0)) {
-            if (camera!=null) {
-                camera.setDx(0);
-                camera.setxOffset(camera.getxOffset() + dest_x - x);
-            }
+
             dx = 0;
             x = dest_x;
             frame = 0;
             animation_timer = 3;
         }
         if ((y + dy > dest_y && dy > 0) || (y + dy < dest_y && dy < 0)) {
-            if (camera != null) {
-                camera.setDy(0);
-                camera.setyOffset(camera.getyOffset() + dest_y - y);
-            }
+
             dy = 0;
             y = dest_y;
             frame = 0;
             animation_timer = 3;
         }
 
-        Tile dest = TileMap.getTile(x + dx + feet.x, y + feet.y);
+        if (z < 0 || dz < 0) {
+            dz += TileMap.GRAVITY;
+            z += dz;
+        }
+        if (z > 0) {
+            z = 0;
+        }
+
+        Tile dest = TileMap.getTile(x + feet.x + dx, y + feet.y);
         if (dest != null && dest.walkable) {
             x += dx;
-            if (camera!=null) camera.setDx(dx);
-        }else{
-            if (camera!=null) camera.setDx(0);
         }
-        dest = TileMap.getTile(x + feet.x, y + dy + feet.y);
+
+        dest = TileMap.getTile(x + feet.x, y + feet.y + dy);
         if (dest != null && dest.walkable) {
             y += dy;
-            if (camera!=null) camera.setDy(dy);
-        }else{
-            if (camera!=null) camera.setDy(0);
         }
+
 
         if (dx != 0 || dy != 0) {
             animation_timer--;
@@ -88,6 +100,8 @@ public class Sprite {
                 frame = frame % 8;
             }
         }
+
+        fireball.tick();
     }
 	
 	public void draw(Graphics g, Camera camera){
@@ -96,15 +110,15 @@ public class Sprite {
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        img = Game.spritesheet.getSprite((int)(width * frame), 0, 32, 32);
-        Vector2 iso = IsoCalculator.twoDToIso(new Vector2(x,y));
+        img = Game.spritesheet.getSprite((int)(width/imgscale * frame), 0, 32, 32);
+        Vector2 iso = IsoCalculator.twoDToIso(new Vector3(x,y, z));
         Vector2 isofeet = IsoCalculator.twoDToIso(feet);
 
-        g.setColor(new Color(0, 0, 0, (int)(TileMap.max_darkness * 110 + 40)));
-        g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset)* scale),(int)(width*scale*imgscale),(int)(height*scale*imgscale)/2);
-        g.drawImage(img, (int)((iso.x - xOffset)*scale), (int)((iso.y-yOffset)*scale),(int)(32*scale*imgscale),(int)(32*scale*imgscale), null);
+        g.setColor(new Color(0, 0, 0, (int)(DayCycle.max_darkness * 110 + 40)));
+        g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset-z)* scale),(int)(width*scale),(int)(height*scale)/2);
+        g.drawImage(img, (int)((iso.x - xOffset)*scale - .5), (int)((iso.y-yOffset)*scale - .5),(int)(width*scale - .5),(int)(height*scale - .5), null);
 
-        drawDebug(g,camera);
+        fireball.draw(g, camera);
     }
 
     public void drawDebug(Graphics g, Camera camera) {
@@ -113,9 +127,9 @@ public class Sprite {
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        Vector2 iso = IsoCalculator.twoDToIso(new Vector2(x,y));
+        Vector2 iso = IsoCalculator.twoDToIso(new Vector3(x,y, 0));
         Vector2 isofeet = IsoCalculator.twoDToIso(feet);
-        Vector2 isodest = IsoCalculator.twoDToIso(new Vector2(dest_x,dest_y));
+        Vector2 isodest = IsoCalculator.twoDToIso(new Vector3(dest_x,dest_y, 0));
 
         g.setColor(Color.green);
       //  g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * imgscale * scale), (int) (height * imgscale * scale)); //draws rectangle around char
@@ -127,58 +141,26 @@ public class Sprite {
      //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * imgscale * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
     }
 
-    private Direction findSlope()
-    {
-        double rise = dest_y - y;
-        double run = dest_x - x;
-
-        int xdir = 0;
-        double slope = 0;
-        if (run == 0 && rise > 0) {
-            slope = 2000;
-            xdir = 0;
-        }else if (run == 0 && rise < 0) {
-            slope = -2000;
-            xdir = 0;
-        }else if (run != 0) {
-            slope = rise / run;
-            if (run > 0) {
-                xdir = 1;
-            }else{
-                xdir = -1;
-            }
-        }
-
-        return new Direction(xdir, slope);
-    }
-
-    public double findDX(double slope) {
-        return Math.sqrt(Math.pow(velocity, 2) / (1 + Math.pow(slope, 2)));
-    }
-
-    public static double findDistance(double x, double y) {
-        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-    }
 
     public void move(double dest_x, double dest_y)
     {
-        if (findDistance(dest_x - x - feet.x, dest_y - feet.y - y) > velocity) {
+        if (Util.findDistance(dest_x - x - feet.x, dest_y - feet.y - y) > velocity) {
             this.dest_x = dest_x - feet.x;
             this.dest_y = dest_y - feet.y;
 
-            Direction dir = findSlope();
+            Direction dir = Util.findSlope(x, y, this.dest_x, this.dest_y);
 
-            dx = findDX(dir.slope) * dir.xdir;
+            dx = Util.findX(velocity, dir.slope) * dir.xdir;
             dy = dir.slope * dx;
 
-
-            if (dir.slope == 2000 || dir.slope == -2000)
+            if (dir.slope == 200000 || dir.slope == -200000)
             {
                 dy = velocity * dir.slope / Math.abs(dir.slope);
             }
         }
-
     }
+
+
 
     public void stop() {
         frame = 0;
@@ -189,6 +171,9 @@ public class Sprite {
         dy = 0;
     }
 
+    public void jump() {
+        dz = -4.5;
+    }
 
     public double getX() {
         return x;
@@ -231,10 +216,31 @@ public class Sprite {
     public double getDest_x() {
         return dest_x;
     }
-    public void setCamera(Camera camera) {
-        this.camera = camera;
+
+    public double getWidth() {
+        return width;
     }
 
+    public double getHeight() {
+        return height;
+    }
 
+    public void setInput(InputComponent input) {
+        this.input = input;
+        input.setCharacter(this);
+    }
 
+    public InputComponent getInput() {
+        return input;
+    }
+
+    @Override
+    public int compareTo(Sprite o) {
+        if (this.x + this.y < o.getX() + o.getY()) {
+            return -1;
+        }else if (this.x + this.y > o.getX() + o.getY()) {
+            return 1;
+        }
+        return 0;
+    }
 }

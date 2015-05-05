@@ -7,8 +7,8 @@ import com.dreamstreet.arpg.Game;
  */
 public class Camera {
 
-    private static final double MAX_SCALE = 12;
-    private static final double MIN_SCALE = .3;
+    private static final double MAX_SCALE = 6;
+    private static final double MIN_SCALE = .05;//1;
     private static final double panspeed = 25;
 
     private int SCREEN_CENTER_X;
@@ -23,52 +23,59 @@ public class Camera {
     private double scale;
     private double zoom;
 
-    public Camera(double scale, double zoom) {
+    private Sprite target;
+
+    public Camera(Sprite target) {
+        this.target = target;
+
         SCREEN_CENTER_X = Game.WIDTH * Game.SCALE / 2;
         SCREEN_CENTER_Y = Game.HEIGHT  * Game.SCALE / 2;
 
-        xOffset = -5;
-        yOffset = -5;
+        scale = 2.5;
+        zoom = .125;
+
+        xOffset = 0;
+        yOffset = 0;
         dx = 0;
         dy = 0;
-
-        this.scale = scale;
-        this.zoom = zoom;
     }
 
     public void zoomIn() {
-        if (scale+zoom*scale < MAX_SCALE) {
-            scale += zoom * scale;
-        }else{
-            scale = MAX_SCALE;
+        if (scale + zoom < MAX_SCALE) {
+            scale += zoom;
         }
     }
 
     public void zoomOut() {
-        if (scale-zoom*scale > MIN_SCALE) {
-            scale -= zoom * scale;
-        }else{
-            scale = MIN_SCALE;
+        if (scale - zoom > MIN_SCALE) {
+            scale -= zoom;
         }
     }
 
     public void tick() {
+        /*
+        dx = target.getDx();
+        dy = target.getDy();
+
         xOffset += dx;
-        yOffset += dy;
+        yOffset += dy;*/
+        centerCamera();
     }
 
-    public void centerCamera(double x, double y, double width, double height) {
-        this.xOffset =  x - ((SCREEN_CENTER_X - width * scale) / scale);
-        this.yOffset =  y;
+    public void centerCamera() {
+        this.xOffset =  target.getX() - ((SCREEN_CENTER_X - target.getWidth()/2 * scale) / scale);
+        this.yOffset =  target.getY();
     }
 
-    public void stop() {
-        dx = 0;
-        dy = 0;
+    public void setTarget(Sprite target) {
+        this.target = target;
+        centerCamera();
     }
+
+
 
     public Vector2 getIsoOffset() {
-        return IsoCalculator.twoDToIso(new Vector2(xOffset,yOffset));
+        return IsoCalculator.twoDToIso(new Vector3(xOffset,yOffset, 0));
     }
 
     public Vector2 getCartOffset() {
