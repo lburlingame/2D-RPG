@@ -11,13 +11,13 @@ import java.awt.image.BufferedImage;
  */
 public class UI {
 
-    private SpriteSheet healthsheet = new SpriteSheet("/gui/healthorb.png");
+    private SpriteSheet healthsheet = new SpriteSheet("/gui/health_orb.png");
     private BufferedImage healthorb = healthsheet.getSprite(0,0,64,64);
 
-    private SpriteSheet manasheet = new SpriteSheet("/gui/manaorb.png");
+    private SpriteSheet manasheet = new SpriteSheet("/gui/mana_orb.png");
     private BufferedImage manaorb = manasheet.getSprite(0,0,64,64);
 
-    private SpriteSheet orbsheet = new SpriteSheet("/gui/orbbase.png");
+    private SpriteSheet orbsheet = new SpriteSheet("/gui/orb_base.png");
     private BufferedImage baseorb = orbsheet.getSprite(0,0,64,64);
 
     public int x;

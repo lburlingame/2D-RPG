@@ -21,7 +21,7 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	//public static final int WIDTH = 640;  // 1920x1080
-	public static final int WIDTH = 480;
+	public static final int WIDTH = 640; // 480
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
     public static final Dimension dimension = new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
@@ -68,13 +68,13 @@ public class Game extends Canvas implements Runnable {
     private Sprite[] chars = new Sprite[1];
 
     private UI ui = new UI();
-    private DayCycle dayCycle = new DayCycle(dimension.width - 128, 128, 48);
+    private DayCycle dayCycle = new DayCycle(dimension.width - 96, 96, 48);
 
-    public AudioPlayer music = new AudioPlayer("res/audio/d2cave.wav");
+    public AudioPlayer music = new AudioPlayer("res/audio/clocktown-day1.wav");
     public boolean audioPlay = false;
     private int curr = 0;
 
-    private MessageBox box1 = new MessageBox("This is a test of the message box system. Hopefully I can get this shit to work asap!");
+    private MessageBox box1 = new MessageBox("Hello, adventurer! This is wonderful!");
     public Game() {
         chars[0] = character;
      //   chars[1] = skulltula;
@@ -84,7 +84,7 @@ public class Game extends Canvas implements Runnable {
 
         //  System.setProperty("sun.java2d.opengl","True");
         camera.setTarget(character);
-        music.stop();
+     //   music.stop();
 	}
 
 	@Override
@@ -155,6 +155,7 @@ public class Game extends Canvas implements Runnable {
         ui.tick();
         dayCycle.tick();
 
+        box1.tick();
 		//for (int i = 0 ; i < rays.length; i++) {
 		//	rays[i].obstacle.x -= dx;
 	//		rays[i].obstacle.y -= dy;

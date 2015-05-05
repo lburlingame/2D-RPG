@@ -12,10 +12,10 @@ public class DayCycle {
 
 
     private static BufferedImage SUN;
-    private static SpriteSheet sunsheet = new SpriteSheet("/gui/sunicon.png");
+    private static SpriteSheet sunsheet = new SpriteSheet("/gui/sun_icon.png");
 
     private static BufferedImage MOON;
-    private static SpriteSheet moonsheet = new SpriteSheet("/gui/moonicon.png");
+    private static SpriteSheet moonsheet = new SpriteSheet("/gui/moon_icon.png");
 
     private int flicker_timer = 0;
     private int flicker_duration = 16;
@@ -24,13 +24,13 @@ public class DayCycle {
     private final float DAY_CYCLE = 2*24*60.0f; //*3
     private final float HOUR = DAY_CYCLE/24;
     private final float MINUTE = HOUR / 60;
-    private int current_time = (int)(HOUR * 13);
+    private int current_time = (int)(HOUR * 8);
     public static float max_darkness = 1f;
     public static final float pi = 3.14159f;
 
     private int radius;
-    private int origin_x;
-    private int origin_y;
+    private float origin_x;
+    private float origin_y;
 
     private float sun_angle = -(current_time/DAY_CYCLE * 2 * pi);
     private float moon_angle = -((current_time/DAY_CYCLE * 2 * pi) - pi);
@@ -70,8 +70,8 @@ public class DayCycle {
         }
         time = time + (int)((current_time % HOUR) / MINUTE);
 
-        sun_angle = -(current_time/DAY_CYCLE * 2 * pi);
-        moon_angle = -((current_time/DAY_CYCLE * 2 * pi) - pi);
+        sun_angle = -(current_time/DAY_CYCLE * 2 * pi);// - pi / 10;
+        moon_angle = -(current_time/DAY_CYCLE * 2 * pi) - pi;//* 9 / 10);
     }
 
     public void draw(Graphics g) {
@@ -85,7 +85,7 @@ public class DayCycle {
 
         g.drawImage(MOON, moon_x, moon_y, 32, 32, null);
         g.setColor(Color.white);
-        g.fillOval(origin_x+16,origin_y+16,2,2);
+        g.fillOval((int)(origin_x+16),(int)(origin_y+16),2,2);
     }
 
     public double getLightDist() {

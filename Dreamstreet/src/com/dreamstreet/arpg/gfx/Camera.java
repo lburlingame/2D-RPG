@@ -90,6 +90,13 @@ public class Camera {
         this.dx = dx;
     }
 
+
+    public void setScale(double scale) {
+        if (scale <= MAX_SCALE || scale >= MIN_SCALE) {
+            this.scale = scale;
+        }
+    }
+
     public double getScale() {
         return scale;
     }
