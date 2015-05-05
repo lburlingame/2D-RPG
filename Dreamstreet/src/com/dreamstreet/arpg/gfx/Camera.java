@@ -7,8 +7,8 @@ import com.dreamstreet.arpg.Game;
  */
 public class Camera {
 
-    private static final double MAX_SCALE = 3.5;
-    private static final double MIN_SCALE = 1.5;//1;
+    private static final double MAX_SCALE = 6;
+    private static final double MIN_SCALE = .05;//1;
     private static final double panspeed = 25;
 
     private int SCREEN_CENTER_X;
@@ -43,16 +43,12 @@ public class Camera {
     public void zoomIn() {
         if (scale + zoom < MAX_SCALE) {
             scale += zoom;
-        }else{
-            scale = MAX_SCALE;
         }
     }
 
     public void zoomOut() {
         if (scale - zoom > MIN_SCALE) {
             scale -= zoom;
-        }else{
-            scale = MIN_SCALE;
         }
     }
 
@@ -73,6 +69,7 @@ public class Camera {
 
     public void setTarget(Sprite target) {
         this.target = target;
+        centerCamera();
     }
 
 

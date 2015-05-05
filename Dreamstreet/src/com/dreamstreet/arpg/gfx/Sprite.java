@@ -224,5 +224,12 @@ public class Sprite {
         return height;
     }
 
+    public void setInput(InputComponent input) {
+        this.input = input;
+        input.setCharacter(this);
+    }
 
+    public InputComponent getInput() {
+        return input;
+    }
 }

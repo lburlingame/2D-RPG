@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 import com.dreamstreet.arpg.gfx.*;
+import com.dreamstreet.arpg.input.InputComponent;
 import com.dreamstreet.arpg.input.NPCInput;
 import com.dreamstreet.arpg.input.NullInput;
 import com.dreamstreet.arpg.input.PlayerInput;
@@ -62,15 +63,23 @@ public class Game extends Canvas implements Runnable {
     private Sprite character2 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(180,20,0));
     private Sprite character3 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(20,180,0));
 
+    private Sprite[] chars = new Sprite[5];
+
     private UI ui = new UI();
 
     public AudioPlayer music = new AudioPlayer("res/audio/d2cave.wav");
     public boolean audioPlay = false;
+    private int curr = 0;
 
-	public Game() {
-      //  System.setProperty("sun.java2d.opengl","True");
+    public Game() {
+        chars[0] = character;
+        chars[1] = skulltula;
+        chars[2] = character1;
+        chars[3] = character2;
+        chars[4] = character3;
+
+        //  System.setProperty("sun.java2d.opengl","True");
         camera.setTarget(character);
-        camera.centerCamera();
         music.stop();
 	}
 
@@ -90,7 +99,7 @@ public class Game extends Canvas implements Runnable {
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = false; // false here limits to 60 fps
+			boolean shouldRender = true; // false here limits to 60 fps
 
 			while(delta>=1){
 				ticks++;
@@ -98,11 +107,11 @@ public class Game extends Canvas implements Runnable {
 				delta--;
 				shouldRender = true;
 			}
-			try{
+		/*	try{
 				Thread.sleep(5);
 			}catch(InterruptedException e){
 				e.printStackTrace();
-			}
+			}*/
 
 			if(shouldRender){
 				frames++;
@@ -123,11 +132,11 @@ public class Game extends Canvas implements Runnable {
 
 	public void tick(){
         character.tick();
+        skulltula.tick();
         character1.tick();
         character2.tick();
         character3.tick();
 
-        skulltula.tick();
 
         camera.tick();
 
@@ -162,11 +171,12 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
 		map.draw(g,camera,character);
 		character.draw(g,camera);
+        skulltula.draw(g,camera);
+
         character1.draw(g,camera);
         character2.draw(g,camera);
         character3.draw(g,camera);
 
-        skulltula.draw(g,camera);
 
         /*
 		kodama.draw(g,camera);
@@ -209,7 +219,7 @@ public class Game extends Canvas implements Runnable {
        // g.drawString(camera.getScale() + " ", 20, 160);
        // g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
         //g.drawLine(WIDTH/2*SCALE,0,WIDTH/2*SCALE,HEIGHT*SCALE);
-        character.drawDebug(g, camera);
+        chars[this.curr].drawDebug(g, camera);
 
 
     }
@@ -261,4 +271,14 @@ public class Game extends Canvas implements Runnable {
         INFO, WARNING, SEVERE
     }
 
+    public void changeCharacter() {
+        int prev = curr;
+        curr++;
+        curr = curr % chars.length;
+        System.out.println(curr);
+        camera.setTarget(chars[curr]);
+
+        chars[curr].setInput(chars[prev].getInput());
+        chars[prev].setInput(new NPCInput(this));
+    }
 }

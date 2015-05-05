@@ -98,14 +98,17 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             }
         }
 
+        if (e.getKeyCode() == KeyEvent.VK_O) {
+            game.changeCharacter();
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Point mLoc = MouseInfo.getPointerInfo().getLocation();
+       /* Point mLoc = MouseInfo.getPointerInfo().getLocation();
         Point frameLoc = this.getLocationOnScreen();
         mLoc.x -= frameLoc.x;
-        mLoc.y -= frameLoc.y;
+        mLoc.y -= frameLoc.y;*/
     }
 
     @Override

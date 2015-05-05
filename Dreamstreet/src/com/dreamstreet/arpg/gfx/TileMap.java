@@ -182,7 +182,9 @@ public class TileMap {
         return tiles[(int)tiley][(int)tilex];
     }
 
-
+    public static Tile[][] getTiles() {
+        return tiles;
+    }
 }
 
 
