@@ -13,7 +13,7 @@ import com.dreamstreet.arpg.input.NullInput;
 import com.dreamstreet.arpg.input.PlayerInput;
 import com.dreamstreet.arpg.sfx.AudioPlayer;
 import com.dreamstreet.arpg.ui.UI;
-
+import java.util.Arrays;
 
 public class Game extends Canvas implements Runnable {
 
@@ -170,12 +170,12 @@ public class Game extends Canvas implements Runnable {
         g.setColor(new Color(0, 0, 0));
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
 		map.draw(g,camera,character);
-		character.draw(g,camera);
-        skulltula.draw(g,camera);
 
-        character1.draw(g,camera);
-        character2.draw(g,camera);
-        character3.draw(g,camera);
+        Arrays.sort(chars);
+
+        for (int i = 0; i < chars.length; i++) {
+            chars[i].draw(g, camera);
+        }
 
 
         /*

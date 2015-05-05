@@ -7,7 +7,7 @@ import com.dreamstreet.arpg.item.Item;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class Sprite {
+public class Sprite implements Comparable<Sprite>{
 
     private double x;
     private double y;
@@ -231,5 +231,15 @@ public class Sprite {
 
     public InputComponent getInput() {
         return input;
+    }
+
+    @Override
+    public int compareTo(Sprite o) {
+        if (this.x + this.y < o.getX() + o.getY()) {
+            return -1;
+        }else if (this.x + this.y > o.getX() + o.getY()) {
+            return 1;
+        }
+        return 0;
     }
 }
