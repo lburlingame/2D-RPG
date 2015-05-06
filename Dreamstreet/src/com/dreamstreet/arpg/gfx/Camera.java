@@ -17,6 +17,8 @@ public class Camera {
     private double xOffset;
 
     private double yOffset;
+    private double zOffset;
+
     private double dx;
     private double dy;
 
@@ -31,11 +33,12 @@ public class Camera {
         SCREEN_CENTER_X = Game.WIDTH * Game.SCALE / 2;
         SCREEN_CENTER_Y = Game.HEIGHT  * Game.SCALE / 2;
 
-        scale = 2.5;
+        scale = 2.25;
         zoom = .125;
 
         xOffset = 0;
         yOffset = 0;
+        zOffset = 0;
         dx = 0;
         dy = 0;
     }
@@ -65,6 +68,7 @@ public class Camera {
     public void centerCamera() {
         this.xOffset =  target.getX() - ((SCREEN_CENTER_X - target.getWidth()/2 * scale) / scale);
         this.yOffset =  target.getY();
+       // this.zOffset = target.getZ(); not a good ideaq
     }
 
     public void setTarget(Sprite target) {
@@ -75,7 +79,7 @@ public class Camera {
 
 
     public Vector2 getIsoOffset() {
-        return IsoCalculator.twoDToIso(new Vector3(xOffset,yOffset, 0));
+        return IsoCalculator.twoDToIso(new Vector3(xOffset,yOffset, zOffset));
     }
 
     public Vector2 getCartOffset() {

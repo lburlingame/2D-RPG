@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 import com.dreamstreet.arpg.gfx.*;
+import com.dreamstreet.arpg.gfx.particle.ParticleEmitter;
 import com.dreamstreet.arpg.input.InputComponent;
 import com.dreamstreet.arpg.input.NPCInput;
 import com.dreamstreet.arpg.input.NullInput;
@@ -21,7 +22,7 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 	//public static final int WIDTH = 640;  // 1920x1080
-	public static final int WIDTH = 640; // 480
+	public static final int WIDTH = 480; // 480
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
     public static final Dimension dimension = new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
@@ -68,13 +69,14 @@ public class Game extends Canvas implements Runnable {
     private Sprite[] chars = new Sprite[1];
 
     private UI ui = new UI();
-    private DayCycle dayCycle = new DayCycle(dimension.width - 96, 96, 48);
+    private DayCycle dayCycle = new DayCycle(dimension.width - 96, 64, 48);
 
     public AudioPlayer music = new AudioPlayer("res/audio/clocktown-day1.wav");
-    public boolean audioPlay = false;
+    public boolean audioPlay = true;
     private int curr = 0;
 
-    private MessageBox box1 = new MessageBox("Hello, adventurer! This is wonderful!");
+    private MessageBox box1 = new MessageBox("This is wonderful! How wonderful!");
+    public ParticleEmitter emitter = new ParticleEmitter();
     public Game() {
         chars[0] = character;
      //   chars[1] = skulltula;
@@ -83,8 +85,14 @@ public class Game extends Canvas implements Runnable {
       //  chars[4] = character3;
 
         //  System.setProperty("sun.java2d.opengl","True");
+        //  System.setProperty("sun.java2d.pmoffscreen","False");
+
         camera.setTarget(character);
-     //   music.stop();
+        if (audioPlay) {
+            music.start();
+        }else{
+            music.stop();
+        }
 	}
 
 	@Override
@@ -144,7 +152,7 @@ public class Game extends Canvas implements Runnable {
         camera.tick();
 
         map.tick();
-
+        emitter.tick();
         /*
         kodama.tick();
         kodama1.tick();
@@ -174,7 +182,7 @@ public class Game extends Canvas implements Runnable {
         g.setColor(new Color(0, 0, 0));
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
 		map.draw(g,camera,character, dayCycle);
-
+        emitter.draw(g, camera);
         Arrays.sort(chars);
 
         for (int i = 0; i < chars.length; i++) {
@@ -214,16 +222,16 @@ public class Game extends Canvas implements Runnable {
         g.drawString(fps + " ", 20, 40);
 
 
-        g.drawString(character.getX() + character.feet.x + ", " + (character.getY() + character.feet.y), 20, 70);
-        g.drawString(TileMap.currentx + ", " + TileMap.currenty, 20, 100);
+      //  g.drawString(character.getX() + character.feet.x + ", " + (character.getY() + character.feet.y), 20, 70);
+     //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, 20, 100);
 
         /*
         g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 100);
         g.drawString(curr.x + ", " + curr.y, 20, 130);*/
-        g.drawString(dayCycle.time, Game.WIDTH * Game.SCALE - 100, 40);
+       // g.drawString(dayCycle.time, Game.WIDTH * Game.SCALE - 100, 40);
 
        // g.drawString(camera.getScale() + " ", 20, 160);
-       // g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
+      //  g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
         //g.drawLine(WIDTH/2*SCALE,0,WIDTH/2*SCALE,HEIGHT*SCALE);
         chars[this.curr].drawDebug(g, camera);
 

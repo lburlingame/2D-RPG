@@ -136,11 +136,13 @@ public class TileMap {
 
 
     //0.033283424259455074, 3.195376574578727             :             -1.0650695763025624, 102.25205038651926
+    //10.001505482530465, -0.0038539967582997825             :             320.0481754409749, -0.12332789626559304
+
     public static Tile getTile(double x, double y) {
         double tilex = x / 32;
         double tiley = y / 32;
 
-        System.out.println(tilex + ", " + tiley + "             :             " + x + ", " + y);
+       // System.out.println(tilex + ", " + tiley + "             :             " + x + ", " + y);
 
         if (tilex < 0 || tilex >= columns) {
             currentx = -1;

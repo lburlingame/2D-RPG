@@ -14,7 +14,7 @@ public class MessageBox {
 
 
     private static BufferedImage BOX;
-    private static SpriteSheet boxsheet = new SpriteSheet("/gui/message_box_white.png");
+    private static SpriteSheet boxsheet = new SpriteSheet("/gui/message_box.png");
 
     private static BufferedImage NEXT;
     private static SpriteSheet nextsheet = new SpriteSheet("/gui/next_message_icon.png");
@@ -31,7 +31,7 @@ public class MessageBox {
     private int str_len;
     private int curr_ix;
 
-    private int icon_size = 16;
+    private int icon_size = 12;
     private boolean incrementing = false;
 
     private float x;
@@ -51,14 +51,14 @@ public class MessageBox {
         }
         this.message = message;
 
-        animation_timer = 3;
+        animation_timer = 4;
         curr_tick = 0;
 
         str_len = message.length();
         curr_ix = 0;
 
         width = Game.dimension.width / 4;
-        height = width / 2;
+        height = width / 3;
 
         x = Game.dimension.width / 2 - width /2;
         y = Game.dimension.height / 10 * 1;
@@ -72,7 +72,7 @@ public class MessageBox {
             curr_tick = 0;
             if (incrementing) {
                 icon_size++;
-                if (icon_size == 16) {
+                if (icon_size == 14) {
                     incrementing = false;
                 }
             }else{
@@ -92,9 +92,9 @@ public class MessageBox {
 
     public void draw(Graphics g) {
         g.drawImage(BOX, (int)x, (int)y, (int)width, (int)height, null);
-        g.drawImage(NEXT, (int)(x + width / 2 + (NEXT.getWidth() - icon_size) /2), (int)(y + height - NEXT.getHeight()/2 + (NEXT.getWidth() - icon_size) /2), icon_size, icon_size, null);
+        g.drawImage(NEXT, (int)(x + width / 2  - NEXT.getWidth()/2 + (NEXT.getWidth() - icon_size) / 2), (int)(y + height - NEXT.getHeight()/2 + (NEXT.getHeight() - icon_size) /2), icon_size, icon_size, null);
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.LIGHT_GRAY);
         g.setFont(new Font("Arial", Font.BOLD, 16));
         g.drawString(curr_message, (int)x + 25, (int) y + 25);
     }

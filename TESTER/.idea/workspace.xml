@@ -7,19 +7,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f469562c-903f-4c6b-bf14-b230c907b189" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/gfx/Camera.class" afterPath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/gfx/Camera.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/Game$1.class" afterPath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/Game$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/Game$DebugLevel.class" afterPath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/Game$DebugLevel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/Game.class" afterPath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/Game.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/input/PlayerInput.class" afterPath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/input/PlayerInput.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/gfx/Sprite.class" afterPath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/gfx/Sprite.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/src/com/dreamstreet/arpg/gfx/Camera.java" afterPath="$PROJECT_DIR$/../Dreamstreet/src/com/dreamstreet/arpg/gfx/Camera.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/gfx/TileMap.class" afterPath="$PROJECT_DIR$/../Dreamstreet/bin/com/dreamstreet/arpg/gfx/TileMap.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/src/com/dreamstreet/arpg/Game.java" afterPath="$PROJECT_DIR$/../Dreamstreet/src/com/dreamstreet/arpg/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/src/com/dreamstreet/arpg/input/PlayerInput.java" afterPath="$PROJECT_DIR$/../Dreamstreet/src/com/dreamstreet/arpg/input/PlayerInput.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/src/com/dreamstreet/arpg/gfx/Sprite.java" afterPath="$PROJECT_DIR$/../Dreamstreet/src/com/dreamstreet/arpg/gfx/Sprite.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/src/com/dreamstreet/arpg/gfx/TileMap.java" afterPath="$PROJECT_DIR$/../Dreamstreet/src/com/dreamstreet/arpg/gfx/TileMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/.idea/libraries/basicplayer3_0.xml" afterPath="$PROJECT_DIR$/../Dreamstreet/.idea/libraries/basicplayer3_0.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Dreamstreet/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../Dreamstreet/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Dreamstreet.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -119,8 +113,8 @@
       <file leaf-file-name="Item.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/item/Item.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.92111367" vertical-offset="895" max-vertical-offset="1666">
-              <caret line="79" column="22" selection-start-line="79" selection-start-column="22" selection-end-line="79" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.92111367" vertical-offset="1167" max-vertical-offset="1666">
+              <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -634,12 +628,12 @@
       <workItem from="1430515705728" duration="16443000" />
       <workItem from="1430608126741" duration="10920000" />
       <workItem from="1430643833909" duration="12687000" />
-      <workItem from="1430777841263" duration="5189000" />
+      <workItem from="1430777841263" duration="8383000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="270251000" />
+    <option name="totallyTimeSpent" value="273445000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -662,7 +656,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1552" height="842" extended-state="6" />
+    <frame x="-8" y="-8" width="1552" height="842" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -676,7 +670,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32981133" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35352114" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35352114" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299712" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1621984" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
@@ -1086,7 +1080,7 @@
         <state vertical-scroll-proportion="0.715311" vertical-offset="857" max-vertical-offset="1326">
           <caret line="77" column="31" selection-start-line="77" selection-start-column="31" selection-end-line="77" selection-end-column="31" />
           <folding>
-            <element signature="e#1762#1763#0" expanded="true" />
+            <element signature="e#1762#1763#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1119,8 +1113,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/dreamstreet/arpg/item/Item.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.92111367" vertical-offset="895" max-vertical-offset="1666">
-          <caret line="79" column="22" selection-start-line="79" selection-start-column="22" selection-end-line="79" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.92111367" vertical-offset="1167" max-vertical-offset="1666">
+          <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
           <folding />
         </state>
       </provider>
