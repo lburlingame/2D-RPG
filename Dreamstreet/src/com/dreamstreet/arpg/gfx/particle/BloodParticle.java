@@ -51,7 +51,7 @@ public class BloodParticle extends Particle {
         }
 
         if (duration > 0) {
-            duration--;
+           duration--;
         }
 
 /*

@@ -66,7 +66,7 @@ public class Game extends Canvas implements Runnable {
     private Sprite character2 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(180,20,0));
     private Sprite character3 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(20,180,0));
 
-    private Sprite[] chars = new Sprite[1];
+    private Sprite[] chars = new Sprite[2];
 
     private UI ui = new UI();
     private DayCycle dayCycle = new DayCycle(dimension.width - 96, 64, 48);
@@ -79,13 +79,14 @@ public class Game extends Canvas implements Runnable {
     public ParticleEmitter emitter = new ParticleEmitter();
     public Game() {
         chars[0] = character;
-     //   chars[1] = skulltula;
+        chars[1] = skulltula;
       //  chars[2] = character1;
        // chars[3] = character2;
       //  chars[4] = character3;
 
-        //  System.setProperty("sun.java2d.opengl","True");
-        //  System.setProperty("sun.java2d.pmoffscreen","False");
+        //System.setProperty("sun.java2d.opengl","True");
+        //System.setProperty("sun.java2d.pmoffscreen","False");
+        //System.setProperty("sun.java2d.translaccel","True");
 
         camera.setTarget(character);
         if (audioPlay) {
@@ -93,6 +94,7 @@ public class Game extends Canvas implements Runnable {
         }else{
             music.stop();
         }
+
 	}
 
 	@Override
@@ -183,7 +185,7 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
 		map.draw(g,camera,character, dayCycle);
         emitter.draw(g, camera);
-        Arrays.sort(chars);
+       // Arrays.sort(chars);
 
         for (int i = 0; i < chars.length; i++) {
             chars[i].draw(g, camera);
