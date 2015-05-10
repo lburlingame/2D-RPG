@@ -8,7 +8,6 @@ import javax.swing.*;
 
 import com.dreamstreet.arpg.gfx.*;
 import com.dreamstreet.arpg.gfx.particle.ParticleEmitter;
-import com.dreamstreet.arpg.input.InputComponent;
 import com.dreamstreet.arpg.input.NPCInput;
 import com.dreamstreet.arpg.input.NullInput;
 import com.dreamstreet.arpg.input.PlayerInput;
@@ -61,7 +60,7 @@ public class Game extends Canvas implements Runnable {
     private BufferedImage nofacechar = nofacesheet.getSprite(0,0,32,32);
 
     private Sprite character = new Sprite(spritechar, new PlayerInput(this, camera), 1.0, new Vector3(50,50,0));
-    private Sprite skulltula = new Sprite(spritechar, new NPCInput(this), 2.0, new Vector3(110,140,0));
+    private Sprite skulltula = new Sprite(spritechar, new NPCInput(this), 2.0, new Vector3(170,170,0));
     private Sprite character1 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(50,50,0));
     private Sprite character2 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(180,20,0));
     private Sprite character3 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(20,180,0));
@@ -185,7 +184,7 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
 		map.draw(g,camera,character, dayCycle);
         emitter.draw(g, camera);
-       // Arrays.sort(chars);
+        Arrays.sort(chars);
 
         for (int i = 0; i < chars.length; i++) {
             chars[i].draw(g, camera);
