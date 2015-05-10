@@ -85,7 +85,7 @@ public class Game extends Canvas implements Runnable {
       //  chars[4] = character3;
 
         //System.setProperty("sun.java2d.opengl","True");
-        //System.setProperty("sun.java2d.pmoffscreen","False");
+       // System.setProperty("sun.java2d.pmoffscreen","False");
         //System.setProperty("sun.java2d.translaccel","True");
 
         camera.setTarget(character);
