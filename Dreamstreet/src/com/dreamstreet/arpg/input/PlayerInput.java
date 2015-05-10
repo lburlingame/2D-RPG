@@ -1,10 +1,7 @@
 package com.dreamstreet.arpg.input;
 
 import com.dreamstreet.arpg.Game;
-import com.dreamstreet.arpg.gfx.Camera;
-import com.dreamstreet.arpg.gfx.IsoCalculator;
-import com.dreamstreet.arpg.gfx.Sprite;
-import com.dreamstreet.arpg.gfx.Vector2;
+import com.dreamstreet.arpg.gfx.*;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
@@ -20,6 +17,16 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
     private boolean clicked = false;
     private boolean stopped = false;
 
+    Toolkit toolkit;
+
+    Image icon_unclicked;
+    Image icon_clicked;
+
+    Point hotSpot;
+
+    Cursor cursor_unclicked;
+    Cursor cursor_clicked;
+
     public PlayerInput(Game game, Camera camera) {
         super(game);
         this.camera = camera;
@@ -28,6 +35,16 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
         game.addMouseListener(this);
         game.addMouseMotionListener(this);
         game.addMouseWheelListener(this);
+
+        toolkit = Toolkit.getDefaultToolkit();
+
+        icon_unclicked = toolkit.getImage("res/gui/d2_cursor.png");
+        icon_clicked = toolkit.getImage("res/gui/d2_cursor_clicked.png");
+
+        hotSpot = new Point(0,4);
+
+        cursor_unclicked = toolkit.createCustomCursor(icon_unclicked, hotSpot, "Unclicked");
+        cursor_clicked = toolkit.createCustomCursor(icon_clicked, hotSpot, "Clicked");
     }
 
     public void tick() {
@@ -35,11 +52,11 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             Point mLoc = MouseInfo.getPointerInfo().getLocation();
             Point frameLoc = this.getLocationOnScreen();
             mLoc.x -= frameLoc.x;
-            mLoc.y -= frameLoc.y;
+            mLoc.y -= frameLoc.y + (character.getHeight() * camera.getScale());
             mLoc = IsoCalculator.isoTo2D(mLoc);
 
-            Vector2 offset = camera.getCartOffset();
-            character.move(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y);
+            Vector3 offset = camera.getCartOffset();
+            character.move(new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
 /*
             character.fireball.charge(new Vector2(character.getX(),character.getY()));
             character.fireball.use(new Vector2(character.getX(),character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));*/
@@ -58,7 +75,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_Q) {
-
+            game.emitter.bloodSpatter(new Vector3(character.getX() - character.getWidth()/2,character.getY() - character.getHeight()/2, character.getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -.50));
         }
         if (e.getKeyCode() == KeyEvent.VK_S) {
             character.stop();
@@ -98,14 +115,17 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             }
         }
 
+        if (e.getKeyCode() == KeyEvent.VK_O) {
+            game.changeCharacter();
+        }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        Point mLoc = MouseInfo.getPointerInfo().getLocation();
+       /* Point mLoc = MouseInfo.getPointerInfo().getLocation();
         Point frameLoc = this.getLocationOnScreen();
         mLoc.x -= frameLoc.x;
-        mLoc.y -= frameLoc.y;
+        mLoc.y -= frameLoc.y;*/
     }
 
     @Override
@@ -118,10 +138,10 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             Point mLoc = MouseInfo.getPointerInfo().getLocation();
             Point frameLoc = this.getLocationOnScreen();
             mLoc.x -= frameLoc.x;
-            mLoc.y -= frameLoc.y;
+            mLoc.y -= frameLoc.y + (character.getHeight() * camera.getScale());
             mLoc = IsoCalculator.isoTo2D(mLoc);
 
-            Vector2 offset = camera.getCartOffset();
+            Vector3 offset = camera.getCartOffset();
             character.fireball.use(new Vector2(character.getX(),character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
 
         }else if (e.getButton() == MouseEvent.BUTTON3) {
@@ -129,6 +149,8 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             stopped = true;
             character.fireball.charge(new Vector2(character.getX(),character.getY()));
         }
+
+        game.setCursor(cursor_clicked);
     }
 
     @Override
@@ -140,12 +162,14 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             Point mLoc = MouseInfo.getPointerInfo().getLocation();
             Point frameLoc = this.getLocationOnScreen();
             mLoc.x -= frameLoc.x;
-            mLoc.y -= frameLoc.y;
+            mLoc.y -= frameLoc.y + (character.getHeight() * camera.getScale());
             mLoc = IsoCalculator.isoTo2D(mLoc);
 
-            Vector2 offset = camera.getCartOffset();
+            Vector3 offset = camera.getCartOffset();
             character.fireball.use(new Vector2(character.getX(),character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
         }
+
+        game.setCursor(cursor_unclicked);
     }
 
 

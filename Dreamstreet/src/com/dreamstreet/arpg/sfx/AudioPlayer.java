@@ -8,7 +8,7 @@ import java.io.IOException;
 public class AudioPlayer{
 
 
-    Clip clip = null;
+    private Clip clip = null;
 
     public AudioPlayer(String path) {
         try {
@@ -22,22 +22,22 @@ public class AudioPlayer{
             info = new DataLine.Info(Clip.class, format);
             try {
                 clip = (Clip)AudioSystem.getLine(info);
-            } catch (LineUnavailableException e1) {
-                e1.printStackTrace();
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
             }
 
             try {
                 clip.open(stream);
-            } catch (LineUnavailableException e1) {
-                e1.printStackTrace();
-            } catch (IOException e1) {
-                e1.printStackTrace();
+            } catch (LineUnavailableException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            clip.start();
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+            start();
 
         }catch(Exception e) {
-            //whatevers
+            e.printStackTrace();
         }
     }
 
@@ -46,6 +46,7 @@ public class AudioPlayer{
     }
     public void start() {
         clip.start();
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
 }

@@ -14,6 +14,6 @@ public class NPCInput extends InputComponent {
     }
 
     public void tick() {
-
+       //character.move(0,0);
     }
 }
