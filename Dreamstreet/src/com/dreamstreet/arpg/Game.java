@@ -25,7 +25,9 @@ public class Game extends Canvas implements Runnable {
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
     public static final Dimension dimension = new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
-	public static final String NAME = "00";
+	public static final String NAME = "Dream Street";
+    public static final String TICKS = "00";
+
     public JFrame frame;
     private Thread thread;
 
