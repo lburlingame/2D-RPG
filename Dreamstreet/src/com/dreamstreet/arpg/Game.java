@@ -68,6 +68,7 @@ public class Game extends Canvas implements Runnable {
     private Sprite character3 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(20,180,0));
 
     private Sprite[] chars = new Sprite[2];
+    private Sprite SELECTED;
 
     private UI ui = new UI();
     private DayCycle dayCycle = new DayCycle(dimension.width - 96, 64, 48);
@@ -81,6 +82,7 @@ public class Game extends Canvas implements Runnable {
     public Game() {
         chars[0] = character;
         chars[1] = skulltula;
+        SELECTED = chars[0];
       //  chars[2] = character1;
        // chars[3] = character2;
       //  chars[4] = character3;
@@ -236,7 +238,7 @@ public class Game extends Canvas implements Runnable {
        // g.drawString(camera.getScale() + " ", 20, 160);
         g.drawLine(WIDTH/12*5*SCALE,HEIGHT/2*SCALE,WIDTH/12*7*SCALE, HEIGHT/2*SCALE);
         g.drawLine(WIDTH/2*SCALE,HEIGHT/12*5*SCALE,WIDTH/2*SCALE,HEIGHT/12*7*SCALE);
-        chars[this.curr].drawDebug(g, camera);
+        SELECTED.drawDebug(g, camera);
 
 
     }
@@ -294,6 +296,7 @@ public class Game extends Canvas implements Runnable {
         curr = curr % chars.length;
         System.out.println(curr);
         camera.setTarget(chars[curr]);
+        SELECTED = chars[curr];
 
         chars[curr].setInput(chars[prev].getInput());
         chars[prev].setInput(new NPCInput(this));
