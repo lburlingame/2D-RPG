@@ -11,6 +11,7 @@ tasks.xml
 bin
 config
 .idea
+*.iml
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
