@@ -10,4 +10,8 @@ public class HitCircle {
     private Vector2 center;
     private int radius;
 
+    public HitCircle(Vector2 center, int radius) {
+        this.center = center;
+        this.radius = radius;
+    }
 }

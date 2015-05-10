@@ -71,7 +71,7 @@ public class Camera {
 
     public void setTarget(Sprite target) {
         this.target = target;
-        zOffset = -target.getHeight();
+        zOffset = -target.getHeight() ;
         centerCamera();
     }
 

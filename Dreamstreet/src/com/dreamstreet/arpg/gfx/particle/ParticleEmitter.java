@@ -24,7 +24,7 @@ public class ParticleEmitter {
         float base_dx = rand.nextFloat() * 6 - 3;
         float base_dy = rand.nextFloat() * 6 - 3;
         for (int i = 0; i < (int)(Math.random() * 8) + 8; i++) {
-            particles.add(new BloodParticle(new Vector3(pos.x, pos.y, pos.z), new Vector3(base_dx + rand.nextFloat() * 3 - 1.5, base_dy + rand.nextFloat() * 3 - 1.5, v.z)));
+            particles.add(new BloodParticle(new Vector3(pos.x, pos.y, pos.z), new Vector3(base_dx + rand.nextFloat() * 3 - 1.5, base_dy + rand.nextFloat() * 3 - 1.5, v.z + rand.nextFloat() * 2)));
             num++;
         }
     }

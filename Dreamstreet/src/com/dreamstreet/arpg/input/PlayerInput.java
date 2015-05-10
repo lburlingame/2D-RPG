@@ -75,7 +75,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_Q) {
-            game.emitter.bloodSpatter(new Vector3(character.getX() - character.getWidth()/2,character.getY() - character.getHeight()/2, character.getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -.50));
+            game.emitter.bloodSpatter(new Vector3(character.getX() - character.getWidth()/2,character.getY() - character.getHeight()/2, character.getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
         }
         if (e.getKeyCode() == KeyEvent.VK_S) {
             character.stop();
