@@ -1,7 +1,5 @@
 package com.dreamstreet.arpg.gfx;
 
-import com.dreamstreet.arpg.Game;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -49,77 +47,77 @@ public class Textures {
         }
     }
 
-    private static Image getTileGrass() {
+    private static BufferedImage getTileGrass() {
         if (TILE_GRASS == null) {
-            TILE_GRASS = Game.toCompatibleImage(grasssheet.getSprite(0,0,64,47));//1
+            TILE_GRASS = grasssheet.getSprite(0,0,64,47);//1
         }
         return TILE_GRASS;
     }
 
-    private static Image getTileStone() {
+    private static BufferedImage getTileStone() {
         if (TILE_STONE == null) {
-            TILE_STONE = Game.toCompatibleImage(tilesheet.getSprite(173,0,32,32));//2
+            TILE_STONE = tilesheet.getSprite(173,0,32,32);//2
         }
         return TILE_STONE;
     }
 
-    private static Image getTileWater() {
+    private static BufferedImage getTileWater() {
         if (TILE_WATER == null) {
-            TILE_WATER = Game.toCompatibleImage(watersheet.getSprite(0,0,64,47));//3
+            TILE_WATER = watersheet.getSprite(0,0,64,47);//3
         }
         return TILE_WATER;
     }
 
-    private static Image getTileDeadGrass() {
+    private static BufferedImage getTileDeadGrass() {
         if (TILE_DEAD_GRASS == null) {
-            TILE_DEAD_GRASS = Game.toCompatibleImage(tilesheet.getSprite(107,33,32,32));//4
+            TILE_DEAD_GRASS = tilesheet.getSprite(107,33,32,32);//4
         }
         return TILE_DEAD_GRASS;
     }
 
-    private static Image getTileWall() {
+    private static BufferedImage getTileWall() {
         if (TILE_WALL == null) {
             TILE_WALL = tilesheet.getSprite(74,132,32,32);//5
         }
         return TILE_WALL;
     }
 
-    private static Image getIsoTile() {
+    private static BufferedImage getIsoTile() {
         if (ISOTILE_GRASS == null) {
-            ISOTILE_GRASS = Game.toCompatibleImage(isosheet.getSprite(0,0,64,47));//6
+            ISOTILE_GRASS = isosheet.getSprite(0,0,64,47);//6
         }
         return ISOTILE_GRASS;
     }
 
-    private static Image getWhiteTile() {
+    private static BufferedImage getWhiteTile() {
         if (ISOTILE_WHITE == null) {
             ISOTILE_WHITE = whitesheet.getSprite(0,0,64,47);//7
         }
         return ISOTILE_WHITE;
     }
 
-    private static Image getBlackTile() {
+    private static BufferedImage getBlackTile() {
         if (ISOTILE_BLACK == null) {
             ISOTILE_BLACK = blacksheet.getSprite(0,0,64,47);//8
         }
         return ISOTILE_BLACK;
     }
 
-    private static Image getShadowTile() {
+    private static BufferedImage getShadowTile() {
         if (ISOTILE_SHADOW == null) {
-            ISOTILE_SHADOW = Game.toCompatibleImage(shadowsheet.getSprite(0,0,64,47));//8
+            ISOTILE_SHADOW = shadowsheet.getSprite(0,0,64,47);//8
         }
         return ISOTILE_SHADOW;
     }
 
-    private static Image getShadowWaterTile() {
+    private static BufferedImage getShadowWaterTile() {
         if (ISOTILE_SHADOWWATER == null) {
-            ISOTILE_SHADOWWATER = Game.toCompatibleImage(shadowwatersheet.getSprite(0,0,64,47));//8
+            ISOTILE_SHADOWWATER = shadowwatersheet.getSprite(0,0,64,47);//8
         }
         return ISOTILE_SHADOWWATER;
     }
 
-    private static Image getTileDoor() {
+    private static BufferedImage getTileDoor() {
         if (TILE_DOOR == null) {
             TILE_DOOR = tilesheet.getSprite(272,33,32,32);//100+
         }
