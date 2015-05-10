@@ -10,23 +10,13 @@ import java.awt.image.BufferedImage;
 
 public class Sprite implements Comparable<Sprite>{
 
-    private double x;
-    private double y;
-    public double z;
+    private Vector3 pos;   //position
+    private Vector2 dest;  //destination
+    private Vector3 vel;   //velocity
+    private Vector3 dim;   //dimensions
 
-    public double dz = 0;
-    public Vector3 feet;
 
-    private double velocity;
-
-    private double dx;
-    private double dy;
-
-    private double dest_x;
-    private double dest_y;
-
-    private double width;
-    private double height;
+    private float MAX_VELOCITY;
 
 
     private BufferedImage img;
@@ -38,61 +28,61 @@ public class Sprite implements Comparable<Sprite>{
 	public Item fireball = new Item();
 
 	public Sprite(BufferedImage img, InputComponent input, double imgscale, Vector3 pos) {
+        input.setCharacter(this);
+
         this.img = img;
         this.input = input;
         this.imgscale = imgscale;
-        this.x = pos.x;
-		this.y = pos.y;
-        this.z = pos.z;
-        this.velocity = 2;
-        this.dx = 0;
-        this.dy = 0;
-        this.width = img.getWidth() * imgscale;
-        this.height = img.getHeight() * imgscale;
-        feet = IsoCalculator.isoTo2D(new Vector2((width/2), (height/8*7)));
 
-        input.setCharacter(this);
+        this.pos = pos;
+        this.dest = new Vector2(pos.x, pos.y);
+
+        this.MAX_VELOCITY = 2;
+        this.vel = new Vector3(0,0,0);
+
+        this.dim = new Vector3(img.getWidth() * imgscale, img.getWidth() * imgscale, img.getHeight() * imgscale);
+
     }
 
     public void tick() {
         input.tick();
 
-        if ((x + dx > dest_x && dx > 0) || (x + dx < dest_x && dx < 0)) {
+        if ((pos.x + vel.x > dest.x && vel.x > 0) || (pos.x + vel.x < dest.x && vel.x < 0)) {
 
-            dx = 0;
-            x = dest_x;
+            vel.x = 0;
+            pos.x = dest.x;
             frame = 0;
             animation_timer = 3;
         }
-        if ((y + dy > dest_y && dy > 0) || (y + dy < dest_y && dy < 0)) {
+        if ((pos.y + vel.y > dest.y && vel.y > 0) || (pos.y + vel.y < dest.y && vel.y < 0)) {
 
-            dy = 0;
-            y = dest_y;
+            vel.y = 0;
+            pos.y = dest.y;
             frame = 0;
             animation_timer = 3;
         }
 
-        if (z < 0 || dz < 0) {
-            dz += TileMap.GRAVITY;
-            z += dz;
+        if (pos.z < 0 || vel.z < 0) {
+            vel.z += TileMap.GRAVITY;
+            pos.z += vel.z;
         }
-        if (z > 0) {
-            z = 0;
-            dz = 0;
-        }
-
-        Tile dest = TileMap.getTile(x + feet.x + dx, y + feet.y);
-        if (dest != null && dest.walkable) {
-            x += dx;
+        if (pos.z > 0) {
+            pos.z = 0;
+            vel.z = 0;
         }
 
-        dest = TileMap.getTile(x + feet.x, y + feet.y + dy);
-        if (dest != null && dest.walkable) {
-            y += dy;
+        Tile curr = TileMap.getTile(pos.x + vel.x, pos.y);
+        if (curr != null && curr.walkable) {
+            pos.x += vel.x;
+        }
+
+        curr = TileMap.getTile(pos.x, pos.y + vel.y);
+        if (curr != null && curr.walkable) {
+            pos.y += vel.y;
         }
 
 
-        if (dx != 0 || dy != 0) {
+        if (vel.x != 0 || vel.y != 0) {
             animation_timer--;
             if (animation_timer == 0) {
                 animation_timer = 3;
@@ -103,20 +93,20 @@ public class Sprite implements Comparable<Sprite>{
 
         fireball.tick();
     }
-	
+
 	public void draw(Graphics g, Camera camera){
         Vector2 offset = camera.getIsoOffset();
         double xOffset = offset.x;
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        img = Game.spritesheet.getSprite((int)(width/imgscale * frame), 0, 32, 32);
-        Vector2 iso = IsoCalculator.twoDToIso(new Vector3(x,y, z));
-        Vector2 isofeet = IsoCalculator.twoDToIso(feet);
+        img = Game.spritesheet.getSprite((int)(dim.x/imgscale * frame), 0, 32, 32);
+        Vector2 iso = IsoCalculator.twoDToIso(pos);
+        //Vector2 isofeet = IsoCalculator.twoDToIso(feet);
 
         g.setColor(new Color(0, 0, 0, (int)(DayCycle.max_darkness * 110 + 40)));
-        g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset-z)* scale),(int)(width*scale),(int)(height*scale)/2);
-        g.drawImage(img, (int)((iso.x - xOffset)*scale - .5), (int)((iso.y-yOffset)*scale - .5),(int)(width*scale - .5),(int)(height*scale - .5), null);
+       // g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset-pos.z)* scale),(int)(width*scale),(int)(height*scale)/2);
+        g.drawImage(img, (int)((iso.x - xOffset)*scale - .5), (int)((iso.y - dim.z - yOffset)*scale - .5),(int)(dim.x*scale - .5),(int)(dim.z*scale - .5), null);
 
         fireball.draw(g, camera);
     }
@@ -127,35 +117,35 @@ public class Sprite implements Comparable<Sprite>{
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        Vector2 iso = IsoCalculator.twoDToIso(new Vector3(x,y, 0));
-        Vector2 isofeet = IsoCalculator.twoDToIso(feet);
-        Vector2 isodest = IsoCalculator.twoDToIso(new Vector3(dest_x,dest_y, 0));
+        Vector2 iso = IsoCalculator.twoDToIso(pos);
+       // Vector2 isofeet = IsoCalculator.twoDToIso(feet);
+        Vector2 isodest = IsoCalculator.twoDToIso(new Vector3(dest.x,dest.y, 0));
 
         g.setColor(Color.green);
       //  g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * imgscale * scale), (int) (height * imgscale * scale)); //draws rectangle around char
-       // g.fillRect((int)((iso.x-xOffset + isofeet.x)*scale), (int)((iso.y - yOffset + isofeet.y)*scale),5,5);  // draws rect at character's "feet"
-        if (Math.abs(dx) > 0 || Math.abs(dy) > 0) {
-            g.drawOval((int)((isodest.x + isofeet.x - xOffset - 1.2)*scale), (int) ((isodest.y + isofeet.y - yOffset - .6) * scale),(int)(1.2*scale*2)+1,(int)(1.2*scale)+1); // draws rectangle at character's destination point
+        g.fillRect((int)((iso.x-xOffset)*scale), (int)((iso.y - yOffset)*scale),5,5);  // draws rect at character's "feet"
+        if (Math.abs(vel.x) > 0 || Math.abs(vel.y) > 0) {
+            g.drawOval((int)((isodest.x - xOffset - 1.2)*scale), (int) ((isodest.y - yOffset - .6) * scale),(int)(1.2*scale*2)+1,(int)(1.2*scale)+1); // draws rectangle at character's destination point
         }
 
      //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * imgscale * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
     }
 
 
-    public void move(double dest_x, double dest_y)
+    public void move(Vector2 dest)
     {
-        if (Util.findDistance(dest_x - x - feet.x, dest_y - feet.y - y) > velocity) {
-            this.dest_x = dest_x - feet.x;
-            this.dest_y = dest_y - feet.y;
+        if (Util.findDistance(dest.x - pos.x, dest.y - pos.y) > MAX_VELOCITY * 1.1) {
+            this.dest.x = dest.x;
+            this.dest.y = dest.y;
 
-            Direction dir = Util.findSlope(x, y, this.dest_x, this.dest_y);
+            Direction dir = Util.findSlope(pos.x, pos.y, this.dest.x, this.dest.y);
 
-            dx = Util.findX(velocity, dir.slope) * dir.xdir;
-            dy = dir.slope * dx;
+            vel.x = Util.findX(MAX_VELOCITY, dir.slope) * dir.xdir;
+            vel.y = dir.slope * vel.x;
 
             if (dir.slope == 200000 || dir.slope == -200000)
             {
-                dy = velocity * dir.slope / Math.abs(dir.slope);
+                vel.y = MAX_VELOCITY * dir.slope / Math.abs(dir.slope);
             }
         }
     }
@@ -165,68 +155,68 @@ public class Sprite implements Comparable<Sprite>{
     public void stop() {
         frame = 0;
         animation_timer = 3;
-        dest_x = x;
-        dest_y = y;
-        dx = 0;
-        dy = 0;
+        dest.x = pos.x;
+        dest.y = pos.y;
+        vel.x = 0;
+        vel.y = 0;
     }
 
     public void jump() {
-        dz = -4.5;
+        vel.z = -4.5;
     }
 
     public double getX() {
-        return x;
+        return pos.x;
     }
 
     public void setX(double x) {
-        this.x = x;
-        dest_x = x;
+        this.pos.x = x;
+        dest.x = x;
     }
 
     public double getY() {
-        return y;
+        return pos.y;
     }
 
     public void setY(double y) {
-        this.y = y;
-        dest_y = y;
+        this.pos.y = y;
+        dest.y = y;
     }
 
     public double getZ() {
-        return z;
+        return pos.z;
     }
 
     public double getDy() {
-        return dy;
+        return vel.y;
     }
 
     public double getDx() {
-        return dx;
+        return vel.x;
     }
 
     public void setDy(double dy) {
-        this.dy = dy;
+        this.vel.y = dy;
     }
 
     public void setDx(double dx) {
-        this.dx = dx;
+        this.vel.x = dx;
     }
 
     public double getDest_y() {
-        return dest_y;
+        return dest.y;
     }
 
     public double getDest_x() {
-        return dest_x;
+        return dest.x;
     }
 
     public double getWidth() {
-        return width;
+        return dim.x;
     }
 
     public double getHeight() {
-        return height;
+        return dim.z;
     }
 
     public void setInput(InputComponent input) {
@@ -240,11 +230,19 @@ public class Sprite implements Comparable<Sprite>{
 
     @Override
     public int compareTo(Sprite o) {
-        if (this.x + this.y < o.getX() + o.getY()) {
+        if (this.pos.x + this.pos.y < o.getX() + o.getY()) {
             return -1;
-        }else if (this.x + this.y > o.getX() + o.getY()) {
+        }else if (this.pos.x + this.pos.y > o.getX() + o.getY()) {
             return 1;
         }
         return 0;
     }
 }
+
+
+
+/*
+ public Vector3 feet;
+    feet = IsoCalculator.isoTo2D(new Vector2((dim.x/2), (dim.z/8*7)));
+
+ */

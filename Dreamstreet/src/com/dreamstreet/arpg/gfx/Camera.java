@@ -38,7 +38,6 @@ public class Camera {
 
         xOffset = 0;
         yOffset = 0;
-        zOffset = 0;
         dx = 0;
         dy = 0;
     }
@@ -66,24 +65,24 @@ public class Camera {
     }
 
     public void centerCamera() {
-        this.xOffset =  target.getX() - ((SCREEN_CENTER_X - target.getWidth()/2 * scale) / scale);
-        this.yOffset =  target.getY();
-       // this.zOffset = target.getZ(); not a good ideaq
+        this.xOffset = target.getX() - ((SCREEN_CENTER_X - target.getWidth()/2 * scale) / scale);
+        this.yOffset = target.getY();   // - ((SCREEN_CENTER_Y - target.getHeight()/2 * scale) / scale);
     }
 
     public void setTarget(Sprite target) {
         this.target = target;
+        zOffset = -target.getHeight();
         centerCamera();
     }
 
 
 
     public Vector2 getIsoOffset() {
-        return IsoCalculator.twoDToIso(new Vector3(xOffset,yOffset, zOffset));
+        return IsoCalculator.twoDToIso(new Vector3(xOffset,yOffset,zOffset));
     }
 
-    public Vector2 getCartOffset() {
-        return new Vector2(xOffset,yOffset);
+    public Vector3 getCartOffset() {
+        return new Vector3(xOffset,yOffset,zOffset);
     }
 
 

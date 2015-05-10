@@ -60,7 +60,7 @@ public class Game extends Canvas implements Runnable {
     private BufferedImage skeletonchar = skeletonsheet.getSprite(0,0,32,32);
     private BufferedImage nofacechar = nofacesheet.getSprite(0,0,32,32);
 
-    private Sprite character = new Sprite(spritechar, new PlayerInput(this, camera), 1.0, new Vector3(0,0,0));
+    private Sprite character = new Sprite(spritechar, new PlayerInput(this, camera), 1.0, new Vector3(50,50,0));
     private Sprite skulltula = new Sprite(spritechar, new NPCInput(this), 2.0, new Vector3(110,140,0));
     private Sprite character1 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(50,50,0));
     private Sprite character2 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(180,20,0));
@@ -224,7 +224,7 @@ public class Game extends Canvas implements Runnable {
         g.drawString(fps + " ", 20, 40);
 
 
-      //  g.drawString(character.getX() + character.feet.x + ", " + (character.getY() + character.feet.y), 20, 70);
+        g.drawString(character.getX() + ", " + character.getY(), 20, 70);
      //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, 20, 100);
 
         /*
@@ -233,8 +233,8 @@ public class Game extends Canvas implements Runnable {
        // g.drawString(dayCycle.time, Game.WIDTH * Game.SCALE - 100, 40);
 
        // g.drawString(camera.getScale() + " ", 20, 160);
-      //  g.drawLine(0,HEIGHT/2*SCALE,WIDTH*SCALE, HEIGHT/2*SCALE);
-        //g.drawLine(WIDTH/2*SCALE,0,WIDTH/2*SCALE,HEIGHT*SCALE);
+        g.drawLine(WIDTH/12*5*SCALE,HEIGHT/2*SCALE,WIDTH/12*7*SCALE, HEIGHT/2*SCALE);
+        g.drawLine(WIDTH/2*SCALE,HEIGHT/12*5*SCALE,WIDTH/2*SCALE,HEIGHT/12*7*SCALE);
         chars[this.curr].drawDebug(g, camera);
 
 

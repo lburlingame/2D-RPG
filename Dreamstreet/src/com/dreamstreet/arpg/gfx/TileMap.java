@@ -98,7 +98,7 @@ public class TileMap {
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        Vector2 vvv = new Vector2(charx.getX() + charx.feet.x,charx.getY() + charx.feet.y);
+        Vector2 vvv = new Vector2(charx.getX(),charx.getY());
         Tile player = getTile(vvv.x, vvv.y);
 
         for(int y = 0; y < tiles.length; y++) {
