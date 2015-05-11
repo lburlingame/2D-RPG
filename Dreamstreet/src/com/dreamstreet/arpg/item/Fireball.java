@@ -1,9 +1,11 @@
 package com.dreamstreet.arpg.item;
 
 import com.dreamstreet.arpg.gfx.*;
+import com.dreamstreet.arpg.obj.HitCircle;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * Created on 4/18/2015.
@@ -24,6 +26,9 @@ public class Fireball {
     private int duration;
     private boolean active;
 
+    private HitCircle hit;
+    private ArrayList<Integer> hitids;
+
     public Fireball(double x, double y, double dx, double dy, double radius) {
         if (FIREBALL == null) {
             FIREBALL = spellsheet.getSprite(0,0,32,32);
@@ -35,6 +40,8 @@ public class Fireball {
         this.radius = radius;
         this.duration = 180;
         active = false;
+
+        hitids = new ArrayList<>(); // add casters hit id to this;
     }
 
 

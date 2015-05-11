@@ -15,7 +15,9 @@ import com.dreamstreet.arpg.sfx.AudioPlayer;
 import com.dreamstreet.arpg.ui.DayCycle;
 import com.dreamstreet.arpg.ui.MessageBox;
 import com.dreamstreet.arpg.ui.UI;
-import java.util.Arrays;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Game extends Canvas implements Runnable {
 
@@ -33,8 +35,6 @@ public class Game extends Canvas implements Runnable {
 
 	private boolean running = false;
     public boolean debug = false;
-
-	public int tickCount = 0;
 
 	//map
 	private TileMap map = new TileMap("res/levels/isotest3_map.txt");
@@ -67,7 +67,7 @@ public class Game extends Canvas implements Runnable {
     private Sprite character2 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(180,20,0));
     private Sprite character3 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(20,180,0));
 
-    private Sprite[] chars = new Sprite[2];
+    private ArrayList<Sprite> chars = new ArrayList<Sprite>();
     private Sprite SELECTED;
 
     private UI ui = new UI();
@@ -80,9 +80,9 @@ public class Game extends Canvas implements Runnable {
     private MessageBox box1 = new MessageBox("This is wonderful! How wonderful!");
     public ParticleEmitter emitter = new ParticleEmitter();
     public Game() {
-        chars[0] = character;
-        chars[1] = skulltula;
-        SELECTED = chars[0];
+        chars.add(character);
+        chars.add(skulltula);
+        SELECTED = chars.get(0);
       //  chars[2] = character1;
        // chars[3] = character2;
       //  chars[4] = character3;
@@ -125,7 +125,7 @@ public class Game extends Canvas implements Runnable {
 				shouldRender = true;
 			}
 
-		/*	try{
+			/*try{
 				Thread.sleep(4);
 			}catch(InterruptedException e){
 				e.printStackTrace();
@@ -148,9 +148,18 @@ public class Game extends Canvas implements Runnable {
 	}
 
 
-	public void tick(){
-        for (int i = 0; i < chars.length; i++) {
-            chars[i].tick();
+	public void tick() {
+        for (int i = 0; i < chars.size(); i++) {
+            chars.get(i).tick();
+        }
+
+        for (int i = 0; i < chars.size(); i++) {
+            for (int j = 0; j < chars.size(); j++) {
+                if (i != j && chars.get(i).collidesWith(chars.get(j))) {
+                    emitter.bloodSpatter(new Vector3(chars.get(i).getX() - chars.get(i).getWidth() / 2, chars.get(i).getY() - chars.get(i).getHeight() / 2, chars.get(i).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
+                }
+            }
+
         }
 
 
@@ -169,12 +178,7 @@ public class Game extends Canvas implements Runnable {
         dayCycle.tick();
 
         box1.tick();
-		//for (int i = 0 ; i < rays.length; i++) {
-		//	rays[i].obstacle.x -= dx;
-	//		rays[i].obstacle.y -= dy;
-		//	rays[i].tick(character.getX()+50,character.getY()+25);
-	//	}
-	}
+    }
 
 	public void render(){
 		BufferStrategy bs = getBufferStrategy();
@@ -188,10 +192,12 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
 		map.draw(g,camera,character, dayCycle);
         emitter.draw(g, camera);
-        Arrays.sort(chars);
+        Collections.sort(chars);
 
-        for (int i = 0; i < chars.length; i++) {
-            chars[i].draw(g, camera);
+        curr = chars.indexOf(SELECTED);
+
+        for (int i = 0; i < chars.size(); i++) {
+            chars.get(i).draw(g, camera);
         }
 
 
@@ -206,12 +212,16 @@ public class Game extends Canvas implements Runnable {
         */
         ui.draw(g);
         dayCycle.draw(g);
-	//	for (int i = 0; i < rays.length; i++) {
-	//		rays[i].draw(g);
-	//	}
+
         if (debug) {
             drawDebug(g);
         }
+
+        for (int i = 0; i < chars.size(); i++) {
+            chars.get(i).drawDebug(g, camera);
+        }
+
+       // SELECTED.drawDebug(g, camera);
 
         box1.draw(g);
 		g.dispose();
@@ -236,9 +246,8 @@ public class Game extends Canvas implements Runnable {
        // g.drawString(dayCycle.time, Game.WIDTH * Game.SCALE - 100, 40);
 
        // g.drawString(camera.getScale() + " ", 20, 160);
-        g.drawLine(WIDTH/12*5*SCALE,HEIGHT/2*SCALE,WIDTH/12*7*SCALE, HEIGHT/2*SCALE);
-        g.drawLine(WIDTH/2*SCALE,HEIGHT/12*5*SCALE,WIDTH/2*SCALE,HEIGHT/12*7*SCALE);
-        SELECTED.drawDebug(g, camera);
+      //  g.drawLine(WIDTH/12*5*SCALE,HEIGHT/2*SCALE,WIDTH/12*7*SCALE, HEIGHT/2*SCALE);
+        //g.drawLine(WIDTH/2*SCALE,HEIGHT/12*5*SCALE,WIDTH/2*SCALE,HEIGHT/12*7*SCALE);
 
 
     }
@@ -293,12 +302,12 @@ public class Game extends Canvas implements Runnable {
     public void changeCharacter() {
         int prev = curr;
         curr++;
-        curr = curr % chars.length;
+        curr = curr % chars.size();
         System.out.println(curr);
-        camera.setTarget(chars[curr]);
-        SELECTED = chars[curr];
+        camera.setTarget(chars.get(curr));
+        SELECTED = chars.get(curr);
 
-        chars[curr].setInput(chars[prev].getInput());
-        chars[prev].setInput(new NPCInput(this));
+        chars.get(curr).setInput(chars.get(prev).getInput());
+        chars.get(prev).setInput(new NPCInput(this));
     }
 }

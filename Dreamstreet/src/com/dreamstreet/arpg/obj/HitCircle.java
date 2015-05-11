@@ -8,10 +8,19 @@ import com.dreamstreet.arpg.gfx.Vector2;
 public class HitCircle {
 
     private Vector2 center;
-    private int radius;
+    private double radius;
 
-    public HitCircle(Vector2 center, int radius) {
+    public HitCircle(Vector2 center, double radius) {
         this.center = center;
         this.radius = radius;
+        System.out.println(radius);
+    }
+
+    public Vector2 getCenter() {
+        return center;
+    }
+
+    public double getRadius() {
+        return radius;
     }
 }

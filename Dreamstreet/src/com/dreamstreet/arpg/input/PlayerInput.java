@@ -45,6 +45,8 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
 
         cursor_unclicked = toolkit.createCustomCursor(icon_unclicked, hotSpot, "Unclicked");
         cursor_clicked = toolkit.createCustomCursor(icon_clicked, hotSpot, "Clicked");
+
+        game.setCursor(cursor_unclicked);
     }
 
     public void tick() {
@@ -71,16 +73,17 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
     @Override
     public void keyPressed(KeyEvent e) {
         /*toggleKey(e.getKeyCode(), true);*/
+        if (e.getKeyCode() == KeyEvent.VK_S) {
+            character.stop();
+            stopped = true;
+        }
     }
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_Q) {
             game.emitter.bloodSpatter(new Vector3(character.getX() - character.getWidth()/2,character.getY() - character.getHeight()/2, character.getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
         }
-        if (e.getKeyCode() == KeyEvent.VK_S) {
-            character.stop();
-            stopped = true;
-        }
+
 
         if (e.getKeyCode() == KeyEvent.VK_A) {
         }

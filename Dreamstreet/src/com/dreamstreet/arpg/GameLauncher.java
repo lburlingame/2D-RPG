@@ -51,15 +51,6 @@ public class GameLauncher extends Applet {
         game.start();
         game.requestFocus();
 
-
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-
-        Image image = toolkit.getImage("res/gui/d2_cursor.png");
-
-        Point hotSpot = new Point(0,0);
-
-        Cursor cursor = toolkit.createCustomCursor(image, hotSpot, "Cursor");
-        game.setCursor(cursor);
     }
 
 
