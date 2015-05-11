@@ -51,13 +51,14 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
 
     public void tick() {
         if (clicked && !stopped) {
+            Vector3 offset = camera.getCartOffset();
+
             Point mLoc = MouseInfo.getPointerInfo().getLocation();
             Point frameLoc = this.getLocationOnScreen();
             mLoc.x -= frameLoc.x;
-            mLoc.y -= frameLoc.y + (character.getHeight() * camera.getScale());
+            mLoc.y -= frameLoc.y - (camera.getzOffset() * camera.getScale());
             mLoc = IsoCalculator.isoTo2D(mLoc);
 
-            Vector3 offset = camera.getCartOffset();
             character.move(new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
 /*
             character.fireball.charge(new Vector2(character.getX(),character.getY()));
@@ -137,14 +138,14 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             //    character.move(e.getX() / camera.getScale() + camera.getXOffset(), e.getY() / camera.getScale() + camera.getYOffset());
             stopped = false;
             clicked = true;
+            Vector3 offset = camera.getCartOffset();
 
             Point mLoc = MouseInfo.getPointerInfo().getLocation();
             Point frameLoc = this.getLocationOnScreen();
             mLoc.x -= frameLoc.x;
-            mLoc.y -= frameLoc.y + (character.getHeight() * camera.getScale());
+            mLoc.y -= frameLoc.y - (camera.getzOffset() * camera.getScale());
             mLoc = IsoCalculator.isoTo2D(mLoc);
 
-            Vector3 offset = camera.getCartOffset();
             character.fireball.use(new Vector2(character.getX(),character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
 
         }else if (e.getButton() == MouseEvent.BUTTON3) {
@@ -162,13 +163,14 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             clicked = false;
         }else if (e.getButton() == MouseEvent.BUTTON3) {
             stopped = false;
+            Vector3 offset = camera.getCartOffset();
+
             Point mLoc = MouseInfo.getPointerInfo().getLocation();
             Point frameLoc = this.getLocationOnScreen();
             mLoc.x -= frameLoc.x;
-            mLoc.y -= frameLoc.y + (character.getHeight() * camera.getScale());
+            mLoc.y -= frameLoc.y - (camera.getzOffset() * camera.getScale());
             mLoc = IsoCalculator.isoTo2D(mLoc);
 
-            Vector3 offset = camera.getCartOffset();
             character.fireball.use(new Vector2(character.getX(),character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
         }
 

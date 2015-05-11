@@ -13,7 +13,6 @@ public class HitCircle {
     public HitCircle(Vector2 center, double radius) {
         this.center = center;
         this.radius = radius;
-        System.out.println(radius);
     }
 
     public Vector2 getCenter() {
@@ -22,5 +21,9 @@ public class HitCircle {
 
     public double getRadius() {
         return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
     }
 }

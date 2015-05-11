@@ -117,4 +117,8 @@ public class Camera {
     public void setyOffset(double yOffset) {
         this.yOffset = yOffset;
     }
+
+    public double getzOffset() {
+        return zOffset;
+    }
 }

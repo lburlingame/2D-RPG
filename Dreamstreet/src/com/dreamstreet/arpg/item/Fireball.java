@@ -41,6 +41,7 @@ public class Fireball {
         this.duration = 180;
         active = false;
 
+        hit = new HitCircle(new Vector2(0,0),radius);
         hitids = new ArrayList<>(); // add casters hit id to this;
     }
 
@@ -64,6 +65,13 @@ public class Fireball {
 
 
         g.drawImage(FIREBALL, (int)((iso.x-xOffset - radius)*scale), (int)((iso.y-yOffset- radius)*scale), (int)((radius *2)*scale), (int)((radius * 2)*scale), null);
+
+        Vector2 isoxy = IsoCalculator.twoDToIso(new Vector3(x,y,0));
+
+        g.setColor(Color.green);
+
+        g.drawOval((int)((isoxy.x + hit.getCenter().x - hit.getRadius() * 7 / 5 - xOffset) * scale), (int)((isoxy.y + hit.getCenter().y  - hit.getRadius() * 7 / 10 - yOffset) * scale), (int)(hit.getRadius() * 14 / 5 * scale), (int)(hit.getRadius() * 7 / 5 * scale));
+
     }
 
     public void shoot(double dx, double dy) {
@@ -74,6 +82,7 @@ public class Fireball {
 
     public void setRadius(double radius) {
         this.radius = radius;
+        hit.setRadius(radius / 2);
     }
 
     public int getDuration() {
@@ -82,5 +91,17 @@ public class Fireball {
 
     public boolean isActive() {
         return active;
+    }
+
+    public HitCircle getHit() {
+        return hit;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
     }
 }

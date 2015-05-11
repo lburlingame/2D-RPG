@@ -2,6 +2,7 @@ package com.dreamstreet.arpg.gfx;
 
 import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.input.InputComponent;
+import com.dreamstreet.arpg.item.Fireball;
 import com.dreamstreet.arpg.item.Item;
 import com.dreamstreet.arpg.obj.HitCircle;
 import com.dreamstreet.arpg.ui.DayCycle;
@@ -130,9 +131,9 @@ public class Sprite implements Comparable<Sprite>{
             g.drawOval((int)((isodest.x - xOffset - 1.2)*scale), (int) ((isodest.y - yOffset - .6) * scale),(int)(1.2*scale*2)+1,(int)(1.2*scale)+1); // draws rectangle at character's destination point
         }
 
-        g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius()) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius()) * scale), (int)(hit.getRadius() * 2 * scale), (int)(hit.getRadius() * 2 * scale));
+        //g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius()) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius()) * scale), (int)(hit.getRadius() * 2 * scale), (int)(hit.getRadius() * 2 * scale));
         g.setColor(Color.red);
-        g.drawOval((int)((isoxy.x + hit.getCenter().x - hit.getRadius() * 3 / 2 - xOffset) * scale), (int)((isoxy.y + hit.getCenter().y  - hit.getRadius() * 3 / 4 - yOffset) * scale), (int)(hit.getRadius() * 3 * scale), (int)(hit.getRadius() * 3 / 2 * scale));
+        g.drawOval((int)((isoxy.x + hit.getCenter().x - hit.getRadius() * 7 / 5 - xOffset) * scale), (int)((isoxy.y + hit.getCenter().y  - hit.getRadius() * 7 / 10 - yOffset) * scale), (int)(hit.getRadius() * 14 / 5 * scale), (int)(hit.getRadius() * 7 / 5 * scale));
 
      //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * imgscale * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
     }
@@ -253,13 +254,27 @@ public class Sprite implements Comparable<Sprite>{
         HitCircle o = other.getHit();
         Vector2 oCenter = o.getCenter();
         Vector2 otemp = new Vector2(other.getX() + oCenter.x, other.getY() + oCenter.y);
-        System.out.println(Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y));
+       // System.out.println(Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y));
+
+        if (Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y) <= (hit.getRadius() + o.getRadius())) {
+
+            return true;
+        }
+        return false;
+    }
+
+    public boolean collidesWith(Fireball other) {
 
 
+        Vector2 hitCenter = hit.getCenter();
+        Vector2 thistemp = new Vector2(pos.x + hitCenter.x, pos.y + hitCenter.y);
 
-      //  if (Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y) <= (hit.getRadius() + o.getRadius()) * 2 / 3 ) {
-          if (Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y) <= (hit.getRadius() + o.getRadius())) {
+        HitCircle o = other.getHit();
+        Vector2 oCenter = o.getCenter();
+        Vector2 otemp = new Vector2(other.getX() + oCenter.x, other.getY() + oCenter.y);
+        // System.out.println(Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y));
 
+        if (Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y) <= (hit.getRadius() + o.getRadius())) {
             return true;
         }
         return false;

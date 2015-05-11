@@ -92,4 +92,7 @@ public class Item {
         }
     }
 
+    public ArrayList<Fireball> getFireballs() {
+        return fireballs;
+    }
 }
