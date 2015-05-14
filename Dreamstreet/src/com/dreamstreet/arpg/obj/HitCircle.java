@@ -1,21 +1,22 @@
 package com.dreamstreet.arpg.obj;
 
-import com.dreamstreet.arpg.gfx.Vector2;
+
+import com.dreamstreet.arpg.gfx.Vector3;
 
 /**
  * Created on 5/9/2015.
  */
 public class HitCircle {
 
-    private Vector2 center;
+    private Vector3 center;
     private double radius;
 
-    public HitCircle(Vector2 center, double radius) {
+    public HitCircle(Vector3 center, double radius) {
         this.center = center;
         this.radius = radius;
     }
 
-    public Vector2 getCenter() {
+    public Vector3 getCenter() {
         return center;
     }
 

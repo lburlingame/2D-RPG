@@ -71,7 +71,7 @@ public class BloodParticle extends Particle {
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        Vector2 iso = IsoCalculator.twoDToIso(pos);
+        Vector2 iso = Iso.twoDToIso(pos);
 
 
         g.drawImage(img, (int)((iso.x-xOffset)*scale), (int)((iso.y-yOffset)*scale), (int)(16*scale), (int)(16*scale), null);

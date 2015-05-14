@@ -9,7 +9,6 @@ import javax.swing.*;
 import com.dreamstreet.arpg.gfx.*;
 import com.dreamstreet.arpg.gfx.particle.ParticleEmitter;
 import com.dreamstreet.arpg.input.NPCInput;
-import com.dreamstreet.arpg.input.NullInput;
 import com.dreamstreet.arpg.input.PlayerInput;
 import com.dreamstreet.arpg.item.Fireball;
 import com.dreamstreet.arpg.sfx.AudioPlayer;
@@ -17,7 +16,6 @@ import com.dreamstreet.arpg.ui.DayCycle;
 import com.dreamstreet.arpg.ui.MessageBox;
 import com.dreamstreet.arpg.ui.UI;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -118,7 +116,7 @@ public class Game extends Canvas implements Runnable {
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = true; // false here limits to 60 fps
+			boolean shouldRender = false; // false here limits to 60 fps
 
 			while(delta>=1){
 				ticks++;
@@ -127,11 +125,11 @@ public class Game extends Canvas implements Runnable {
 				shouldRender = true;
 			}
 
-			/*try{
-				Thread.sleep(4);
+			try{
+				Thread.sleep(2);
 			}catch(InterruptedException e){
 				e.printStackTrace();
-			}*/
+			}
 
 			if(shouldRender){
 				frames++;
@@ -159,7 +157,7 @@ public class Game extends Canvas implements Runnable {
             ArrayList<Fireball> current = chars.get(i).fireball.getFireballs();
 
             for (int j = i+1; j < chars.size(); j++) {
-            /*    if (chars.get(i).collidesWith(chars.get(j))) {
+                /*if (chars.get(i).collidesWith(chars.get(j))) {
                     emitter.bloodSpatter(new Vector3(chars.get(i).getX() - chars.get(i).getWidth() / 2, chars.get(i).getY() - chars.get(i).getHeight() / 2, chars.get(i).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
                 }*/
 
@@ -177,10 +175,7 @@ public class Game extends Canvas implements Runnable {
                     }
                 }
 
-
             }
-
-
         }
 
 
@@ -236,11 +231,11 @@ public class Game extends Canvas implements Runnable {
 
         if (debug) {
             drawDebug(g);
+            for (int i = 0; i < chars.size(); i++) {
+                chars.get(i).drawDebug(g, camera);
+            }
         }
 
-        for (int i = 0; i < chars.size(); i++) {
-            chars.get(i).drawDebug(g, camera);
-        }
 
        // SELECTED.drawDebug(g, camera);
 
@@ -253,7 +248,7 @@ public class Game extends Canvas implements Runnable {
 	public void drawDebug(Graphics g) {
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
         g.setColor(Color.WHITE);
-        Vector2 curr = IsoCalculator.twoDToIso(new Vector3(character.getX(), character.getY(), 0));
+        Vector2 curr = Iso.twoDToIso(new Vector3(character.getX(), character.getY(), 0));
 
         g.drawString(fps + " ", 20, 40);
 

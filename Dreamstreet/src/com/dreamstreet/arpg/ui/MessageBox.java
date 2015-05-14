@@ -44,10 +44,10 @@ public class MessageBox {
             BOX = boxsheet.getSprite(0,0,256,128);
         }
         if (NEXT == null) {
-            NEXT = nextsheet.getSprite(0,0,16,16);
+            NEXT = nextsheet.getSprite(0,0,32,32);
         }
         if (END == null) {
-            END = endsheet.getSprite(0,0,16,16);
+            END = endsheet.getSprite(0,0,32,32);
         }
         this.message = message;
 

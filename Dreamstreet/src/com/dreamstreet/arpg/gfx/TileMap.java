@@ -1,13 +1,10 @@
 package com.dreamstreet.arpg.gfx;
 
-import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.ui.DayCycle;
 
-import javax.print.attribute.standard.MediaSize;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
 
 public class TileMap {
 
@@ -104,7 +101,7 @@ public class TileMap {
         for(int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
                 if (tiles[y][x] != null) {
-                    Vector2 curr = IsoCalculator.twoDToIso(new Vector3(x * 32 - 16, y * 32 + 16, tiles[y][x].z));
+                    Vector2 curr = Iso.twoDToIso(new Vector3(x * 32 - 16, y * 32 + 16, tiles[y][x].z));
                     g.drawImage(Textures.getTile(tiles[y][x].id),(int)((curr.x-xOffset)*scale),(int)((curr.y-yOffset)*scale),(int)(tiles[y][x].width*scale + 1),(int)(tiles[y][x].height*scale + 1),null);
                     float opacity = 1.0f;
                   //  if (player != null) {

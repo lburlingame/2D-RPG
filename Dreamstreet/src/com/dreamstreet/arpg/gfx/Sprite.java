@@ -45,7 +45,7 @@ public class Sprite implements Comparable<Sprite>{
 
         this.dim = new Vector3(img.getWidth() * imgscale, img.getWidth() * imgscale, img.getHeight() * imgscale);
 
-        this.hit = new HitCircle(new Vector2(0,0), dim.x / 2);
+        this.hit = new HitCircle(Iso.isoTo2D(new Vector2(dim.x / 2, -dim.y / 7)), dim.x / 3.75);
     }
 
     public void tick() {
@@ -105,11 +105,12 @@ public class Sprite implements Comparable<Sprite>{
         double scale = camera.getScale();
 
         img = Game.spritesheet.getSprite((int)(dim.x/imgscale * frame), 0, 32, 32);
-        Vector2 iso = IsoCalculator.twoDToIso(pos);
+        Vector2 iso = Iso.twoDToIso(pos);
 
         g.setColor(new Color(0, 0, 0, (int)(DayCycle.max_darkness * 110 + 40)));
        // g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset-pos.z)* scale),(int)(width*scale),(int)(height*scale)/2);
         g.drawImage(img, (int)((iso.x - xOffset)*scale - .5), (int)((iso.y - dim.z - yOffset)*scale - .5),(int)(dim.x*scale - .5),(int)(dim.z*scale - .5), null);
+       // g.drawImage(img, (int)((iso.x - xOffset)*scale - .5), (int)((iso.y - dim.z - yOffset)*scale - .5),(int)(dim.x*scale - .5),(int)(dim.z*scale - .5), null);
 
         fireball.draw(g, camera);
     }
@@ -120,9 +121,10 @@ public class Sprite implements Comparable<Sprite>{
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        Vector2 iso = IsoCalculator.twoDToIso(pos);
-        Vector2 isoxy = IsoCalculator.twoDToIso(new Vector3(pos.x,pos.y,0));
-        Vector2 isodest = IsoCalculator.twoDToIso(new Vector3(dest.x,dest.y, 0));
+        Vector2 iso = Iso.twoDToIso(pos);
+        Vector2 isoxy = Iso.twoDToIso(new Vector3(pos.x, pos.y, 0));
+        Vector2 isodest = Iso.twoDToIso(new Vector3(dest.x, dest.y, 0));
+        Vector2 isohit = Iso.twoDToIso(hit.getCenter());
 
         g.setColor(Color.green);
       //  g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * imgscale * scale), (int) (height * imgscale * scale)); //draws rectangle around char
@@ -133,7 +135,7 @@ public class Sprite implements Comparable<Sprite>{
 
         //g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius()) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius()) * scale), (int)(hit.getRadius() * 2 * scale), (int)(hit.getRadius() * 2 * scale));
         g.setColor(Color.red);
-        g.drawOval((int)((isoxy.x + hit.getCenter().x - hit.getRadius() * 7 / 5 - xOffset) * scale), (int)((isoxy.y + hit.getCenter().y  - hit.getRadius() * 7 / 10 - yOffset) * scale), (int)(hit.getRadius() * 14 / 5 * scale), (int)(hit.getRadius() * 7 / 5 * scale));
+        g.drawOval((int)((isoxy.x + isohit.x - hit.getRadius() * 7 / 5 - xOffset) * scale), (int)((isoxy.y + isohit.y  - hit.getRadius() * 7 / 10 - yOffset) * scale), (int)(hit.getRadius() * 14 / 5 * scale), (int)(hit.getRadius() * 7 / 5 * scale));
 
      //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * imgscale * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
     }
@@ -248,11 +250,11 @@ public class Sprite implements Comparable<Sprite>{
     public boolean collidesWith(Sprite other) {
 
 
-        Vector2 hitCenter = hit.getCenter();
+        Vector3 hitCenter = hit.getCenter();
         Vector2 thistemp = new Vector2(pos.x + hitCenter.x, pos.y + hitCenter.y);
 
         HitCircle o = other.getHit();
-        Vector2 oCenter = o.getCenter();
+        Vector3 oCenter = o.getCenter();
         Vector2 otemp = new Vector2(other.getX() + oCenter.x, other.getY() + oCenter.y);
        // System.out.println(Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y));
 
@@ -266,11 +268,11 @@ public class Sprite implements Comparable<Sprite>{
     public boolean collidesWith(Fireball other) {
 
 
-        Vector2 hitCenter = hit.getCenter();
+        Vector3 hitCenter = hit.getCenter();
         Vector2 thistemp = new Vector2(pos.x + hitCenter.x, pos.y + hitCenter.y);
 
         HitCircle o = other.getHit();
-        Vector2 oCenter = o.getCenter();
+        Vector3 oCenter = o.getCenter();
         Vector2 otemp = new Vector2(other.getX() + oCenter.x, other.getY() + oCenter.y);
         // System.out.println(Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y));
 

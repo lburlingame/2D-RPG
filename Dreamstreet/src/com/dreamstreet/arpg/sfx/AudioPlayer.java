@@ -34,6 +34,10 @@ public class AudioPlayer{
                 e.printStackTrace();
             }
 
+            FloatControl gainControl =
+                    (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-25.0f);
+
             start();
 
         }catch(Exception e) {
@@ -47,6 +51,10 @@ public class AudioPlayer{
     public void start() {
         clip.start();
         clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+
+    public void setVolume(float volume) {
+
     }
 
 }

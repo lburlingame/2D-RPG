@@ -57,7 +57,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             Point frameLoc = this.getLocationOnScreen();
             mLoc.x -= frameLoc.x;
             mLoc.y -= frameLoc.y - (camera.getzOffset() * camera.getScale());
-            mLoc = IsoCalculator.isoTo2D(mLoc);
+            mLoc = Iso.isoTo2D(mLoc);
 
             character.move(new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
 /*
@@ -122,6 +122,9 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
         if (e.getKeyCode() == KeyEvent.VK_O) {
             game.changeCharacter();
         }
+        if (e.getKeyCode() == KeyEvent.VK_I) {
+            game.debug = !game.debug;
+        }
     }
 
     @Override
@@ -144,7 +147,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             Point frameLoc = this.getLocationOnScreen();
             mLoc.x -= frameLoc.x;
             mLoc.y -= frameLoc.y - (camera.getzOffset() * camera.getScale());
-            mLoc = IsoCalculator.isoTo2D(mLoc);
+            mLoc = Iso.isoTo2D(mLoc);
 
             character.fireball.use(new Vector2(character.getX(),character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
 
@@ -169,7 +172,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             Point frameLoc = this.getLocationOnScreen();
             mLoc.x -= frameLoc.x;
             mLoc.y -= frameLoc.y - (camera.getzOffset() * camera.getScale());
-            mLoc = IsoCalculator.isoTo2D(mLoc);
+            mLoc = Iso.isoTo2D(mLoc);
 
             character.fireball.use(new Vector2(character.getX(),character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
         }
