@@ -68,13 +68,13 @@ public class Camera {
     }
 
     public void centerCamera() {
-        this.xOffset = target.getX() - ((SCREEN_CENTER_X - target.getWidth()/2 * scale) / scale);
-        this.yOffset = target.getY() - ((SCREEN_CENTER_Y - target.getHeight()/2 * scale) / scale);
+        this.xOffset = target.getX() - SCREEN_CENTER_X  / scale;
+        this.yOffset = target.getY() - (SCREEN_CENTER_Y + target.getHeight()/2 * scale) / scale;
     }
 
     public void setTarget(Sprite target) {
         this.target = target;
-        zOffset = -target.getHeight();
+        zOffset = 0;//-target.getHeight();
         centerCamera();
     }
 

@@ -37,7 +37,7 @@ public class Game extends Canvas implements Runnable {
     public boolean debug = false;
 
 	//map
-	private TileMap map = new TileMap("res/levels/isotest2_map.txt");
+	private TileMap map = new TileMap("res/levels/isotest3_map.txt");
 
     private Camera camera = new Camera(null);
 
@@ -116,7 +116,7 @@ public class Game extends Canvas implements Runnable {
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = true; // false here limits to 60 fps
+			boolean shouldRender = false; // false here limits to 60 fps
 
 			while(delta>=1){
 				ticks++;
@@ -125,11 +125,11 @@ public class Game extends Canvas implements Runnable {
 				shouldRender = true;
 			}
 
-			/*try{
+			try{
 				Thread.sleep(2);
 			}catch(InterruptedException e){
 				e.printStackTrace();
-			}*/
+			}
 
 			if(shouldRender){
 				frames++;

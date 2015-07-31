@@ -45,7 +45,7 @@ public class Sprite implements Comparable<Sprite>{
 
         this.dim = new Vector3(img.getWidth() * imgscale, img.getWidth() * imgscale, img.getHeight() * imgscale);
 
-        this.hit = new HitCircle(new Vector3(dim.x / 2, dim.y / 4, 0), dim.x / 3);
+        this.hit = new HitCircle(new Vector3(0, -dim.z/3, 0), dim.x / 3);
     }
 
     public void tick() {
@@ -108,8 +108,8 @@ public class Sprite implements Comparable<Sprite>{
         img = Game.spritesheet.getSprite((int)(dim.x/imgscale * frame), 0, 32, 32);
 
         g.setColor(new Color(0, 0, 0, (int)(DayCycle.max_darkness * 110 + 40)));
-        g.fillOval((int)((pos.x - xOffset) * scale),(int)((pos.y - yOffset - dim.z / 3 - zOffset)* scale),(int)(dim.x*scale),(int)(dim.z*scale)/2);
-        g.drawImage(img, (int)((pos.x - xOffset)*scale - .5), (int)((pos.y  + pos.z - yOffset)*scale - .5),(int)(dim.x*scale - .5),(int)(dim.z*scale - .5), null);
+        g.fillOval((int)((pos.x - dim.x/2 - xOffset) * scale),(int)((pos.y - yOffset - dim.z / 2.75 - zOffset)* scale),(int)(dim.x*scale),(int)(dim.z*scale)/2);
+        g.drawImage(img, (int)((pos.x - dim.x / 2 - xOffset)*scale - .5), (int)((pos.y - dim.z + pos.z - yOffset)*scale - .5),(int)(dim.x*scale - .5),(int)(dim.z*scale - .5), null);
        // g.drawImage(img, (int)((iso.x - xOffset)*scale - .5), (int)((iso.y - dim.z - yOffset)*scale - .5),(int)(dim.x*scale - .5),(int)(dim.z*scale - .5), null);
 
         fireball.draw(g, camera);
@@ -143,7 +143,7 @@ public class Sprite implements Comparable<Sprite>{
             this.dest.x = dest.x;
             this.dest.y = dest.y;
 
-            Direction dir = Util.findSlope(pos.x + dim.x / 2, pos.y, this.dest.x, this.dest.y);
+            Direction dir = Util.findSlope(pos.x, pos.y, this.dest.x, this.dest.y);
 
             vel.x = Util.findX(MAX_VELOCITY, dir.slope) * dir.xdir;
             vel.y = dir.slope * vel.x;
