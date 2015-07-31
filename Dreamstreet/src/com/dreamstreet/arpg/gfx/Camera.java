@@ -8,7 +8,7 @@ import com.dreamstreet.arpg.Game;
 public class Camera {
 
     private static final double MAX_SCALE = 6;
-    private static final double MIN_SCALE = .05;//1;
+    private static final double MIN_SCALE = 1;//1;
     private static final double panspeed = 25;
 
     private int SCREEN_CENTER_X;
@@ -17,6 +17,8 @@ public class Camera {
     private double xOffset;
 
     private double yOffset;
+    private double zOffset;
+
     private double dx;
     private double dy;
 
@@ -31,7 +33,7 @@ public class Camera {
         SCREEN_CENTER_X = Game.WIDTH * Game.SCALE / 2;
         SCREEN_CENTER_Y = Game.HEIGHT  * Game.SCALE / 2;
 
-        scale = 2.5;
+        scale = 2.25;
         zoom = .125;
 
         xOffset = 0;
@@ -63,23 +65,24 @@ public class Camera {
     }
 
     public void centerCamera() {
-        this.xOffset =  target.getX() - ((SCREEN_CENTER_X - target.getWidth()/2 * scale) / scale);
-        this.yOffset =  target.getY();
+        this.xOffset = target.getX() - ((SCREEN_CENTER_X - target.getWidth()/2 * scale) / scale);
+        this.yOffset = target.getY();   // - ((SCREEN_CENTER_Y - target.getHeight()/2 * scale) / scale);
     }
 
     public void setTarget(Sprite target) {
         this.target = target;
+        zOffset = -target.getHeight() ;
         centerCamera();
     }
 
 
 
     public Vector2 getIsoOffset() {
-        return IsoCalculator.twoDToIso(new Vector3(xOffset,yOffset, 0));
+        return Iso.twoDToIso(new Vector3(xOffset, yOffset, zOffset));
     }
 
-    public Vector2 getCartOffset() {
-        return new Vector2(xOffset,yOffset);
+    public Vector3 getCartOffset() {
+        return new Vector3(xOffset,yOffset,zOffset);
     }
 
 
@@ -88,6 +91,13 @@ public class Camera {
     }
     public void setDx(double dx) {
         this.dx = dx;
+    }
+
+
+    public void setScale(double scale) {
+        if (scale <= MAX_SCALE || scale >= MIN_SCALE) {
+            this.scale = scale;
+        }
     }
 
     public double getScale() {
@@ -106,5 +116,9 @@ public class Camera {
 
     public void setyOffset(double yOffset) {
         this.yOffset = yOffset;
+    }
+
+    public double getzOffset() {
+        return zOffset;
     }
 }

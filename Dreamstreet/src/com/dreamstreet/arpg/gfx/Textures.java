@@ -11,6 +11,8 @@ public class Textures {
     private static SpriteSheet isosheet = new SpriteSheet("/tiles/isotile643d2.png");
     private static SpriteSheet watersheet = new SpriteSheet("/tiles/isowatertile643d4.png");
     private static SpriteSheet grasssheet = new SpriteSheet("/tiles/isograsstile643d.png");
+    //private static SpriteSheet grasssheet = new SpriteSheet("/tiles/grass/tile_grass1.png");
+
     private static SpriteSheet whitesheet = new SpriteSheet("/tiles/whiteiso64.png");
     private static SpriteSheet blacksheet = new SpriteSheet("/tiles/blackiso64.png");
     private static SpriteSheet shadowsheet = new SpriteSheet("/tiles/shadowtile64.png");

@@ -1,9 +1,11 @@
 package com.dreamstreet.arpg.item;
 
 import com.dreamstreet.arpg.gfx.*;
+import com.dreamstreet.arpg.obj.HitCircle;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  * Created on 4/18/2015.
@@ -13,8 +15,7 @@ public class Fireball {
     private static BufferedImage FIREBALL;
     private static SpriteSheet spellsheet = new SpriteSheet("/effects/fireball.png");
 
-    private double x;
-    private double y;
+    private Vector3 pos;
 
     private double dx;
     private double dy;
@@ -24,23 +25,28 @@ public class Fireball {
     private int duration;
     private boolean active;
 
-    public Fireball(double x, double y, double dx, double dy, double radius) {
+    private HitCircle hit;
+    private ArrayList<Integer> hitids;
+
+    public Fireball(Vector3 pos, double dx, double dy, double radius) {
         if (FIREBALL == null) {
             FIREBALL = spellsheet.getSprite(0,0,32,32);
         }
-        this.x = x;
-        this.y = y;
+        this.pos = new Vector3(pos.x,pos.y,pos.z);
         this.dx = dx;
         this.dy = dy;
         this.radius = radius;
         this.duration = 180;
         active = false;
+
+        hit = new HitCircle(new Vector3(0,0,0),radius / 2);
+        hitids = new ArrayList<>(); // add casters hit id to this;
     }
 
 
     public void tick() {
-        this.x += dx;
-        this.y += dy;
+        pos.x += dx;
+        pos.y += dy;
 
         if (duration > 0 && active) {
             duration --;
@@ -53,10 +59,17 @@ public class Fireball {
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        Vector2 iso = IsoCalculator.twoDToIso(new Vector3(x, y, -5));
+        Vector2 iso = Iso.twoDToIso(new Vector3(pos.x, pos.y, -18));
 
 
         g.drawImage(FIREBALL, (int)((iso.x-xOffset - radius)*scale), (int)((iso.y-yOffset- radius)*scale), (int)((radius *2)*scale), (int)((radius * 2)*scale), null);
+
+        Vector2 isoxy = Iso.twoDToIso(new Vector3(pos.x, pos.y, 0));
+
+        g.setColor(Color.green);
+
+        g.drawOval((int)((isoxy.x + hit.getCenter().x - hit.getRadius() * 7 / 5 - xOffset) * scale), (int)((isoxy.y + hit.getCenter().y  - hit.getRadius() * 7 / 10 - yOffset) * scale), (int)(hit.getRadius() * 14 / 5 * scale), (int)(hit.getRadius() * 7 / 5 * scale));
+
     }
 
     public void shoot(double dx, double dy) {
@@ -67,6 +80,7 @@ public class Fireball {
 
     public void setRadius(double radius) {
         this.radius = radius;
+        hit.setRadius(radius / 2);
     }
 
     public int getDuration() {
@@ -75,5 +89,17 @@ public class Fireball {
 
     public boolean isActive() {
         return active;
+    }
+
+    public HitCircle getHit() {
+        return hit;
+    }
+
+    public double getX() {
+        return pos.x;
+    }
+
+    public double getY() {
+        return pos.y;
     }
 }

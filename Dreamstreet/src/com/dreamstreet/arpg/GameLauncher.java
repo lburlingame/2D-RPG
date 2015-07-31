@@ -42,7 +42,7 @@ public class GameLauncher extends Applet {
         game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         game.frame.setLayout(new BorderLayout());
         game.frame.add(game, BorderLayout.CENTER);
-       // game.frame.setUndecorated(true); //makes borderless window
+        game.frame.setUndecorated(true); //makes borderless window
         game.frame.pack();
 
         game.frame.setResizable(false);
@@ -50,6 +50,7 @@ public class GameLauncher extends Applet {
         game.frame.setVisible(true);
         game.start();
         game.requestFocus();
+
     }
 
 

@@ -1,13 +1,10 @@
 package com.dreamstreet.arpg.gfx;
 
-import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.ui.DayCycle;
 
-import javax.print.attribute.standard.MediaSize;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
 
 public class TileMap {
 
@@ -98,13 +95,13 @@ public class TileMap {
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        Vector2 vvv = new Vector2(charx.getX() + charx.feet.x,charx.getY() + charx.feet.y);
+        Vector2 vvv = new Vector2(charx.getX(),charx.getY());
         Tile player = getTile(vvv.x, vvv.y);
 
         for(int y = 0; y < tiles.length; y++) {
             for (int x = 0; x < tiles[y].length; x++) {
                 if (tiles[y][x] != null) {
-                    Vector2 curr = IsoCalculator.twoDToIso(new Vector3(x * 32 - 16, y * 32 + 16, tiles[y][x].z));
+                    Vector2 curr = Iso.twoDToIso(new Vector3(x * 32 - 16, y * 32 + 16, tiles[y][x].z));
                     g.drawImage(Textures.getTile(tiles[y][x].id),(int)((curr.x-xOffset)*scale),(int)((curr.y-yOffset)*scale),(int)(tiles[y][x].width*scale + 1),(int)(tiles[y][x].height*scale + 1),null);
                     float opacity = 1.0f;
                   //  if (player != null) {
@@ -134,11 +131,15 @@ public class TileMap {
 		}
 	}
 
+
+    //0.033283424259455074, 3.195376574578727             :             -1.0650695763025624, 102.25205038651926
+    //10.001505482530465, -0.0038539967582997825             :             320.0481754409749, -0.12332789626559304
+
     public static Tile getTile(double x, double y) {
         double tilex = x / 32;
         double tiley = y / 32;
 
-     //   System.out.println(tilex + ", " + tiley + "             :             " + x + ", " + y);
+       // System.out.println(tilex + ", " + tiley + "             :             " + x + ", " + y);
 
         if (tilex < 0 || tilex >= columns) {
             currentx = -1;

@@ -6,8 +6,12 @@ ehthumbs.db
 Desktop.ini
 
 #IDEA
-**/.idea/workspace.xml 
-**/.idea/tasks.xml
+workspace.xml 
+tasks.xml
+bin
+config
+.idea
+*.iml
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
