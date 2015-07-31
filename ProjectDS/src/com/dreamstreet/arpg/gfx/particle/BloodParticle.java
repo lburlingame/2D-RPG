@@ -66,15 +66,12 @@ public class BloodParticle extends Particle {
 
     @Override
     public void draw(Graphics g, Camera camera) {
-        Vector2 offset = camera.getIsoOffset();
+        Vector3 offset = camera.getOffset();
         double xOffset = offset.x;
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        Vector2 iso = Iso.twoDToIso(pos);
-
-
-        g.drawImage(img, (int)((iso.x-xOffset)*scale), (int)((iso.y-yOffset)*scale), (int)(16*scale), (int)(16*scale), null);
+        g.drawImage(img, (int)((pos.x-xOffset)*scale), (int)((pos.y-yOffset)*scale), (int)(16*scale), (int)(16*scale), null);
     }
 
 

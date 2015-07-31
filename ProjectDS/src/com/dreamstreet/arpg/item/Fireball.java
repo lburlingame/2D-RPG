@@ -54,21 +54,17 @@ public class Fireball {
     }
 
     public void draw(Graphics g, Camera camera) {
-        Vector2 offset = camera.getIsoOffset();
+        Vector3 offset = camera.getOffset();
         double xOffset = offset.x;
         double yOffset = offset.y;
         double scale = camera.getScale();
 
-        Vector2 iso = Iso.twoDToIso(new Vector3(pos.x, pos.y, -18));
 
-
-        g.drawImage(FIREBALL, (int)((iso.x-xOffset - radius)*scale), (int)((iso.y-yOffset- radius)*scale), (int)((radius *2)*scale), (int)((radius * 2)*scale), null);
-
-        Vector2 isoxy = Iso.twoDToIso(new Vector3(pos.x, pos.y, 0));
+        g.drawImage(FIREBALL, (int)((pos.x-xOffset - radius)*scale), (int)((pos.y-yOffset- radius)*scale), (int)((radius *2)*scale), (int)((radius * 2)*scale), null);
 
         g.setColor(Color.green);
 
-        g.drawOval((int)((isoxy.x + hit.getCenter().x - hit.getRadius() * 7 / 5 - xOffset) * scale), (int)((isoxy.y + hit.getCenter().y  - hit.getRadius() * 7 / 10 - yOffset) * scale), (int)(hit.getRadius() * 14 / 5 * scale), (int)(hit.getRadius() * 7 / 5 * scale));
+        g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius() * 7 / 5 - xOffset) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius() * 7 / 10 - yOffset) * scale), (int)(hit.getRadius() * 14 / 5 * scale), (int)(hit.getRadius() * 7 / 5 * scale));
 
     }
 

@@ -8,16 +8,17 @@ import com.dreamstreet.arpg.Game;
 public class Camera {
 
     private static final double MAX_SCALE = 6;
-    private static final double MIN_SCALE = 1;//1;
+    private static final double MIN_SCALE = .5;//1;
     private static final double panspeed = 25;
 
     private int SCREEN_CENTER_X;
     private int SCREEN_CENTER_Y;
 
     private double xOffset;
-
     private double yOffset;
     private double zOffset;
+
+    private Vector2 viewport;
 
     private double dx;
     private double dy;
@@ -32,6 +33,8 @@ public class Camera {
 
         SCREEN_CENTER_X = Game.WIDTH * Game.SCALE / 2;
         SCREEN_CENTER_Y = Game.HEIGHT  * Game.SCALE / 2;
+
+        viewport = new Vector2(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
 
         scale = 2.25;
         zoom = .125;
@@ -66,22 +69,19 @@ public class Camera {
 
     public void centerCamera() {
         this.xOffset = target.getX() - ((SCREEN_CENTER_X - target.getWidth()/2 * scale) / scale);
-        this.yOffset = target.getY();   // - ((SCREEN_CENTER_Y - target.getHeight()/2 * scale) / scale);
+        this.yOffset = target.getY() - ((SCREEN_CENTER_Y - target.getHeight()/2 * scale) / scale);
     }
 
     public void setTarget(Sprite target) {
         this.target = target;
-        zOffset = -target.getHeight() ;
+        zOffset = -target.getHeight();
         centerCamera();
     }
 
 
 
-    public Vector2 getIsoOffset() {
-        return Iso.twoDToIso(new Vector3(xOffset, yOffset, zOffset));
-    }
 
-    public Vector3 getCartOffset() {
+    public Vector3 getOffset() {
         return new Vector3(xOffset,yOffset,zOffset);
     }
 
@@ -121,4 +121,7 @@ public class Camera {
     public double getzOffset() {
         return zOffset;
     }
+
+    public double getWidth() { return viewport.x / scale; }
+    public double getHeight() { return viewport.y / scale; }
 }

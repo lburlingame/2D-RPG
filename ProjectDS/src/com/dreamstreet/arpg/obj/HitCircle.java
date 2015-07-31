@@ -3,6 +3,8 @@ package com.dreamstreet.arpg.obj;
 
 import com.dreamstreet.arpg.gfx.Vector3;
 
+import java.awt.*;
+
 /**
  * Created on 5/9/2015.
  */
@@ -27,4 +29,5 @@ public class HitCircle {
     public void setRadius(double radius) {
         this.radius = radius;
     }
+
 }

@@ -24,7 +24,7 @@ public class Sprite implements Comparable<Sprite>{
 
     private BufferedImage img;
     private InputComponent input;
-    public double imgscale;
+    private double imgscale;
     private int frame = 0;
     private int animation_timer = 3;
 
@@ -40,12 +40,12 @@ public class Sprite implements Comparable<Sprite>{
         this.pos = pos;
         this.dest = new Vector2(pos.x, pos.y);
 
-        this.MAX_VELOCITY = 2;
+        this.MAX_VELOCITY = 3;
         this.vel = new Vector3(0,0,0);
 
         this.dim = new Vector3(img.getWidth() * imgscale, img.getWidth() * imgscale, img.getHeight() * imgscale);
 
-        this.hit = new HitCircle(Iso.isoTo2D(new Vector2(dim.x / 2, -dim.y / 7)), dim.x / 3.75);
+        this.hit = new HitCircle(new Vector3(dim.x / 2, dim.y / 4, 0), dim.x / 3);
     }
 
     public void tick() {
@@ -99,43 +99,39 @@ public class Sprite implements Comparable<Sprite>{
     }
 
 	public void draw(Graphics g, Camera camera){
-        Vector2 offset = camera.getIsoOffset();
+        Vector3 offset = camera.getOffset();
         double xOffset = offset.x;
         double yOffset = offset.y;
+        double zOffset = offset.z;
         double scale = camera.getScale();
 
         img = Game.spritesheet.getSprite((int)(dim.x/imgscale * frame), 0, 32, 32);
-        Vector2 iso = Iso.twoDToIso(pos);
 
         g.setColor(new Color(0, 0, 0, (int)(DayCycle.max_darkness * 110 + 40)));
-       // g.fillOval((int)((iso.x - xOffset) * scale),(int)((iso.y  + isofeet.y - 6 - yOffset-pos.z)* scale),(int)(width*scale),(int)(height*scale)/2);
-        g.drawImage(img, (int)((iso.x - xOffset)*scale - .5), (int)((iso.y - dim.z - yOffset)*scale - .5),(int)(dim.x*scale - .5),(int)(dim.z*scale - .5), null);
+        g.fillOval((int)((pos.x - xOffset) * scale),(int)((pos.y - yOffset - dim.z / 3 - zOffset)* scale),(int)(dim.x*scale),(int)(dim.z*scale)/2);
+        g.drawImage(img, (int)((pos.x - xOffset)*scale - .5), (int)((pos.y  + pos.z - yOffset)*scale - .5),(int)(dim.x*scale - .5),(int)(dim.z*scale - .5), null);
        // g.drawImage(img, (int)((iso.x - xOffset)*scale - .5), (int)((iso.y - dim.z - yOffset)*scale - .5),(int)(dim.x*scale - .5),(int)(dim.z*scale - .5), null);
 
         fireball.draw(g, camera);
     }
 
     public void drawDebug(Graphics g, Camera camera) {
-        Vector2 offset = camera.getIsoOffset();
+        Vector3 offset = camera.getOffset();
         double xOffset = offset.x;
         double yOffset = offset.y;
+        double zOffset = offset.z;
         double scale = camera.getScale();
-
-        Vector2 iso = Iso.twoDToIso(pos);
-        Vector2 isoxy = Iso.twoDToIso(new Vector3(pos.x, pos.y, 0));
-        Vector2 isodest = Iso.twoDToIso(new Vector3(dest.x, dest.y, 0));
-        Vector2 isohit = Iso.twoDToIso(hit.getCenter());
 
         g.setColor(Color.green);
       //  g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * imgscale * scale), (int) (height * imgscale * scale)); //draws rectangle around char
-        g.fillRect((int)((isoxy.x-xOffset)*scale), (int)((isoxy.y - yOffset)*scale),5,5);  // draws rect at character's "feet"
+        g.fillRect((int)((pos.x-xOffset)*scale), (int)((pos.y - yOffset)*scale),5,5);  // draws rect at character's "feet"
         if (Math.abs(vel.x) > 0 || Math.abs(vel.y) > 0) {
-            g.drawOval((int)((isodest.x - xOffset - 1.2)*scale), (int) ((isodest.y - yOffset - .6) * scale),(int)(1.2*scale*2)+1,(int)(1.2*scale)+1); // draws rectangle at character's destination point
+            g.drawOval((int)((dest.x - xOffset - 1.2)*scale), (int) ((dest.y - yOffset - .6) * scale),(int)(1.2*scale*2)+1,(int)(1.2*scale)+1); // draws rectangle at character's destination point
         }
 
         //g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius()) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius()) * scale), (int)(hit.getRadius() * 2 * scale), (int)(hit.getRadius() * 2 * scale));
         g.setColor(Color.red);
-        g.drawOval((int)((isoxy.x + isohit.x - hit.getRadius() * 7 / 5 - xOffset) * scale), (int)((isoxy.y + isohit.y  - hit.getRadius() * 7 / 10 - yOffset) * scale), (int)(hit.getRadius() * 14 / 5 * scale), (int)(hit.getRadius() * 7 / 5 * scale));
+        g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius() - xOffset) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius() - yOffset) * scale), (int)(hit.getRadius() * 2 * scale), (int)(hit.getRadius() * 2 * scale));
 
      //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * imgscale * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
     }
@@ -147,7 +143,7 @@ public class Sprite implements Comparable<Sprite>{
             this.dest.x = dest.x;
             this.dest.y = dest.y;
 
-            Direction dir = Util.findSlope(pos.x, pos.y, this.dest.x, this.dest.y);
+            Direction dir = Util.findSlope(pos.x + dim.x / 2, pos.y, this.dest.x, this.dest.y);
 
             vel.x = Util.findX(MAX_VELOCITY, dir.slope) * dir.xdir;
             vel.y = dir.slope * vel.x;
@@ -239,9 +235,9 @@ public class Sprite implements Comparable<Sprite>{
 
     @Override
     public int compareTo(Sprite o) {
-        if (this.pos.x + this.pos.y < o.getX() + o.getY()) {
+        if (this.pos.y < o.getY()) {
             return -1;
-        }else if (this.pos.x + this.pos.y > o.getX() + o.getY()) {
+        }else if (this.pos.y > o.getX() + o.getY()) {
             return 1;
         }
         return 0;

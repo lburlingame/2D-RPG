@@ -37,7 +37,7 @@ public class Game extends Canvas implements Runnable {
     public boolean debug = false;
 
 	//map
-	private TileMap map = new TileMap("res/levels/isotest3_map.txt");
+	private TileMap map = new TileMap("res/levels/isotest2_map.txt");
 
     private Camera camera = new Camera(null);
 
@@ -74,7 +74,7 @@ public class Game extends Canvas implements Runnable {
     private DayCycle dayCycle = new DayCycle(dimension.width - 96, 64, 48);
 
     public AudioPlayer music = new AudioPlayer("res/audio/clocktown-day1.wav");
-    public boolean audioPlay = true;
+    public boolean audioPlay = false;
     private int curr = 0;
 
     private MessageBox box1 = new MessageBox("This is wonderful! How wonderful!");
@@ -116,7 +116,7 @@ public class Game extends Canvas implements Runnable {
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = false; // false here limits to 60 fps
+			boolean shouldRender = true; // false here limits to 60 fps
 
 			while(delta>=1){
 				ticks++;
@@ -125,11 +125,11 @@ public class Game extends Canvas implements Runnable {
 				shouldRender = true;
 			}
 
-			try{
+			/*try{
 				Thread.sleep(2);
 			}catch(InterruptedException e){
 				e.printStackTrace();
-			}
+			}*/
 
 			if(shouldRender){
 				frames++;
@@ -248,7 +248,7 @@ public class Game extends Canvas implements Runnable {
 	public void drawDebug(Graphics g) {
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
         g.setColor(Color.WHITE);
-        Vector2 curr = Iso.twoDToIso(new Vector3(character.getX(), character.getY(), 0));
+        Vector3 curr = new Vector3(character.getX(), character.getY(), 0);
 
         g.drawString(fps + " ", 20, 40);
 
@@ -262,8 +262,8 @@ public class Game extends Canvas implements Runnable {
        // g.drawString(dayCycle.time, Game.WIDTH * Game.SCALE - 100, 40);
 
        // g.drawString(camera.getScale() + " ", 20, 160);
-      //  g.drawLine(WIDTH/12*5*SCALE,HEIGHT/2*SCALE,WIDTH/12*7*SCALE, HEIGHT/2*SCALE);
-        //g.drawLine(WIDTH/2*SCALE,HEIGHT/12*5*SCALE,WIDTH/2*SCALE,HEIGHT/12*7*SCALE);
+        g.drawLine(WIDTH/12*5*SCALE,HEIGHT/2*SCALE,WIDTH/12*7*SCALE, HEIGHT/2*SCALE);
+        g.drawLine(WIDTH/2*SCALE,HEIGHT/12*5*SCALE,WIDTH/2*SCALE,HEIGHT/12*7*SCALE);
 
 
     }
