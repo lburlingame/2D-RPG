@@ -8,7 +8,7 @@ import com.dreamstreet.arpg.Game;
 public class Camera {
 
     private static final double MAX_SCALE = 6;
-    private static final double MIN_SCALE = .5;//1;
+    private static final double MIN_SCALE = .25;//1;
     private static final double panspeed = 25;
 
     private int SCREEN_CENTER_X;
@@ -69,7 +69,7 @@ public class Camera {
 
     public void centerCamera() {
         this.xOffset = target.getX() - SCREEN_CENTER_X  / scale;
-        this.yOffset = target.getY() - (SCREEN_CENTER_Y + target.getHeight()/2 * scale) / scale;
+        this.yOffset = target.getY() - (SCREEN_CENTER_Y + target.getHeight()/4 * scale) / scale;
     }
 
     public void setTarget(Sprite target) {

@@ -2,6 +2,9 @@ package com.dreamstreet.arpg.input;
 
 import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.gfx.Sprite;
+import com.dreamstreet.arpg.gfx.Vector2;
+
+import java.awt.*;
 
 
 /**
@@ -21,6 +24,8 @@ public abstract class InputComponent {
     public void setCharacter(Sprite character) {
         this.character = character;
     }
+
+    public abstract Vector2 getScreenLoc();
 }
 
 

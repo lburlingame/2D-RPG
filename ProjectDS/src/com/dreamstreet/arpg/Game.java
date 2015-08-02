@@ -116,7 +116,7 @@ public class Game extends Canvas implements Runnable {
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = false; // false here limits to 60 fps
+			boolean shouldRender = true; // false here limits to 60 fps
 
 			while(delta>=1){
 				ticks++;
@@ -125,11 +125,11 @@ public class Game extends Canvas implements Runnable {
 				shouldRender = true;
 			}
 
-			try{
+			/*try{
 				Thread.sleep(2);
 			}catch(InterruptedException e){
 				e.printStackTrace();
-			}
+			}*/
 
 			if(shouldRender){
 				frames++;
@@ -252,21 +252,30 @@ public class Game extends Canvas implements Runnable {
 
         g.drawString(fps + " ", 20, 40);
 
-
-        g.drawString(character.getX() + ", " + character.getY(), 20, 70);
-     //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, 20, 100);
+                //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, 20, 100);
 
         /*
         g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 100);
         g.drawString(curr.x + ", " + curr.y, 20, 130);*/
-       // g.drawString(dayCycle.time, Game.WIDTH * Game.SCALE - 100, 40);
+                // g.drawString(dayCycle.time, Game.WIDTH * Game.SCALE - 100, 40);
 
-       // g.drawString(camera.getScale() + " ", 20, 160);
-        g.drawLine(WIDTH/12*5*SCALE,HEIGHT/2*SCALE,WIDTH/12*7*SCALE, HEIGHT/2*SCALE);
+                // g.drawString(camera.getScale() + " ", 20, 160);
+                g.drawLine(WIDTH / 12 * 5 * SCALE, HEIGHT / 2 * SCALE, WIDTH / 12 * 7 * SCALE, HEIGHT / 2 * SCALE);
         g.drawLine(WIDTH/2*SCALE,HEIGHT/12*5*SCALE,WIDTH/2*SCALE,HEIGHT/12*7*SCALE);
 
 
     }
+
+    public static float getAngle(Vector2 center, Vector2 target) {
+        float angle = (float) Math.toDegrees(Math.atan2(target.y - center.y, target.x - center.x));
+
+        if(angle < 0){
+            angle += 0;
+        }
+
+        return angle;
+    }
+
 
     public void debug(DebugLevel level, String msg) {
         switch (level) {
@@ -326,4 +335,6 @@ public class Game extends Canvas implements Runnable {
         chars.get(curr).setInput(chars.get(prev).getInput());
         chars.get(prev).setInput(new NPCInput(this));
     }
+
+
 }

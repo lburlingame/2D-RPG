@@ -145,7 +145,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             Point mLoc = MouseInfo.getPointerInfo().getLocation();
             Point frameLoc = this.getLocationOnScreen();
             mLoc.x -= frameLoc.x;
-            mLoc.y -= frameLoc.y ;//- (camera.getzOffset() * camera.getScale());
+            mLoc.y -= frameLoc.y;//- (camera.getzOffset() * camera.getScale());
             //mLoc = Iso.isoTo2D(mLoc);
 
             character.fireball.use(new Vector2(character.getX()- character.getWidth()/2,character.getY()- character.getHeight()/2), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
@@ -216,6 +216,20 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
 
     public void setCharacter(Sprite character) {
         this.character = character;
+    }
+
+    public Vector2 getScreenLoc() {
+        Point mLoc = MouseInfo.getPointerInfo().getLocation();
+        Point frameLoc = this.getLocationOnScreen();
+        mLoc.x -= frameLoc.x;
+        mLoc.y -= frameLoc.y;//- (camera.getzOffset() * camera.getScale());
+        //mLoc = Iso.isoTo2D(mLoc);
+
+        Vector2 target = new Vector2(0,0);
+        target.x = mLoc.getX() / camera.getScale() +camera.getOffset().x;
+        target.y = mLoc.getY() / camera.getScale() + camera.getOffset().y;
+
+        return target;
     }
 }
 

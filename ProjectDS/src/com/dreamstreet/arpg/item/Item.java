@@ -16,7 +16,7 @@ public class Item {
     private int cooldown = 1;
     private int tick = 0;
 
-    private static final int MAX_POWER = 90;
+    private static final int MAX_POWER = 4;
     private float current_power = 0;
     private double speed = 0;//3
     private double base_radius = 1;  // 10
@@ -43,7 +43,7 @@ public class Item {
     public void use(Vector2 loc, Vector2 dest) {
         if (charging) {
             charging = false;
-            double bonus_speed = current_power / 2;// /10
+            double bonus_speed = current_power * current_power;// /10
 
             Direction dir = Util.findSlope(loc.x + 16, loc.y + 16, dest.x, dest.y);
 
@@ -69,7 +69,7 @@ public class Item {
         }
 
         if (charging && current_power < MAX_POWER) {
-            current_power += 2;
+            current_power += .1;
             double bonus_radius = current_power / 2;
             current.setRadius(base_radius + bonus_radius);
 

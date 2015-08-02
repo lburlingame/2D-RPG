@@ -8,6 +8,8 @@ import com.dreamstreet.arpg.obj.HitCircle;
 import com.dreamstreet.arpg.ui.DayCycle;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
 public class Sprite implements Comparable<Sprite>{
@@ -45,7 +47,7 @@ public class Sprite implements Comparable<Sprite>{
 
         this.dim = new Vector3(img.getWidth() * imgscale, img.getWidth() * imgscale, img.getHeight() * imgscale);
 
-        this.hit = new HitCircle(new Vector3(0, -dim.z/3, 0), dim.x / 3);
+        this.hit = new HitCircle(new Vector3(0, -dim.z/4, 0), dim.x / 3);
     }
 
     public void tick() {
@@ -98,7 +100,7 @@ public class Sprite implements Comparable<Sprite>{
         fireball.tick();
     }
 
-	public void draw(Graphics g, Camera camera){
+	public void draw(Graphics2D g, Camera camera){
         Vector3 offset = camera.getOffset();
         double xOffset = offset.x;
         double yOffset = offset.y;
@@ -108,9 +110,29 @@ public class Sprite implements Comparable<Sprite>{
         img = Game.spritesheet.getSprite((int)(dim.x/imgscale * frame), 0, 32, 32);
 
         g.setColor(new Color(0, 0, 0, (int)(DayCycle.max_darkness * 110 + 40)));
-        g.fillOval((int)((pos.x - dim.x/2 - xOffset) * scale),(int)((pos.y - yOffset - dim.z / 2.75 - zOffset)* scale),(int)(dim.x*scale),(int)(dim.z*scale)/2);
-        g.drawImage(img, (int)((pos.x - dim.x / 2 - xOffset)*scale - .5), (int)((pos.y - dim.z + pos.z - yOffset)*scale - .5),(int)(dim.x*scale - .5),(int)(dim.z*scale - .5), null);
-       // g.drawImage(img, (int)((iso.x - xOffset)*scale - .5), (int)((iso.y - dim.z - yOffset)*scale - .5),(int)(dim.x*scale - .5),(int)(dim.z*scale - .5), null);
+        g.fillOval((int)((pos.x - dim.x/2 - xOffset) * scale),(int)((pos.y - yOffset - dim.z / 6 - zOffset)* scale),(int)(dim.x*scale),(int)(dim.z*scale)/2);
+
+
+
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gs = ge.getDefaultScreenDevice();
+        GraphicsConfiguration gc = gs.getDefaultConfiguration();
+
+// Create an image that does not support transparency
+
+        BufferedImage img2 = gc.createCompatibleImage((int)dim.x, (int)dim.z, Transparency.OPAQUE);
+        Graphics2D g2 = (Graphics2D) img2.getGraphics();
+//        g.rotate(Game.getAngle(new Vector2(pos.x, pos.y), input.getScreenLoc())/57.32,Game.WIDTH * Game.SCALE / 2, Game.HEIGHT * Game.SCALE / 2);
+        AffineTransform tx = new AffineTransform();
+        tx.setToRotation(Game.getAngle(new Vector2(pos.x, pos.y), input.getScreenLoc())/57.32, 16,16);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+
+        // Turret shadow
+        g.drawImage(op.filter(img, null), (int) ((pos.x - dim.x / 2 - xOffset) * scale - .5), (int) ((pos.y - dim.z * .8 + pos.z - yOffset) * scale - .5), (int) (dim.x * scale - .5), (int) (dim.z * scale - .5), null);
+
+      //  g.rotate(-Game.getAngle(new Vector2(pos.x, pos.y), input.getScreenLoc())/57.32, Game.WIDTH * Game.SCALE / 2, Game.HEIGHT * Game.SCALE / 2);
+
+        // g.drawImage(img, (int)((iso.x - xOffset)*scale - .5), (int)((iso.y - dim.z - yOffset)*scale - .5),(int)(dim.x*scale - .5),(int)(dim.z*scale - .5), null);
 
         fireball.draw(g, camera);
     }
