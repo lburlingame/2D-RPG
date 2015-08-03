@@ -1,2 +1,2 @@
 # 2D-RPG
-2D Diablo style ARPG game using native Java graphics libraries
+2D top down ARPG using Java2D
