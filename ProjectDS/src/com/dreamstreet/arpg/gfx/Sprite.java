@@ -118,10 +118,6 @@ public class Sprite implements Comparable<Sprite>{
         GraphicsDevice gs = ge.getDefaultScreenDevice();
         GraphicsConfiguration gc = gs.getDefaultConfiguration();
 
-// Create an image that does not support transparency
-
-        BufferedImage img2 = gc.createCompatibleImage((int)dim.x, (int)dim.z, Transparency.OPAQUE);
-        Graphics2D g2 = (Graphics2D) img2.getGraphics();
 //        g.rotate(Game.getAngle(new Vector2(pos.x, pos.y), input.getScreenLoc())/57.32,Game.WIDTH * Game.SCALE / 2, Game.HEIGHT * Game.SCALE / 2);
         AffineTransform tx = new AffineTransform();
         tx.setToRotation(Game.getAngle(new Vector2(pos.x, pos.y), input.getScreenLoc())/57.32, 16,16);
