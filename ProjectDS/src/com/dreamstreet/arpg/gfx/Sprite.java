@@ -4,6 +4,7 @@ import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.input.InputComponent;
 import com.dreamstreet.arpg.item.Fireball;
 import com.dreamstreet.arpg.item.Item;
+import com.dreamstreet.arpg.obj.Collidable;
 import com.dreamstreet.arpg.obj.HitCircle;
 import com.dreamstreet.arpg.ui.DayCycle;
 
@@ -12,7 +13,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
-public class Sprite implements Comparable<Sprite>{
+public class Sprite implements Comparable<Sprite>, Collidable {
 
     private Vector3 pos;   //position
     private Vector2 dest;  //destination
@@ -26,18 +27,18 @@ public class Sprite implements Comparable<Sprite>{
 
     private BufferedImage img;
     private InputComponent input;
-    private double imgscale;
+    private double size;
     private int frame = 0;
     private int animation_timer = 3;
 
 	public Item fireball = new Item();
 
-	public Sprite(BufferedImage img, InputComponent input, double imgscale, Vector3 pos) {
+	public Sprite(BufferedImage img, InputComponent input, double size, Vector3 pos) {
         input.setCharacter(this);
 
         this.img = img;
         this.input = input;
-        this.imgscale = imgscale;
+        this.size = size;
 
         this.pos = pos;
         this.dest = new Vector2(pos.x, pos.y);
@@ -45,7 +46,7 @@ public class Sprite implements Comparable<Sprite>{
         this.MAX_VELOCITY = 3;
         this.vel = new Vector3(0,0,0);
 
-        this.dim = new Vector3(img.getWidth() * imgscale, img.getWidth() * imgscale, img.getHeight() * imgscale);
+        this.dim = new Vector3(img.getWidth() * size, img.getWidth() * size, img.getHeight() * size);
 
         this.hit = new HitCircle(new Vector3(0, -dim.z/4, 0), dim.x / 3);
     }
@@ -107,7 +108,7 @@ public class Sprite implements Comparable<Sprite>{
         double zOffset = offset.z;
         double scale = camera.getScale();
 
-        img = Game.spritesheet.getSprite((int)(dim.x/imgscale * frame), 0, 32, 32);
+        img = Game.spritesheet.getSprite((int)(dim.x/ size * frame), 0, 32, 32);
 
         g.setColor(new Color(0, 0, 0, (int)(DayCycle.max_darkness * 110 + 40)));
         g.fillOval((int)((pos.x - dim.x/2 - xOffset) * scale),(int)((pos.y - yOffset - dim.z / 6 - zOffset)* scale),(int)(dim.x*scale),(int)(dim.z*scale)/2);
@@ -120,7 +121,7 @@ public class Sprite implements Comparable<Sprite>{
 
 //        g.rotate(Game.getAngle(new Vector2(pos.x, pos.y), input.getScreenLoc())/57.32,Game.WIDTH * Game.SCALE / 2, Game.HEIGHT * Game.SCALE / 2);
         AffineTransform tx = new AffineTransform();
-        tx.setToRotation(Game.getAngle(new Vector2(pos.x, pos.y), input.getScreenLoc())/57.32, 16,16);
+      //  tx.setToRotation(Game.getAngle(new Vector2(pos.x, pos.y), input.getScreenLoc())/57.32, 16,16);
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
 
         // Turret shadow
@@ -141,7 +142,7 @@ public class Sprite implements Comparable<Sprite>{
         double scale = camera.getScale();
 
         g.setColor(Color.green);
-      //  g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * imgscale * scale), (int) (height * imgscale * scale)); //draws rectangle around char
+      //  g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * size * scale), (int) (height * size * scale)); //draws rectangle around char
         g.fillRect((int)((pos.x-xOffset)*scale), (int)((pos.y - yOffset)*scale),5,5);  // draws rect at character's "feet"
         if (Math.abs(vel.x) > 0 || Math.abs(vel.y) > 0) {
             g.drawOval((int)((dest.x - xOffset - 1.2)*scale), (int) ((dest.y - yOffset - .6) * scale),(int)(1.2*scale*2)+1,(int)(1.2*scale)+1); // draws rectangle at character's destination point
@@ -151,7 +152,7 @@ public class Sprite implements Comparable<Sprite>{
         g.setColor(Color.red);
         g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius() - xOffset) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius() - yOffset) * scale), (int)(hit.getRadius() * 2 * scale), (int)(hit.getRadius() * 2 * scale));
 
-     //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * imgscale * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
+     //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, (int) ((iso.x - xOffset) * scale + (int) (width * size * scale * 1.05)), (int) ((iso.y - yOffset) * scale) + 20);
     }
 
 
@@ -261,7 +262,7 @@ public class Sprite implements Comparable<Sprite>{
         return 0;
     }
 
-    public boolean collidesWith(Sprite other) {
+    public boolean collidesWith(Collidable other) {
 
 
         Vector3 hitCenter = hit.getCenter();
@@ -279,28 +280,20 @@ public class Sprite implements Comparable<Sprite>{
         return false;
     }
 
-    public boolean collidesWith(Fireball other) {
-
-
-        Vector3 hitCenter = hit.getCenter();
-        Vector2 thistemp = new Vector2(pos.x + hitCenter.x, pos.y + hitCenter.y);
-
-        HitCircle o = other.getHit();
-        Vector3 oCenter = o.getCenter();
-        Vector2 otemp = new Vector2(other.getX() + oCenter.x, other.getY() + oCenter.y);
-        // System.out.println(Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y));
-
-        if (Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y) <= (hit.getRadius() + o.getRadius())) {
-            return true;
-        }
-        return false;
-    }
-
     public HitCircle getHit() {
         return hit;
     }
 }
 
+
+/* attack(Entity target)
+
+    target.takeDamage(AttackReport rep)
+
+    sprite implements collidable
+    fireball implements collidable
+
+ */
 
 
 /*

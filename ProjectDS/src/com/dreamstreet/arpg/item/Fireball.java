@@ -1,6 +1,7 @@
 package com.dreamstreet.arpg.item;
 
 import com.dreamstreet.arpg.gfx.*;
+import com.dreamstreet.arpg.obj.Collidable;
 import com.dreamstreet.arpg.obj.HitCircle;
 
 import java.awt.*;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Created on 4/18/2015.
  */
-public class Fireball {
+public class Fireball implements Collidable {
 
     private static BufferedImage FIREBALL;
     private static SpriteSheet spellsheet = new SpriteSheet("/effects/fireball.png");
@@ -97,5 +98,10 @@ public class Fireball {
 
     public double getY() {
         return pos.y;
+    }
+
+    @Override
+    public boolean collidesWith(Collidable other) {
+        return false;
     }
 }
