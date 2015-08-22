@@ -28,9 +28,9 @@ public class Item {
 
     }
 
-    public int charge(Vector2 loc) {
+    public int charge(Vector3 loc) {
         if (available) {
-            current = new Fireball(new Vector3(loc.x +(base_radius), loc.y + (base_radius), 0),0,0,base_radius);
+            current = new Fireball(new Vector3(loc.x +(base_radius), loc.y + (base_radius), loc.z),0,0,base_radius);
             fireballs.add(current);
             current_power = 0;
             charging = true;

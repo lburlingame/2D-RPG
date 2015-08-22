@@ -1,6 +1,7 @@
 package com.dreamstreet.arpg.gfx;
 
 import com.dreamstreet.arpg.Game;
+import com.dreamstreet.arpg.obj.Entity;
 
 /**
  * Created on 3/22/2015.
@@ -26,9 +27,9 @@ public class Camera {
     private double scale;
     private double zoom;
 
-    private Sprite target;
+    private Entity target;
 
-    public Camera(Sprite target) {
+    public Camera(Entity target) {
         this.target = target;
 
         SCREEN_CENTER_X = Game.WIDTH * Game.SCALE / 2;
@@ -72,7 +73,7 @@ public class Camera {
         this.yOffset = target.getY() - (SCREEN_CENTER_Y + target.getHeight()/4 * scale) / scale;
     }
 
-    public void setTarget(Sprite target) {
+    public void setTarget(Entity target) {
         this.target = target;
         zOffset = 0;//-target.getHeight();
         centerCamera();

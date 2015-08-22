@@ -1,5 +1,6 @@
-package com.dreamstreet.arpg.obj;
+package com.dreamstreet.arpg.exclude;
 
+import com.dreamstreet.arpg.exclude.Mob;
 import com.dreamstreet.arpg.gfx.Camera;
 import com.dreamstreet.arpg.input.InputComponent;
 

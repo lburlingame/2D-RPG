@@ -1,10 +1,8 @@
 package com.dreamstreet.arpg.input;
 
 import com.dreamstreet.arpg.Game;
-import com.dreamstreet.arpg.gfx.Sprite;
 import com.dreamstreet.arpg.gfx.Vector2;
-
-import java.awt.*;
+import com.dreamstreet.arpg.obj.Entity;
 
 
 /**
@@ -13,7 +11,7 @@ import java.awt.*;
 public abstract class InputComponent {
 
     protected Game game;
-    protected Sprite character;
+    protected Entity character;
 
     public InputComponent(Game game) {
         this.game = game;
@@ -21,7 +19,7 @@ public abstract class InputComponent {
 
     public abstract void tick();
 
-    public void setCharacter(Sprite character) {
+    public void setCharacter(Entity character) {
         this.character = character;
     }
 

@@ -18,11 +18,11 @@ public class BloodParticle extends Particle {
     private static SpriteSheet part3sheet = new SpriteSheet("/effects/blood_spat3.png");
     private static SpriteSheet part4sheet = new SpriteSheet("/effects/blood_spat4.png");
     private static SpriteSheet part5sheet = new SpriteSheet("/effects/blood_spat5.png");
-
+    // combine into 1 sheet
 
     public BloodParticle(Vector3 pos, Vector3 v) {
         super(pos, v);
-        duration = (int)((Math.random() * 60) + 120);
+        duration = (int)((Math.random() * 240) + 240);
 
         if (images == null) {
             images = new ArrayList<>();
@@ -31,7 +31,6 @@ public class BloodParticle extends Particle {
             images.add(part3sheet.getSprite(0,0,16,16));
             images.add(part4sheet.getSprite(0,0,16,16));
             images.add(part5sheet.getSprite(0,0,16,16));
-
         }
         img = images.get((int)(Math.random() * 5));
     }
@@ -67,11 +66,10 @@ public class BloodParticle extends Particle {
     @Override
     public void draw(Graphics g, Camera camera) {
         Vector3 offset = camera.getOffset();
-        double xOffset = offset.x;
-        double yOffset = offset.y;
+
         double scale = camera.getScale();
 
-        g.drawImage(img, (int)((pos.x-xOffset)*scale), (int)((pos.y-yOffset)*scale), (int)(16*scale), (int)(16*scale), null);
+        g.drawImage(img, (int)((pos.x-offset.x)*scale), (int)((pos.y-offset.y+pos.z)*scale), (int)(16*scale), (int)(16*scale), null);
     }
 
 

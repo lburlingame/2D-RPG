@@ -1,11 +1,12 @@
-package com.dreamstreet.arpg.obj;
+package com.dreamstreet.arpg.exclude;
 
 import com.dreamstreet.arpg.gfx.Direction;
+import com.dreamstreet.arpg.obj.Entity;
 
 /**
  * Created on 3/26/2015.
  */
-public abstract class Mob extends Entity{
+public abstract class Mob extends Entity {
 
     protected double dest_x;
     protected double dest_y;

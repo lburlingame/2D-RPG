@@ -25,5 +25,13 @@ public class SpriteSheet {
 	public BufferedImage getSprite(int x, int y, int width, int height){
 		return image.getSubimage(x, y, width, height);
 	}
+
+	public int getWidth() {
+		return image.getWidth();
+	}
+
+	public int getHeight() {
+		return image.getHeight();
+	}
 }
 

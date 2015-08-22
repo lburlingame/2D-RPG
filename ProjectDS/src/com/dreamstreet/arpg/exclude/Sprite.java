@@ -1,8 +1,8 @@
-package com.dreamstreet.arpg.gfx;
+package com.dreamstreet.arpg.exclude;
 
 import com.dreamstreet.arpg.Game;
+import com.dreamstreet.arpg.gfx.*;
 import com.dreamstreet.arpg.input.InputComponent;
-import com.dreamstreet.arpg.item.Fireball;
 import com.dreamstreet.arpg.item.Item;
 import com.dreamstreet.arpg.obj.Collidable;
 import com.dreamstreet.arpg.obj.HitCircle;
@@ -48,7 +48,7 @@ public class Sprite implements Comparable<Sprite>, Collidable {
 
         this.dim = new Vector3(img.getWidth() * size, img.getWidth() * size, img.getHeight() * size);
 
-        this.hit = new HitCircle(new Vector3(0, -dim.z/4, 0), dim.x / 3);
+        this.hit = new HitCircle(new Vector3(0, -dim.z/8, 0), dim.x / 3);
     }
 
     public void tick() {
@@ -189,6 +189,10 @@ public class Sprite implements Comparable<Sprite>, Collidable {
         vel.z = -4.5;
     }
 
+    public Vector3 getPosition() {
+        return new Vector3(pos.x,pos.y,pos.z);
+    }
+
     public double getX() {
         return pos.x;
     }
@@ -263,20 +267,16 @@ public class Sprite implements Comparable<Sprite>, Collidable {
     }
 
     public boolean collidesWith(Collidable other) {
-
-
         Vector3 hitCenter = hit.getCenter();
-        Vector2 thistemp = new Vector2(pos.x + hitCenter.x, pos.y + hitCenter.y);
 
+        Vector3 opos = other.getPosition();
         HitCircle o = other.getHit();
         Vector3 oCenter = o.getCenter();
-        Vector2 otemp = new Vector2(other.getX() + oCenter.x, other.getY() + oCenter.y);
-       // System.out.println(Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y));
 
-        if (Util.findDistance(thistemp.x - otemp.x, thistemp.y - otemp.y) <= (hit.getRadius() + o.getRadius())) {
-
+        if (Util.findDistance(pos.x + hitCenter.x - opos.x + oCenter.x, pos.y + hitCenter.y - opos.y + oCenter.y) <= (hit.getRadius() + o.getRadius())) {
             return true;
         }
+
         return false;
     }
 

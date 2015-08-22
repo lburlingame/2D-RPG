@@ -56,16 +56,14 @@ public class Fireball implements Collidable {
 
     public void draw(Graphics g, Camera camera) {
         Vector3 offset = camera.getOffset();
-        double xOffset = offset.x;
-        double yOffset = offset.y;
         double scale = camera.getScale();
 
 
-        g.drawImage(FIREBALL, (int)((pos.x-xOffset - radius)*scale), (int)((pos.y-yOffset- radius)*scale), (int)((radius *2)*scale), (int)((radius * 2)*scale), null);
+        g.drawImage(FIREBALL, (int)((pos.x-offset.x - radius)*scale), (int)((pos.y-offset.y-radius + pos.z)*scale), (int)((radius *2)*scale), (int)((radius * 2)*scale), null);
 
         g.setColor(Color.green);
 
-        g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius() * 7 / 5 - xOffset) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius() * 7 / 10 - yOffset) * scale), (int)(hit.getRadius() * 14 / 5 * scale), (int)(hit.getRadius() * 7 / 5 * scale));
+        g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius() * 7 / 5 - offset.x) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius() * 7 / 10 - offset.y) * scale), (int)(hit.getRadius() * 14 / 5 * scale), (int)(hit.getRadius() * 7 / 5 * scale));
 
     }
 
@@ -91,6 +89,12 @@ public class Fireball implements Collidable {
     public HitCircle getHit() {
         return hit;
     }
+
+
+    public Vector3 getPosition() {
+        return new Vector3(pos.x,pos.y,pos.z);
+    }
+
 
     public double getX() {
         return pos.x;

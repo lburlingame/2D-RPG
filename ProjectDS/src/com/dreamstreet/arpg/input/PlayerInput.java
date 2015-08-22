@@ -2,6 +2,7 @@ package com.dreamstreet.arpg.input;
 
 import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.gfx.*;
+import com.dreamstreet.arpg.obj.Entity;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
@@ -36,6 +37,8 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
         game.addMouseMotionListener(this);
         game.addMouseWheelListener(this);
 
+
+        // move mouse cursor stuff back to Game?
         toolkit = Toolkit.getDefaultToolkit();
 
         icon_unclicked = toolkit.getImage("res/gui/d2_cursor.png");
@@ -72,57 +75,64 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
 
     @Override
     public void keyPressed(KeyEvent e) {
-        /*toggleKey(e.getKeyCode(), true);*/
-        if (e.getKeyCode() == KeyEvent.VK_S) {
-            character.stop();
-            stopped = true;
+        switch(e.getKeyCode())
+        {
+            case KeyEvent.VK_S:
+                character.stop();
+                stopped = true;
+                break;
+            case KeyEvent.VK_SHIFT:
+                character.sprint();
+                break;
+            case KeyEvent.VK_CONTROL:
+                character.walk();
         }
     }
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_Q) {
-            game.emitter.bloodSpatter(new Vector3(character.getX() - character.getWidth()/2,character.getY() - character.getHeight()/2, character.getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
-        }
+        switch(e.getKeyCode())
+        {
+            case KeyEvent.VK_Q:
+                game.emitter.bloodSpatter(new Vector3(character.getX() - character.getWidth() / 2, character.getY() - character.getHeight() / 2, character.getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
+                break;
+            case KeyEvent.VK_SHIFT:
+                character.run();
+                break;
+            case KeyEvent.VK_CONTROL:
+                character.run();
+                break;
+            case KeyEvent.VK_M:
+                if (game.audioPlay) {
+                    game.music.stop();
+                }else{
+                    game.music.start();
+                }
+                game.audioPlay = !game.audioPlay;
+                break;
+            case KeyEvent.VK_SPACE:
+                character.jump();
+                break;
+            case KeyEvent.VK_ESCAPE:
+                System.exit(1);
+                break;
+            case KeyEvent.VK_P:
+                if (game.isRunning()) {
+                    game.stop();
+                }else{
+                    game.start();
+                }
+                break;
+            case KeyEvent.VK_O:
+                game.changeCharacter();
+                break;
+            case KeyEvent.VK_I:
+                game.debug = !game.debug;
+                break;
+            case KeyEvent.VK_G:
+                character.smult *= 1.03;
+                character.changeSize();
+                break;
 
-
-        if (e.getKeyCode() == KeyEvent.VK_A) {
-        }
-        if (e.getKeyCode() == KeyEvent.VK_D) {
-        }
-
-        if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
-        }
-
-        if (e.getKeyCode() == KeyEvent.VK_M) {
-            if (game.audioPlay) {
-                game.music.stop();
-                game.audioPlay = false;
-            }else{
-                game.music.start();
-                game.audioPlay = true;
-            }
-        }
-
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            character.jump();
-        }
-
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            System.exit(1);
-        }
-        if (e.getKeyCode() == KeyEvent.VK_P) {
-            if (game.isRunning()) {
-                game.stop();
-            }else{
-                game.start();
-            }
-        }
-
-        if (e.getKeyCode() == KeyEvent.VK_O) {
-            game.changeCharacter();
-        }
-        if (e.getKeyCode() == KeyEvent.VK_I) {
-            game.debug = !game.debug;
         }
     }
 
@@ -148,12 +158,12 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             mLoc.y -= frameLoc.y;//- (camera.getzOffset() * camera.getScale());
             //mLoc = Iso.isoTo2D(mLoc);
 
-            character.fireball.use(new Vector2(character.getX()- character.getWidth()/2,character.getY()- character.getHeight()/2), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
+            character.fireball.use(new Vector2(character.getX()- character.getWidth()/2,character.getY()- 24), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
 
         }else if (e.getButton() == MouseEvent.BUTTON3) {
             character.stop();
             stopped = true;
-            character.fireball.charge(new Vector2(character.getX() - character.getWidth()/2,character.getY() - character.getHeight()/2));
+            character.fireball.charge(new Vector3(character.getX() - character.getWidth()/2,character.getY(), -character.getHeight()/4));
         }
 
         game.setCursor(cursor_clicked);
@@ -172,7 +182,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             mLoc.x -= frameLoc.x;
             mLoc.y -= frameLoc.y;//- (camera.getzOffset() * camera.getScale());
 
-            character.fireball.use(new Vector2(character.getX()- character.getWidth()/2,character.getY()- character.getHeight()/2), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
+            character.fireball.use(new Vector2(character.getX()- character.getWidth()/2,character.getY()- 24), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
         }
 
         game.setCursor(cursor_unclicked);
@@ -214,7 +224,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
         return game.getLocationOnScreen();
     }
 
-    public void setCharacter(Sprite character) {
+    public void setCharacter(Entity character) {
         this.character = character;
     }
 

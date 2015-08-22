@@ -1,5 +1,6 @@
 package com.dreamstreet.arpg.gfx;
 
+import com.dreamstreet.arpg.obj.Entity;
 import com.dreamstreet.arpg.ui.DayCycle;
 
 import java.awt.*;
@@ -89,7 +90,7 @@ public class TileMap {
     }
 
 
-	public void draw(Graphics2D g, Camera camera,Sprite charx, DayCycle cycle){
+	public void draw(Graphics2D g, Camera camera, Entity charx, DayCycle cycle){
         Vector3 offset = camera.getOffset();
         double xOffset = offset.x;
         double yOffset = offset.y;
@@ -119,7 +120,7 @@ public class TileMap {
             for (int x = startX; x < endX; x++) {
                 if (tiles[y][x] != null) {
                     Vector3 curr = new Vector3(x * 32, y * 32, tiles[y][x].z);
-                    g.drawImage(Textures.getTile(tiles[y][x].id),(int)((curr.x-xOffset)*scale),(int)((curr.y-yOffset-zOffset)*scale),(int)(tiles[y][x].width*scale + 1),(int)(tiles[y][x].height*scale + 1),null);
+                    g.drawImage(SpriteLoader.getTile(tiles[y][x].id),(int)((curr.x-xOffset)*scale),(int)((curr.y-yOffset-zOffset)*scale),(int)(tiles[y][x].width*scale + 1),(int)(tiles[y][x].height*scale + 1),null);
                     float opacity = 1.0f;
                   //  if (player != null) {
                         double distance = Util.findDistance(x - player.x, y - player.y);

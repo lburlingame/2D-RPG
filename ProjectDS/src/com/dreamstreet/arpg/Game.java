@@ -11,6 +11,7 @@ import com.dreamstreet.arpg.gfx.particle.ParticleEmitter;
 import com.dreamstreet.arpg.input.NPCInput;
 import com.dreamstreet.arpg.input.PlayerInput;
 import com.dreamstreet.arpg.item.Fireball;
+import com.dreamstreet.arpg.obj.Entity;
 import com.dreamstreet.arpg.sfx.AudioPlayer;
 import com.dreamstreet.arpg.ui.DayCycle;
 import com.dreamstreet.arpg.ui.MessageBox;
@@ -22,8 +23,8 @@ import java.util.Collections;
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	//public static final int WIDTH = 640;  // 1920x1080
-	public static final int WIDTH = 480; // 480
+	public static final int WIDTH = 640;  // 1920x1080
+	//public static final int WIDTH = 480; // 480
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
     public static final Dimension dimension = new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
@@ -34,7 +35,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
 
 	private boolean running = false;
-    public boolean debug = false;
+    public static boolean debug = false;
 
 	//map
 	private TileMap map = new TileMap("res/levels/isotest3_map.txt");
@@ -45,30 +46,15 @@ public class Game extends Canvas implements Runnable {
 
 
     //spritesheets for map and character
-    public static SpriteSheet spritesheet = new SpriteSheet("/sprites/bear_sheet.png");
 
-    private SpriteSheet skulltulasheet = new SpriteSheet("/sprites/skulltula_sprite.png");
-    private SpriteSheet kodamasheet = new SpriteSheet("/sprites/kodama_sprite.png");
-    private SpriteSheet skeletonsheet = new SpriteSheet("/sprites/skeleton_sprite.png");
-    private SpriteSheet nofacesheet = new SpriteSheet("/sprites/noface_sprite.png");
+    private Entity character = new Entity(1, new PlayerInput(this, camera), 1.0, new Vector3(50,50,0));
+    private Entity skulltula = new Entity(1, new NPCInput(this), 2.0, new Vector3(170,170,0));
+    private Entity character1 = new Entity(1, new NPCInput(this), 1.0, new Vector3(50,50,0));
+    private Entity character2 = new Entity(1, new NPCInput(this), 1.0, new Vector3(180,20,0));
+    private Entity character3 = new Entity(1, new NPCInput(this), 1.0, new Vector3(20,180,0));
 
-
-    //character image and sprite
-
-    private BufferedImage spritechar = spritesheet.getSprite(0,0,32,32);
-    private BufferedImage skulltulachar = skulltulasheet.getSprite(0,0,32,32);
-    private BufferedImage kodamachar = kodamasheet.getSprite(0,0,32,32);
-    private BufferedImage skeletonchar = skeletonsheet.getSprite(0,0,32,32);
-    private BufferedImage nofacechar = nofacesheet.getSprite(0,0,32,32);
-
-    private Sprite character = new Sprite(spritechar, new PlayerInput(this, camera), 1.0, new Vector3(50,50,0));
-    private Sprite skulltula = new Sprite(spritechar, new NPCInput(this), 2.0, new Vector3(170,170,0));
-    private Sprite character1 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(50,50,0));
-    private Sprite character2 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(180,20,0));
-    private Sprite character3 = new Sprite(spritechar, new NPCInput(this), 1.0, new Vector3(20,180,0));
-
-    private ArrayList<Sprite> chars = new ArrayList<Sprite>();
-    private Sprite SELECTED;
+    private ArrayList<Entity> chars = new ArrayList<>();
+    private Entity SELECTED;
 
     private UI ui = new UI();
     private DayCycle dayCycle = new DayCycle(dimension.width - 96, 64, 48);
@@ -231,9 +217,6 @@ public class Game extends Canvas implements Runnable {
 
         if (debug) {
             drawDebug(g);
-            for (int i = 0; i < chars.size(); i++) {
-                chars.get(i).drawDebug(g, camera);
-            }
         }
 
 

@@ -20,7 +20,10 @@ public class UI {
     private SpriteSheet orbsheet = new SpriteSheet("/gui/orb_base.png");
     private BufferedImage baseorb = orbsheet.getSprite(0,0,64,64);
 
+    private ActionBar ab = new ActionBar();
+
     public int x;
+    public int x2;
     public int y;
     public double currhealth;
     public double maxhealth;
@@ -29,8 +32,10 @@ public class UI {
     public double maxmana;
 
     public UI() {
-        x = 350;
-        y = Game.HEIGHT * Game.SCALE;
+        x = (int)Game.dimension.getWidth()/2 - 48*3-128;
+        y = (int)Game.dimension.getHeight();
+
+        x2 = (int)Game.dimension.getWidth()/2 + 48*3;
         currhealth = 1000;
         maxhealth = 1000;
 
@@ -49,8 +54,10 @@ public class UI {
         g.drawImage(healthorb,x,y-(int)(currhealth/maxhealth*128),x+128,y,0,64-(int)(currhealth/maxhealth*64),64,64,null);
         g.drawImage(baseorb,x-1,y-129,130,130,null);
 
-        g.drawImage(manaorb,x+600,y-(int)(currmana/maxmana*128),x+728,y,0,64-(int)(currmana/maxmana*64),64,64,null);
-        g.drawImage(baseorb,x+599,y-129,130,130,null);
+        g.drawImage(manaorb,x2,y-(int)(currmana/maxmana*128),x2+129,y,0,64-(int)(currmana/maxmana*64),64,64,null);
+        g.drawImage(baseorb,x2,y-129,130,130,null);
+
+        ab.draw(g);
     }
 
 
