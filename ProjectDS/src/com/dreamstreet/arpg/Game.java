@@ -38,7 +38,7 @@ public class Game extends Canvas implements Runnable {
     public static boolean debug = false;
 
 	//map
-	private TileMap map = new TileMap("res/levels/isotest3_map.txt");
+	private TileMap map = new TileMap("res/levels/test_map.txt");
 
     private Camera camera = new Camera(null);
 

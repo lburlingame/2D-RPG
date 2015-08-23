@@ -63,10 +63,13 @@ public class TileMap {
                             tiles[rows][columns] = null;
                         }else if(id < 100){
                             boolean walkable = true;
-                            if (id == 3) {
+                          /*  if (id == 3) {
                                 walkable = false;
+                            }*/
+                            if (id == 1)
+                            {
+                                tiles[rows][columns] = new Tile(columns, rows, 0, 32,32,(int)(Math.random()*3)+1, walkable);
                             }
-                            tiles[rows][columns] = new Tile(columns, rows, 0, 32,32,id, walkable);
                         }else if(id >= 100){
                             tiles[rows][columns] = new Tile(columns, rows, -15, 32,32,1, true);
                         }
