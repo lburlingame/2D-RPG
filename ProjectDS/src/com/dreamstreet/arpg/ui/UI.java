@@ -57,7 +57,7 @@ public class UI {
     public void draw(Graphics g) {
         EntityInfo info = character.getInfo();
 
-        g.drawImage(healthorb,x,y-(int)(info.getCurrHealth()/info.getMaxHealth()*128),x+128,y,0,64-(int)(info.getCurrHealth()/info.getMaxHealth()*64),64,64,null);
+        g.drawImage(healthorb,x,y-(int)((double)info.getCurrHealth()/info.getMaxHealth()*128),x+128,y,0,64-(int)((double)info.getCurrHealth()/info.getMaxHealth()*64),64,64,null);
         g.drawImage(baseorb,x-1,y-129,130,130,null);
 
         g.drawImage(manaorb,x2,y-(int)(currmana/maxmana*128),x2+129,y,0,64-(int)(currmana/maxmana*64),64,64,null);

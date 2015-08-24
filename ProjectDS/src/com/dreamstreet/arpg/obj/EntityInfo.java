@@ -21,7 +21,7 @@ public class EntityInfo {
     public int NEXT_LEVEL_EXP;
 
     public EntityInfo() {
-        current_health = 999;
+        current_health = 1000;
         MAX_HEALTH = 1000;
         current_mana = MAX_MANA = 1000;
 

@@ -102,7 +102,7 @@ public class Game extends Canvas implements Runnable {
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = true; // false here limits to 60 fps
+			boolean shouldRender = false; // false here limits to 60 fps
 
 			while(delta>=1){
 				ticks++;
@@ -111,16 +111,16 @@ public class Game extends Canvas implements Runnable {
 				shouldRender = true;
 			}
 
-			/*try{
+			try{
 				Thread.sleep(2);
 			}catch(InterruptedException e){
 				e.printStackTrace();
-			}*/
-
-			if(shouldRender){
-				frames++;
-				render();
 			}
+
+            if(shouldRender){
+                frames++;
+                render();
+            }
 
 			if(System.currentTimeMillis()-lastTimer >= 1000){
 				lastTimer+=1000;
@@ -157,7 +157,6 @@ public class Game extends Canvas implements Runnable {
                             if (!alive) {
                                 break;
                             }
-
                         }
                     }
 

@@ -3,6 +3,7 @@ package com.dreamstreet.arpg.obj;
 import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.gfx.*;
 import com.dreamstreet.arpg.input.InputComponent;
+import com.dreamstreet.arpg.input.PlayerInput;
 import com.dreamstreet.arpg.item.Item;
 import com.dreamstreet.arpg.ui.DayCycle;
 
@@ -73,7 +74,7 @@ public class Entity implements Comparable<Entity>, Collidable {
 
     public void tick() {
         input.tick();
-
+/*
         if ((pos.x + (vel.x * vmult) > dest.x && vel.x > 0) || (pos.x + (vel.x  * vmult) < dest.x && vel.x < 0)) {
             vel.x = 0;
             pos.x = dest.x;
@@ -81,7 +82,7 @@ public class Entity implements Comparable<Entity>, Collidable {
         if ((pos.y + (vel.y * vmult) > dest.y && vel.y > 0) || (pos.y + (vel.y * vmult) < dest.y && vel.y < 0)) {
             vel.y = 0;
             pos.y = dest.y;
-        }
+        }*/
 
         if (pos.z < 0 || vel.z < 0) {
             vel.z += GRAVITY;
@@ -126,15 +127,23 @@ public class Entity implements Comparable<Entity>, Collidable {
         gfx.draw(g, camera);
         fireball.draw(g, camera);
 
-        if (Game.debug) {
-            drawDebug(g, camera);
+        if (Game.debug || input instanceof PlayerInput) {
+
+            if (Game.debug)
+            {
+                drawDebug(g, camera);
+            }
+            if (Math.abs(vel.x) > 0 || Math.abs(vel.y) > 0) {
+                g.setColor(Color.green);
+                g.drawOval((int) ((dest.x - offset.x - 1.2) * scale), (int) ((dest.y - offset.y - .6) * scale), (int) (1.2 * scale * 2) + 1, (int) (1.2 * scale) + 1);
+            }
         }
 
-        g.setColor(Color.white);
-        g.fillRect((int) ((pos.x - offset.x - 16) * scale), (int) ((pos.y - offset.y - dim.y) * scale), (int) (32 * scale), (int) (8 * scale));  // draws rect at character's "feet"
-
         g.setColor(Color.red);
-        g.fillRect((int) ((pos.x - offset.x - 16) * scale), (int) ((pos.y - offset.y - dim.y) * scale), (int)((double)info.getCurrHealth()/info.getMaxHealth() *32*scale), (int)(8*scale));  // draws rect at character's "feet"
+        g.fillRect((int) ((pos.x - offset.x - dim.x / 2) * scale), (int) ((pos.y - offset.y - dim.y + pos.z + (dim.y * scale * .05)) * scale), (int) (dim.x* scale), (int) (4 * scale));  // draws rect at character's "feet"
+
+        g.setColor(Color.green);
+        g.fillRect((int) ((pos.x - offset.x - dim.x / 2) * scale), (int) ((pos.y - offset.y - dim.y + pos.z + (dim.y * scale * .05)) * scale), (int)((double)info.getCurrHealth()/info.getMaxHealth() * dim.x*scale), (int)(4*scale));  // draws rect at character's "feet"
     }
 
     public void drawDebug(Graphics g, Camera camera) {
@@ -147,9 +156,7 @@ public class Entity implements Comparable<Entity>, Collidable {
         g.setColor(Color.green);
         //  g.drawRect((int) ((iso.x - xOffset) * scale), (int) ((iso.y - yOffset) * scale), (int) (width * smult * scale), (int) (height * smult * scale)); //draws rectangle around char
         g.fillRect((int) ((pos.x - xOffset) * scale), (int) ((pos.y - yOffset) * scale), 5, 5);  // draws rect at character's "feet"
-        if (Math.abs(vel.x) > 0 || Math.abs(vel.y) > 0) {
-            g.drawOval((int)((dest.x - xOffset - 1.2)*scale), (int) ((dest.y - yOffset - .6) * scale),(int)(1.2*scale*2)+1,(int)(1.2*scale)+1); // draws rectangle at character's destination point
-        }
+
 
         //g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius()) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius()) * scale), (int)(hit.getRadius() * 2 * scale), (int)(hit.getRadius() * 2 * scale));
         g.setColor(Color.red);

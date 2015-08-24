@@ -77,7 +77,20 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode())
         {
+            case KeyEvent.VK_W:
+                character.setDy(-3);
+                break;
             case KeyEvent.VK_S:
+                character.setDy(3);
+                break;
+            case KeyEvent.VK_A:
+                character.setDx(-3);
+                break;
+            case KeyEvent.VK_D:
+                character.setDx(3);
+                break;
+
+            case KeyEvent.VK_H:
                 character.stop();
                 stopped = true;
                 break;
@@ -92,6 +105,27 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
     public void keyReleased(KeyEvent e) {
         switch(e.getKeyCode())
         {
+            case KeyEvent.VK_W:
+                if (character.getDy() == -3)
+                character.setDy(0);
+                break;
+
+            case KeyEvent.VK_S:
+                if (character.getDy() == 3)
+                    character.setDy(0);
+                break;
+
+            case KeyEvent.VK_A:
+                if (character.getDx() == -3)
+                    character.setDx(0);
+                break;
+
+            case KeyEvent.VK_D:
+                if (character.getDx() == 3)
+                    character.setDx(0);
+                break;
+
+
             case KeyEvent.VK_Q:
                 game.emitter.bloodSpatter(new Vector3(character.getX() - character.getWidth() / 2, character.getY() - character.getHeight() / 2, character.getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
                 break;
@@ -122,9 +156,6 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
                     game.start();
                 }
                 break;
-            case KeyEvent.VK_O:
-                game.changeCharacter();
-                break;
             case KeyEvent.VK_I:
                 game.debug = !game.debug;
                 break;
@@ -149,7 +180,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
         if (e.getButton() == MouseEvent.BUTTON1) {
             //    character.move(e.getX() / camera.getScale() + camera.getXOffset(), e.getY() / camera.getScale() + camera.getYOffset());
             stopped = false;
-            clicked = true;
+            clicked = false;  // true for mouse movement
             Vector3 offset = camera.getOffset();
 
             Point mLoc = MouseInfo.getPointerInfo().getLocation();
@@ -236,7 +267,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
         //mLoc = Iso.isoTo2D(mLoc);
 
         Vector2 target = new Vector2(0,0);
-        target.x = mLoc.getX() / camera.getScale() +camera.getOffset().x;
+        target.x = mLoc.getX() / camera.getScale() + camera.getOffset().x;
         target.y = mLoc.getY() / camera.getScale() + camera.getOffset().y;
 
         return target;
