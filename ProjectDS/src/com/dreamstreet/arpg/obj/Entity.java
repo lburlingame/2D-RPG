@@ -34,14 +34,20 @@ public class Entity implements Comparable<Entity>, Collidable {
 
     private GraphicsComponent gfx;
     private InputComponent input;
+
+
     public double smult; // size multiplier
 
 
     public Item fireball = new Item();
+    private EntityInfo info;
 
     public Entity(int id, InputComponent input, double smult, Vector3 pos) {
         input.setCharacter(this);
         gfx = new GraphicsComponent(this);
+
+        info = new EntityInfo();
+
         this.id = id;
 
         this.input = input;
@@ -123,6 +129,12 @@ public class Entity implements Comparable<Entity>, Collidable {
         if (Game.debug) {
             drawDebug(g, camera);
         }
+
+        g.setColor(Color.white);
+        g.fillRect((int) ((pos.x - offset.x - 16) * scale), (int) ((pos.y - offset.y - dim.y) * scale), (int) (32 * scale), (int) (8 * scale));  // draws rect at character's "feet"
+
+        g.setColor(Color.red);
+        g.fillRect((int) ((pos.x - offset.x - 16) * scale), (int) ((pos.y - offset.y - dim.y) * scale), (int)((double)info.getCurrHealth()/info.getMaxHealth() *32*scale), (int)(8*scale));  // draws rect at character's "feet"
     }
 
     public void drawDebug(Graphics g, Camera camera) {
@@ -280,6 +292,10 @@ public class Entity implements Comparable<Entity>, Collidable {
         return false;
     }
 
+    public boolean takeDamage(int damage) {
+        return info.takeDamage(damage);
+    }
+
     public HitCircle getHit() {
         return hit;
     }
@@ -294,6 +310,10 @@ public class Entity implements Comparable<Entity>, Collidable {
 
     public int getID() {
         return id;
+    }
+
+    public EntityInfo getInfo() {
+        return info;
     }
 }
 

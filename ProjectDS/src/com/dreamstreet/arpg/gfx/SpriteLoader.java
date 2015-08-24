@@ -38,6 +38,9 @@ public class SpriteLoader {
             TILE_GRASS.add(tilesheet.getSprite(0,0,32, 32));//1
             TILE_GRASS.add(tilesheet.getSprite(32,0,32,32));//1
             TILE_GRASS.add(tilesheet.getSprite(64,0,32,32));//1
+            TILE_GRASS.add(tilesheet.getSprite(96,0,32,32));//1
+            TILE_GRASS.add(tilesheet.getSprite(128,0,32,32));//1
+
         }
         return TILE_GRASS.get(id - 1);
     }

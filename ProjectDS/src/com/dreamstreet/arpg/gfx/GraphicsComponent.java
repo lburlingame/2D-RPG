@@ -54,7 +54,7 @@ public class GraphicsComponent {
         BufferedImage img =  SpriteLoader.getSprite(character.getID(), frame);
 
         g.setColor(new Color(0, 0, 0, (int)(DayCycle.max_darkness * 110 + 40)));
-        g.fillOval((int)((pos.x - dim.x/2 - offset.x) * scale),(int)((pos.y - offset.y - dim.z / 6 - offset.z)* scale),(int)(dim.x*scale),(int)(dim.z*scale)/2);
+        g.fillOval((int)((pos.x - dim.x/2 - offset.x) * scale - .5),(int)((pos.y - offset.y - dim.z / 6)* scale),(int)(dim.x*scale),(int)(dim.z*scale)/2);
 
 
 

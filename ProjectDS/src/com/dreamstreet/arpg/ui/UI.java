@@ -2,6 +2,8 @@ package com.dreamstreet.arpg.ui;
 
 import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.gfx.SpriteSheet;
+import com.dreamstreet.arpg.obj.Entity;
+import com.dreamstreet.arpg.obj.EntityInfo;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -22,6 +24,8 @@ public class UI {
 
     private ActionBar ab = new ActionBar();
 
+    private Entity character;
+
     public int x;
     public int x2;
     public int y;
@@ -31,7 +35,9 @@ public class UI {
     public double currmana;
     public double maxmana;
 
-    public UI() {
+    public UI(Entity character) {
+        this.character = character;
+
         x = (int)Game.dimension.getWidth()/2 - 48*3-128;
         y = (int)Game.dimension.getHeight();
 
@@ -45,13 +51,13 @@ public class UI {
 
 
     public void tick() {
-        if (currhealth > 0){
-            currhealth -= 2;
-        }
+
     }
 
     public void draw(Graphics g) {
-        g.drawImage(healthorb,x,y-(int)(currhealth/maxhealth*128),x+128,y,0,64-(int)(currhealth/maxhealth*64),64,64,null);
+        EntityInfo info = character.getInfo();
+
+        g.drawImage(healthorb,x,y-(int)(info.getCurrHealth()/info.getMaxHealth()*128),x+128,y,0,64-(int)(info.getCurrHealth()/info.getMaxHealth()*64),64,64,null);
         g.drawImage(baseorb,x-1,y-129,130,130,null);
 
         g.drawImage(manaorb,x2,y-(int)(currmana/maxmana*128),x2+129,y,0,64-(int)(currmana/maxmana*64),64,64,null);

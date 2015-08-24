@@ -23,8 +23,8 @@ import java.util.Collections;
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 640;  // 1920x1080
-	//public static final int WIDTH = 480; // 480
+	//public static final int WIDTH = 640;  // 1920x1080
+	public static final int WIDTH = 480; // 480
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
     public static final Dimension dimension = new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);
@@ -56,7 +56,7 @@ public class Game extends Canvas implements Runnable {
     private ArrayList<Entity> chars = new ArrayList<>();
     private Entity SELECTED;
 
-    private UI ui = new UI();
+    private UI ui = new UI(character);
     private DayCycle dayCycle = new DayCycle(dimension.width - 96, 64, 48);
 
     public AudioPlayer music = new AudioPlayer("res/audio/clocktown-day1.wav");
@@ -98,7 +98,7 @@ public class Game extends Canvas implements Runnable {
 		long lastTimer = System.currentTimeMillis();
 		double delta = 0;
 
-		while(running){
+		while(true){
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
@@ -106,7 +106,7 @@ public class Game extends Canvas implements Runnable {
 
 			while(delta>=1){
 				ticks++;
-				tick();
+                tick();
 				delta--;
 				shouldRender = true;
 			}
@@ -135,46 +135,61 @@ public class Game extends Canvas implements Runnable {
 
 
 	public void tick() {
-        for (int i = 0; i < chars.size(); i++) {
-            chars.get(i).tick();
-        }
+        if (running) {
+            for (int i = 0; i < chars.size(); i++) {
+                chars.get(i).tick();
+            }
 
-        for (int i = 0; i < chars.size()-1; i++) {
-            ArrayList<Fireball> current = chars.get(i).fireball.getFireballs();
+            for (int i = 0; i < chars.size()-1; i++) {
+                ArrayList<Fireball> current = chars.get(i).fireball.getFireballs();
 
-            for (int j = i+1; j < chars.size(); j++) {
+                for (int j = i+1; j < chars.size(); j++) {
                 /*if (chars.get(i).collidesWith(chars.get(j))) {
                     emitter.bloodSpatter(new Vector3(chars.get(i).getX() - chars.get(i).getWidth() / 2, chars.get(i).getY() - chars.get(i).getHeight() / 2, chars.get(i).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
                 }*/
 
+                    boolean alive = true;
 
-                for (int k = 0; k < current.size(); k++) {
-                    if (chars.get(j).collidesWith(current.get(k)) && current.get(k).isActive()) {
-                        emitter.bloodSpatter(new Vector3(chars.get(j).getX() - chars.get(j).getWidth() / 2, chars.get(j).getY() - chars.get(j).getHeight() / 2, chars.get(j).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
+                    for (int k = 0; k < current.size(); k++) {
+                        if (chars.get(j).collidesWith(current.get(k)) && current.get(k).isActive()) {
+                            emitter.bloodSpatter(new Vector3(chars.get(j).getX() - chars.get(j).getWidth() / 2, chars.get(j).getY() - chars.get(j).getHeight() / 2, chars.get(j).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
+                            alive = chars.get(j).takeDamage(15);
+                            if (!alive) {
+                                break;
+                            }
+
+                        }
                     }
-                }
 
-                ArrayList<Fireball> other = chars.get(j).fireball.getFireballs();
-                for (int k = 0; k < other.size(); k++) {
-                    if (chars.get(i).collidesWith(other.get(k)) && other.get(k).isActive()) {
-                        emitter.bloodSpatter(new Vector3(chars.get(i).getX() - chars.get(i).getWidth() / 2, chars.get(i).getY() - chars.get(i).getHeight() / 2, chars.get(i).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
+                    ArrayList<Fireball> other = chars.get(j).fireball.getFireballs();
+                    for (int k = 0; k < other.size(); k++) {
+                        if (chars.get(i).collidesWith(other.get(k)) && other.get(k).isActive()) {
+                            emitter.bloodSpatter(new Vector3(chars.get(i).getX() - chars.get(i).getWidth() / 2, chars.get(i).getY() - chars.get(i).getHeight() / 2, chars.get(i).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
+
+                            if (!chars.get(i).takeDamage(15)) {
+                                chars.remove(i);
+                                break;
+                            }
+
+                        }
+
+
                     }
-                }
 
+                    if (!alive) {
+                        chars.remove(j);
+                    }
+
+                }
             }
+            emitter.tick();
+
         }
 
 
         camera.tick();
 
         map.tick();
-        emitter.tick();
-        /*
-        kodama.tick();
-        kodama1.tick();
-        kodama2.tick();
-        kodama3.tick();
-        noface.tick();*/
 
         ui.tick();
         dayCycle.tick();
