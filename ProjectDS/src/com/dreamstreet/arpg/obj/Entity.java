@@ -5,11 +5,9 @@ import com.dreamstreet.arpg.gfx.*;
 import com.dreamstreet.arpg.input.InputComponent;
 import com.dreamstreet.arpg.input.PlayerInput;
 import com.dreamstreet.arpg.item.Item;
-import com.dreamstreet.arpg.ui.DayCycle;
+import com.dreamstreet.arpg.util.Util;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 
 import static com.dreamstreet.arpg.gfx.TileMap.*;
 
@@ -134,8 +132,8 @@ public class Entity implements Comparable<Entity>, Collidable {
                 drawDebug(g, camera);
             }
             if (Math.abs(vel.x) > 0 || Math.abs(vel.y) > 0) {
-                g.setColor(Color.green);
-                g.drawOval((int) ((dest.x - offset.x - 1.2) * scale), (int) ((dest.y - offset.y - .6) * scale), (int) (1.2 * scale * 2) + 1, (int) (1.2 * scale) + 1);
+          //      g.setColor(Color.green);
+         //       g.drawOval((int) ((dest.x - offset.x - 1.2) * scale), (int) ((dest.y - offset.y - .6) * scale), (int) (1.2 * scale * 2) + 1, (int) (1.2 * scale) + 1);
             }
         }
 

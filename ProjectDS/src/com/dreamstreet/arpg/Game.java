@@ -10,6 +10,7 @@ import com.dreamstreet.arpg.gfx.*;
 import com.dreamstreet.arpg.gfx.particle.ParticleEmitter;
 import com.dreamstreet.arpg.input.NPCInput;
 import com.dreamstreet.arpg.input.PlayerInput;
+import com.dreamstreet.arpg.input.WindowInput;
 import com.dreamstreet.arpg.item.Fireball;
 import com.dreamstreet.arpg.obj.Entity;
 import com.dreamstreet.arpg.sfx.AudioPlayer;
@@ -37,10 +38,14 @@ public class Game extends Canvas implements Runnable {
 	private boolean running = false;
     public static boolean debug = false;
 
+    public boolean pause = false;
+
+
 	//map
 	private TileMap map = new TileMap("res/levels/test_map.txt");
 
     private Camera camera = new Camera(null);
+    private WindowInput win = new WindowInput(this, camera);
 
     int fps = 0;
 
@@ -98,7 +103,7 @@ public class Game extends Canvas implements Runnable {
 		long lastTimer = System.currentTimeMillis();
 		double delta = 0;
 
-		while(true){
+		while(running){
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
@@ -135,7 +140,7 @@ public class Game extends Canvas implements Runnable {
 
 
 	public void tick() {
-        if (running) {
+        if (!pause) {
             for (int i = 0; i < chars.size(); i++) {
                 chars.get(i).tick();
             }
@@ -149,10 +154,11 @@ public class Game extends Canvas implements Runnable {
                 }*/
 
                     boolean alive = true;
+//                    emitter.bloodSpatter(new Vector3(chars.get(j).getX(), chars.get(j).getY(), chars.get(i).getZ() - chars.get(j).getDimensions().z / 2), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
 
                     for (int k = 0; k < current.size(); k++) {
                         if (chars.get(j).collidesWith(current.get(k)) && current.get(k).isActive()) {
-                            emitter.bloodSpatter(new Vector3(chars.get(j).getX() - chars.get(j).getWidth() / 2, chars.get(j).getY() - chars.get(j).getHeight() / 2, chars.get(j).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
+                            emitter.bloodSpatter(new Vector3(chars.get(j).getX(), chars.get(j).getY(), chars.get(j).getZ() - chars.get(j).getDimensions().z / 2), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
                             alive = chars.get(j).takeDamage(15);
                             if (!alive) {
                                 break;
@@ -163,8 +169,7 @@ public class Game extends Canvas implements Runnable {
                     ArrayList<Fireball> other = chars.get(j).fireball.getFireballs();
                     for (int k = 0; k < other.size(); k++) {
                         if (chars.get(i).collidesWith(other.get(k)) && other.get(k).isActive()) {
-                            emitter.bloodSpatter(new Vector3(chars.get(i).getX() - chars.get(i).getWidth() / 2, chars.get(i).getY() - chars.get(i).getHeight() / 2, chars.get(i).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
-
+                            emitter.bloodSpatter(new Vector3(chars.get(i).getX(), chars.get(i).getY(), chars.get(i).getZ() - chars.get(i).getDimensions().z / 2), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
                             if (!chars.get(i).takeDamage(15)) {
                                 chars.remove(i);
                                 break;
@@ -182,6 +187,7 @@ public class Game extends Canvas implements Runnable {
                 }
             }
             emitter.tick();
+            dayCycle.tick();
 
         }
 
@@ -191,14 +197,13 @@ public class Game extends Canvas implements Runnable {
         map.tick();
 
         ui.tick();
-        dayCycle.tick();
 
         box1.tick();
     }
 
 	public void render(){
 		BufferStrategy bs = getBufferStrategy();
-		if(bs==null){
+		if(bs == null){
 			createBufferStrategy(3);
 			return;
 		}
@@ -236,7 +241,7 @@ public class Game extends Canvas implements Runnable {
 
        // SELECTED.drawDebug(g, camera);
 
-        box1.draw(g);
+       // box1.draw(g);
 		g.dispose();
 		bs.show();
 	}

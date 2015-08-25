@@ -1,4 +1,6 @@
-package com.dreamstreet.arpg.gfx;
+package com.dreamstreet.arpg.util;
+
+import com.dreamstreet.arpg.gfx.Direction;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

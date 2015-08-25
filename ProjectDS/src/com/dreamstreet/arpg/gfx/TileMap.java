@@ -2,6 +2,7 @@ package com.dreamstreet.arpg.gfx;
 
 import com.dreamstreet.arpg.obj.Entity;
 import com.dreamstreet.arpg.ui.DayCycle;
+import com.dreamstreet.arpg.util.Util;
 
 import java.awt.*;
 import java.io.BufferedReader;
