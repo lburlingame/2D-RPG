@@ -1,6 +1,7 @@
 package com.dreamstreet.arpg.util;
 
 import com.dreamstreet.arpg.gfx.Direction;
+import com.dreamstreet.arpg.gfx.Vector2;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -44,6 +45,20 @@ public class Util {
         return Math.sqrt(Math.pow(hypotenuse, 2) / (1 + Math.pow(slope, 2)));
     }
 
+
+    public static float getAngle(Vector2 center, Vector2 target) {
+        float angle = (float) Math.toDegrees(Math.atan2(target.y - center.y, target.x - center.x));
+
+        if(angle < 0){
+            angle += 360;
+        }
+
+        return angle;
+    }
+
+  //  public static Vector2 (Vector2 center, float angle) {
+
+   // }
 
 
 

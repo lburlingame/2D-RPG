@@ -2,7 +2,6 @@ package com.dreamstreet.arpg;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
@@ -12,7 +11,13 @@ import com.dreamstreet.arpg.input.NPCInput;
 import com.dreamstreet.arpg.input.PlayerInput;
 import com.dreamstreet.arpg.input.WindowInput;
 import com.dreamstreet.arpg.item.Fireball;
+import com.dreamstreet.arpg.item.Item;
+import com.dreamstreet.arpg.obj.Coin;
 import com.dreamstreet.arpg.obj.Entity;
+import com.dreamstreet.arpg.obj.HealthGlobe;
+import com.dreamstreet.arpg.screen.GameScreen;
+import com.dreamstreet.arpg.screen.MainMenuScreen;
+import com.dreamstreet.arpg.screen.Screen;
 import com.dreamstreet.arpg.sfx.AudioPlayer;
 import com.dreamstreet.arpg.ui.DayCycle;
 import com.dreamstreet.arpg.ui.MessageBox;
@@ -37,59 +42,22 @@ public class Game extends Canvas implements Runnable {
 
 	private boolean running = false;
     public static boolean debug = false;
+    public static boolean showhealth;
 
-    public boolean pause = false;
-
-
-	//map
-	private TileMap map = new TileMap("res/levels/test_map.txt");
-
-    private Camera camera = new Camera(null);
-    private WindowInput win = new WindowInput(this, camera);
+    public static boolean pause = false;
 
     int fps = 0;
 
+    private ArrayList<Screen> screens;
+    public int currentscreen;
 
-    //spritesheets for map and character
-
-    private Entity character = new Entity(1, new PlayerInput(this, camera), 1.0, new Vector3(50,50,0));
-    private Entity skulltula = new Entity(1, new NPCInput(this), 2.0, new Vector3(170,170,0));
-    private Entity character1 = new Entity(1, new NPCInput(this), 1.0, new Vector3(50,50,0));
-    private Entity character2 = new Entity(1, new NPCInput(this), 1.0, new Vector3(180,20,0));
-    private Entity character3 = new Entity(1, new NPCInput(this), 1.0, new Vector3(20,180,0));
-
-    private ArrayList<Entity> chars = new ArrayList<>();
-    private Entity SELECTED;
-
-    private UI ui = new UI(character);
-    private DayCycle dayCycle = new DayCycle(dimension.width - 96, 64, 48);
-
-    public AudioPlayer music = new AudioPlayer("res/audio/clocktown-day1.wav");
-    public boolean audioPlay = false;
-    private int curr = 0;
-
-    private MessageBox box1 = new MessageBox("This is wonderful! How wonderful!");
-    public ParticleEmitter emitter = new ParticleEmitter();
     public Game() {
-        chars.add(character);
-        chars.add(skulltula);
-        SELECTED = chars.get(0);
-      //  chars[2] = character1;
-       // chars[3] = character2;
-      //  chars[4] = character3;
+        screens = new ArrayList<>();
+        screens.add(new MainMenuScreen(this));
+        screens.add(new GameScreen(this));
 
-        //System.setProperty("sun.java2d.opengl","True");
-       // System.setProperty("sun.java2d.pmoffscreen","False");
-        //System.setProperty("sun.java2d.translaccel","True");
 
-        camera.setTarget(character);
-        if (audioPlay) {
-            music.start();
-        }else{
-            music.stop();
-        }
-
-	}
+    }
 
 	@Override
 	public void run() {
@@ -107,7 +75,7 @@ public class Game extends Canvas implements Runnable {
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = false; // false here limits to 60 fps
+			boolean shouldRender = true; // false here limits to 60 fps
 
 			while(delta>=1){
 				ticks++;
@@ -117,7 +85,7 @@ public class Game extends Canvas implements Runnable {
 			}
 
 			try{
-				Thread.sleep(2);
+				Thread.sleep(1);
 			}catch(InterruptedException e){
 				e.printStackTrace();
 			}
@@ -140,142 +108,36 @@ public class Game extends Canvas implements Runnable {
 
 
 	public void tick() {
-        if (!pause) {
-            for (int i = 0; i < chars.size(); i++) {
-                chars.get(i).tick();
-            }
-
-            for (int i = 0; i < chars.size()-1; i++) {
-                ArrayList<Fireball> current = chars.get(i).fireball.getFireballs();
-
-                for (int j = i+1; j < chars.size(); j++) {
-                /*if (chars.get(i).collidesWith(chars.get(j))) {
-                    emitter.bloodSpatter(new Vector3(chars.get(i).getX() - chars.get(i).getWidth() / 2, chars.get(i).getY() - chars.get(i).getHeight() / 2, chars.get(i).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
-                }*/
-
-                    boolean alive = true;
-//                    emitter.bloodSpatter(new Vector3(chars.get(j).getX(), chars.get(j).getY(), chars.get(i).getZ() - chars.get(j).getDimensions().z / 2), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
-
-                    for (int k = 0; k < current.size(); k++) {
-                        if (chars.get(j).collidesWith(current.get(k)) && current.get(k).isActive()) {
-                            emitter.bloodSpatter(new Vector3(chars.get(j).getX(), chars.get(j).getY(), chars.get(j).getZ() - chars.get(j).getDimensions().z / 2), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
-                            alive = chars.get(j).takeDamage(15);
-                            if (!alive) {
-                                break;
-                            }
-                        }
-                    }
-
-                    ArrayList<Fireball> other = chars.get(j).fireball.getFireballs();
-                    for (int k = 0; k < other.size(); k++) {
-                        if (chars.get(i).collidesWith(other.get(k)) && other.get(k).isActive()) {
-                            emitter.bloodSpatter(new Vector3(chars.get(i).getX(), chars.get(i).getY(), chars.get(i).getZ() - chars.get(i).getDimensions().z / 2), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
-                            if (!chars.get(i).takeDamage(15)) {
-                                chars.remove(i);
-                                break;
-                            }
-
-                        }
-
-
-                    }
-
-                    if (!alive) {
-                        chars.remove(j);
-                    }
-
-                }
-            }
-            emitter.tick();
-            dayCycle.tick();
-
-        }
-
-
-        camera.tick();
-
-        map.tick();
-
-        ui.tick();
-
-        box1.tick();
+        screens.get(0).tick();
     }
 
 	public void render(){
 		BufferStrategy bs = getBufferStrategy();
 		if(bs == null){
-			createBufferStrategy(3);
+			createBufferStrategy(2);
 			return;
 		}
         Graphics2D g = (Graphics2D)bs.getDrawGraphics();
 
-        g.setColor(new Color(0, 0, 0));
-        g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
-		map.draw(g,camera,character, dayCycle);
-        emitter.draw(g, camera);
-        Collections.sort(chars);
+        screens.get(0).render(g);
 
-        curr = chars.indexOf(SELECTED);
-
-        for (int i = 0; i < chars.size(); i++) {
-            chars.get(i).draw(g, camera);
-        }
-
-
-        /*
-		kodama.draw(g,camera);
-        kodama1.draw(g,camera);/]
-
-        kodama2.draw(g, camera);
-        kodama3.draw(g, camera);
-        skeleton.draw(g,camera);
-        noface.draw(g,camera);
-        */
-        ui.draw(g);
-        dayCycle.draw(g);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
+        g.setColor(Color.WHITE);
+        g.drawString(fps + " ", 20, 40);
 
         if (debug) {
             drawDebug(g);
         }
 
-
-       // SELECTED.drawDebug(g, camera);
-
-       // box1.draw(g);
-		g.dispose();
+        g.dispose();
 		bs.show();
+
 	}
 
 
 	public void drawDebug(Graphics g) {
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
-        g.setColor(Color.WHITE);
-        Vector3 curr = new Vector3(character.getX(), character.getY(), 0);
-
-        g.drawString(fps + " ", 20, 40);
-
-                //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, 20, 100);
-
-        /*
-        g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 100);
-        g.drawString(curr.x + ", " + curr.y, 20, 130);*/
-                // g.drawString(dayCycle.time, Game.WIDTH * Game.SCALE - 100, 40);
-
-                // g.drawString(camera.getScale() + " ", 20, 160);
-                g.drawLine(WIDTH / 12 * 5 * SCALE, HEIGHT / 2 * SCALE, WIDTH / 12 * 7 * SCALE, HEIGHT / 2 * SCALE);
+        g.drawLine(WIDTH / 12 * 5 * SCALE, HEIGHT / 2 * SCALE, WIDTH / 12 * 7 * SCALE, HEIGHT / 2 * SCALE);
         g.drawLine(WIDTH/2*SCALE,HEIGHT/12*5*SCALE,WIDTH/2*SCALE,HEIGHT/12*7*SCALE);
-
-
-    }
-
-    public static float getAngle(Vector2 center, Vector2 target) {
-        float angle = (float) Math.toDegrees(Math.atan2(target.y - center.y, target.x - center.x));
-
-        if(angle < 0){
-            angle += 0;
-        }
-
-        return angle;
     }
 
 
@@ -322,20 +184,8 @@ public class Game extends Canvas implements Runnable {
     }
 
 
-    public static enum DebugLevel {
+    public enum DebugLevel {
         INFO, WARNING, SEVERE
-    }
-
-    public void changeCharacter() {
-        int prev = curr;
-        curr++;
-        curr = curr % chars.size();
-        System.out.println(curr);
-        camera.setTarget(chars.get(curr));
-        SELECTED = chars.get(curr);
-
-        chars.get(curr).setInput(chars.get(prev).getInput());
-        chars.get(prev).setInput(new NPCInput(this));
     }
 
 

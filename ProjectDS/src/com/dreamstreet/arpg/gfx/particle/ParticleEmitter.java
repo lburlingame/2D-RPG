@@ -21,10 +21,11 @@ public class ParticleEmitter {
     }
 
     public void bloodSpatter(Vector3 pos, Vector3 v) {
-        float base_dx = rand.nextFloat() * 6 - 3;
-        float base_dy = rand.nextFloat() * 6 - 3;
-        for (int i = 0; i < (int)(Math.random() * 8) + 8; i++) {
-            particles.add(new BloodParticle(new Vector3(pos.x, pos.y, pos.z), new Vector3(base_dx + rand.nextFloat() * 3 - 1.5, base_dy + rand.nextFloat() * 3 - 1.5, v.z + rand.nextFloat() * 2)));
+        for (int i = 0; i < rand.nextInt(8) + 8; i++) {
+            double random_dx = rand.nextFloat() * 3 - 1.5;
+            double random_dy = rand.nextFloat() * 3 - 1.5;
+            double random_dz = rand.nextFloat() * 3 - 1.5;
+            particles.add(new BloodParticle(new Vector3(pos.x, pos.y, pos.z), new Vector3(v.x + random_dx, v.y + random_dy, v.z + random_dz)));
             num++;
         }
     }

@@ -3,6 +3,7 @@ package com.dreamstreet.arpg.input;
 import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.gfx.*;
 import com.dreamstreet.arpg.obj.Entity;
+import com.dreamstreet.arpg.screen.GameScreen;
 
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
@@ -13,6 +14,8 @@ import java.awt.event.*;
  */
 public class PlayerInput extends InputComponent implements KeyListener, MouseInputListener, MouseWheelListener {
 
+    GameScreen screen;
+
     private Camera camera;
 
     private boolean clicked = false;
@@ -20,8 +23,10 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
 
 
 
-    public PlayerInput(Game game, Camera camera) {
+    public PlayerInput(Game game, GameScreen screen, Camera camera) {
         super(game);
+
+        this.screen = screen;
         this.camera = camera;
 
         game.addKeyListener(this);
@@ -42,10 +47,10 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             mLoc.x -= frameLoc.x;
             mLoc.y -= frameLoc.y;// - (camera.getzOffset() * camera.getScale());
 
-            character.move(new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
-/*
-            character.fireball.charge(new Vector2(character.getX(),character.getY()));
-            character.fireball.use(new Vector2(character.getX(),character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));*/
+           // character.move(new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
+
+            character.fireball.charge(new Vector3(character.getX(),character.getY(), 0));
+            character.fireball.use(new Vector2(character.getX(),character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
 
         }
     }
@@ -107,7 +112,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
 
 
             case KeyEvent.VK_Q:
-                game.emitter.bloodSpatter(new Vector3(character.getX(), character.getY(), character.getZ() - character.getDimensions().z / 2), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
+                screen.emitter.bloodSpatter(new Vector3(character.getX(), character.getY(), character.getZ() - character.getDimensions().z / 2), new Vector3(Math.random() * 3 - 1.5, Math.random() * 3 - 1.5, -Math.random() * 3));
                 break;
             case KeyEvent.VK_SHIFT:
                 character.run();
@@ -120,8 +125,10 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
                 break;
 
             case KeyEvent.VK_G:
-                character.smult *= 1.03;
                 character.changeSize();
+                break;
+            case KeyEvent.VK_J:
+                character.takeDamage(50);
                 break;
 
         }
@@ -140,7 +147,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
         if (e.getButton() == MouseEvent.BUTTON1) {
             //    character.move(e.getX() / camera.getScale() + camera.getXOffset(), e.getY() / camera.getScale() + camera.getYOffset());
             stopped = false;
-            clicked = false;  // true for mouse movement
+            clicked = true;  // true for mouse movement
             Vector3 offset = camera.getOffset();
 
             Point mLoc = MouseInfo.getPointerInfo().getLocation();
@@ -149,12 +156,12 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             mLoc.y -= frameLoc.y;//- (camera.getzOffset() * camera.getScale());
             //mLoc = Iso.isoTo2D(mLoc);
 
-            character.fireball.use(new Vector2(character.getX()- character.getWidth()/2,character.getY()- 24), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
+            character.fireball.use(new Vector2(character.getX(),character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
 
         }else if (e.getButton() == MouseEvent.BUTTON3) {
             character.stop();
             stopped = true;
-            character.fireball.charge(new Vector3(character.getX() - character.getWidth()/2,character.getY(), -character.getHeight()/4));
+            character.fireball.charge(new Vector3(character.getX(),character.getY(), -character.getHeight()/4));
         }
 
     }
@@ -172,7 +179,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
             mLoc.x -= frameLoc.x;
             mLoc.y -= frameLoc.y;//- (camera.getzOffset() * camera.getScale());
 
-            character.fireball.use(new Vector2(character.getX()- character.getWidth()/2,character.getY()- 24), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
+            character.fireball.use(new Vector2(character.getX(), character.getY()), new Vector2(mLoc.getX() / camera.getScale() + offset.x, mLoc.getY() / camera.getScale() + offset.y));
         }
 
     }
@@ -218,9 +225,7 @@ public class PlayerInput extends InputComponent implements KeyListener, MouseInp
         mLoc.y -= frameLoc.y;//- (camera.getzOffset() * camera.getScale());
         //mLoc = Iso.isoTo2D(mLoc);
 
-        Vector2 target = new Vector2(0,0);
-        target.x = mLoc.getX() / camera.getScale() + camera.getOffset().x;
-        target.y = mLoc.getY() / camera.getScale() + camera.getOffset().y;
+        Vector2 target = new Vector2(mLoc.getX() / camera.getScale() + camera.getOffset().x,mLoc.getY() / camera.getScale() + camera.getOffset().y);
 
         return target;
     }

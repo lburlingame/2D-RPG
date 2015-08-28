@@ -18,6 +18,7 @@ public class BloodParticle extends Particle {
     private static SpriteSheet part3sheet = new SpriteSheet("/effects/blood_spat3.png");
     private static SpriteSheet part4sheet = new SpriteSheet("/effects/blood_spat4.png");
     private static SpriteSheet part5sheet = new SpriteSheet("/effects/blood_spat5.png");
+    private int id;
     // combine into 1 sheet
 
     public BloodParticle(Vector3 pos, Vector3 v) {
@@ -32,7 +33,8 @@ public class BloodParticle extends Particle {
             images.add(part4sheet.getSprite(0,0,16,16));
             images.add(part5sheet.getSprite(0,0,16,16));
         }
-        img = images.get((int)(Math.random() * 5));
+       // img = images.get((int)(Math.random() * 5));
+        id = (int)(Math.random() * images.size());
     }
 
     public void tick() {
@@ -68,8 +70,12 @@ public class BloodParticle extends Particle {
         Vector3 offset = camera.getOffset();
 
         double scale = camera.getScale();
+        // add dim variable in TileMap
+        if (pos.x > -4 && pos.y > -8) {
+            //g.drawImage(img, (int)((pos.x-offset.x)*scale), (int)((pos.y-offset.y+pos.z)*scale), (int)(16*scale), (int)(16*scale), null);
+            g.drawImage(images.get(id), (int)((pos.x-offset.x)*scale), (int)((pos.y-offset.y+pos.z)*scale), (int)(16*scale), (int)(16*scale), null);
 
-        g.drawImage(img, (int)((pos.x-offset.x)*scale), (int)((pos.y-offset.y+pos.z)*scale), (int)(16*scale), (int)(16*scale), null);
+        }
     }
 
 

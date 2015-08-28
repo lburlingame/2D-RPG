@@ -18,7 +18,6 @@ public class NPCInput extends InputComponent {
         //character.move(0,0);
     }
 
-    @Override
     public Vector2 getScreenLoc() {
         return new Vector2(0,0);
     }

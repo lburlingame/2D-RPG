@@ -51,4 +51,8 @@ public class EntityInfo {
         return isAlive();
     }
 
+    public void heal(int amount) {
+        current_health = current_health + amount;
+        if (current_health > MAX_HEALTH) current_health = MAX_HEALTH;
+    }
 }

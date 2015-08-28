@@ -51,23 +51,32 @@ public class GraphicsComponent {
         Vector3 dim = character.getDimensions();
         double scale = camera.getScale();
 
-        BufferedImage img =  SpriteLoader.getSprite(character.getID(), frame);
+        double startX = offset.x;
+        double startY = offset.y + offset.z;
+        double endX = startX + camera.getWidth();
+        double endY = startY + camera.getHeight();
 
-        g.setColor(new Color(0, 0, 0, (int)(DayCycle.max_darkness * 110 + 40)));
-        g.fillOval((int)((pos.x - dim.x/2 - offset.x) * scale - .5),(int)((pos.y - offset.y - dim.z / 6)* scale),(int)(dim.x*scale),(int)(dim.z*scale)/2);
+        if (pos.x + dim.x/2 > startX && pos.x - dim.x/2 < endX &&
+                pos.y + dim.z > startY && pos.y - dim.z < endY) {
+            BufferedImage img =  SpriteLoader.getSprite(character.getID(), frame);
+
+            g.setColor(new Color(0, 0, 0, (int)(DayCycle.max_darkness * 110 + 40)));
+            g.fillOval((int)((pos.x - dim.x/2 - offset.x) * scale - .5),(int)((pos.y - offset.y - dim.z / 6)* scale),(int)(dim.x*scale),(int)(dim.z*scale)/2);
 
 
 
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice gs = ge.getDefaultScreenDevice();
-        GraphicsConfiguration gc = gs.getDefaultConfiguration();
+          //  GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+         //   GraphicsDevice gs = ge.getDefaultScreenDevice();
+          //  GraphicsConfiguration gc = gs.getDefaultConfiguration();
 
 //        g.rotate(Game.getAngle(new Vector2(pos.x, pos.y), input.getScreenLoc())/57.32,Game.WIDTH * Game.SCALE / 2, Game.HEIGHT * Game.SCALE / 2);
-        AffineTransform tx = new AffineTransform();
-        //  tx.setToRotation(Game.getAngle(new Vector2(pos.x, pos.y), input.getScreenLoc())/57.32, 16,16);
-        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+          //  AffineTransform tx = new AffineTransform();
+            //  tx.setToRotation(Util.getAngle(new Vector2(pos.x, pos.y), input.getScreenLoc())/57.32, 16,16);
+          //  AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+            //op.filter(img, null)
+            g.drawImage(img, (int) ((pos.x - dim.x / 2 - offset.x) * scale - .5), (int) ((pos.y - dim.z * .8 + pos.z - offset.y) * scale - .5), (int) (dim.x * scale - .5), (int) (dim.z * scale - .5), null);
 
-        g.drawImage(op.filter(img, null), (int) ((pos.x - dim.x / 2 - offset.x) * scale - .5), (int) ((pos.y - dim.z * .8 + pos.z - offset.y) * scale - .5), (int) (dim.x * scale - .5), (int) (dim.z * scale - .5), null);
+        }
 
     }
 

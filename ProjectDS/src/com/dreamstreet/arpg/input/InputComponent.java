@@ -23,7 +23,7 @@ public abstract class InputComponent {
         this.character = character;
     }
 
-    public abstract Vector2 getScreenLoc();
+   // public abstract Vector2 getScreenLoc();
 }
 
 

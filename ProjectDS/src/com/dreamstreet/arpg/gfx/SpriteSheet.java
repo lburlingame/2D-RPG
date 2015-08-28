@@ -5,9 +5,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-/*
- * Non-monochromatic spritesheet
- */
 public class SpriteSheet {
 	private BufferedImage image = null;
 	

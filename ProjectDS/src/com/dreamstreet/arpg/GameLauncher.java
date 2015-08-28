@@ -31,7 +31,6 @@ public class GameLauncher extends Applet {
     }
 
     public static void main(String[] args){
-        game.debug = true;
 
         game.setMinimumSize(Game.dimension);
         game.setMaximumSize(Game.dimension);

@@ -104,24 +104,7 @@ public class Camera {
     public double getScale() {
         return scale;
     }
-    public double getyOffset() {
-        return yOffset;
-    }
 
-    public double getxOffset() {
-        return xOffset;
-    }
-    public void setxOffset(double xOffset) {
-        this.xOffset = xOffset;
-    }
-
-    public void setyOffset(double yOffset) {
-        this.yOffset = yOffset;
-    }
-
-    public double getzOffset() {
-        return zOffset;
-    }
 
     public double getWidth() { return viewport.x / scale; }
     public double getHeight() { return viewport.y / scale; }

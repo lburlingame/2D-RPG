@@ -113,7 +113,7 @@ public class TileMap {
         int endX = (int)(xOffset + camera.getWidth()) / 32 + 2;
         if (endX > tiles[0].length) endX = tiles[0].length;
 
-        int endY = (int) (yOffset + zOffset + camera.getHeight()) / 32 + 2;
+        int endY = (int)(yOffset + zOffset + camera.getHeight()) / 32 + 2;
         if (endY > tiles.length) endY = tiles.length;
 
 

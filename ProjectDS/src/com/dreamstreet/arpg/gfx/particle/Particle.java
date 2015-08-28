@@ -22,12 +22,7 @@ public abstract class Particle {
         this.v = v;
     }
 
-    public Particle() {
-
-    }
-
     public abstract void tick();
-
 
     public abstract void draw(Graphics g, Camera camera);
 
