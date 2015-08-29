@@ -19,7 +19,7 @@ public class MenuButton {
 
     public void draw(Graphics2D g) {
         g.setColor(Color.white);
-        g.fillRoundRect((int)pos.x, (int)pos.y, (int)dim.x, (int)dim.y, 3, 3);
+        g.fillRoundRect((int)pos.x, (int)pos.y, (int)dim.x, (int)dim.y, 20, 20);
     }
 
     public Vector2 getPosition() {

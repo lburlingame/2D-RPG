@@ -5,26 +5,11 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.*;
 
-import com.dreamstreet.arpg.gfx.*;
-import com.dreamstreet.arpg.gfx.particle.ParticleEmitter;
-import com.dreamstreet.arpg.input.NPCInput;
-import com.dreamstreet.arpg.input.PlayerInput;
-import com.dreamstreet.arpg.input.WindowInput;
-import com.dreamstreet.arpg.item.Fireball;
-import com.dreamstreet.arpg.item.Item;
-import com.dreamstreet.arpg.obj.Coin;
-import com.dreamstreet.arpg.obj.Entity;
-import com.dreamstreet.arpg.obj.HealthGlobe;
 import com.dreamstreet.arpg.screen.GameScreen;
 import com.dreamstreet.arpg.screen.MainMenuScreen;
 import com.dreamstreet.arpg.screen.Screen;
-import com.dreamstreet.arpg.sfx.AudioPlayer;
-import com.dreamstreet.arpg.ui.DayCycle;
-import com.dreamstreet.arpg.ui.MessageBox;
-import com.dreamstreet.arpg.ui.UI;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Game extends Canvas implements Runnable {
 
@@ -49,7 +34,7 @@ public class Game extends Canvas implements Runnable {
     int fps = 0;
 
     private ArrayList<Screen> screens;
-    public int currentscreen;
+    public int currentscreen = 0;
 
     public Game() {
         screens = new ArrayList<>();
@@ -108,18 +93,18 @@ public class Game extends Canvas implements Runnable {
 
 
 	public void tick() {
-        screens.get(0).tick();
+        screens.get(currentscreen).tick();
     }
 
 	public void render(){
 		BufferStrategy bs = getBufferStrategy();
 		if(bs == null){
-			createBufferStrategy(2);
+			createBufferStrategy(3);
 			return;
 		}
         Graphics2D g = (Graphics2D)bs.getDrawGraphics();
 
-        screens.get(0).render(g);
+        screens.get(currentscreen).render(g);
 
         g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
         g.setColor(Color.WHITE);

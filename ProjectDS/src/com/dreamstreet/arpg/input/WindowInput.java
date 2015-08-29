@@ -11,9 +11,15 @@ import java.awt.event.*;
 /**
  * Created on 8/24/2015.
  */
+
+/*
+
+    Refactor into only one Input class that has listeners, and this class will instead toggle Key class booleans true/false, along with previous Key class
+    these Key classes will then be read in playerinput class, so that this way there will only need to be one class implementing KeyListeners
+ */
 public class WindowInput implements KeyListener, MouseInputListener, MouseWheelListener {
 
-    private final GameScreen screen;
+    private GameScreen screen;
     private Game game;
     private Camera camera;
 
@@ -74,10 +80,10 @@ public class WindowInput implements KeyListener, MouseInputListener, MouseWheelL
                 System.exit(1);
                 break;
             case KeyEvent.VK_P:
-                screen.pause = !screen.pause;
+                Game.pause = !Game.pause;
                 break;
             case KeyEvent.VK_I:
-                screen.debug = !screen.debug;
+                Game.debug = !Game.debug;
                 break;
             case KeyEvent.VK_L:
                 screen.showhealth = !screen.showhealth;

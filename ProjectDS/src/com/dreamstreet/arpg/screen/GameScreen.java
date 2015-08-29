@@ -31,8 +31,6 @@ public class GameScreen implements Screen {
 
     private String NAME = "GAME";
 
-    private boolean running = false;
-    public static boolean debug = false;
     public static boolean showhealth;
 
     public static boolean pause = false;
@@ -175,7 +173,7 @@ public class GameScreen implements Screen {
 
     public void render(Graphics2D g){
         g.setColor(new Color(0, 0, 0));
-        g.fillRect(0, 0, (int)Game.dimension.getWidth() + 100, (int)Game.dimension.getHeight() + 100);
+        g.fillRect(0, 0, (int) Game.dimension.getWidth() + 100, (int) Game.dimension.getHeight() + 100);
         map.draw(g, camera, SELECTED, dayCycle);
         emitter.draw(g, camera);
         Collections.sort(chars);
@@ -204,7 +202,7 @@ public class GameScreen implements Screen {
 
 
 
-        if (debug) {
+        if (Game.debug) {
             drawDebug(g);
         }
 
@@ -241,7 +239,7 @@ public class GameScreen implements Screen {
         switch (level) {
             default:
             case INFO:
-                if (debug) {
+                if (Game.debug) {
                     System.out.println("[" + NAME + "] " + msg);
                 }
                 break;

@@ -140,9 +140,9 @@ public class Entity extends Collidable implements Comparable<Entity>{
         gfx.draw(g, camera);
         fireball.draw(g, camera);
 
-        if (GameScreen.debug || input instanceof PlayerInput) {
+        if (Game.debug || input instanceof PlayerInput) {
 
-            if (GameScreen.debug)
+            if (Game.debug)
             {
                 drawDebug(g, camera);
             }
