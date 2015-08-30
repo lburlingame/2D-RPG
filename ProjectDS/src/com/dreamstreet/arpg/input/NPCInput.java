@@ -15,7 +15,8 @@ public class NPCInput extends InputComponent {
     }
 
     public void tick() {
-        //character.move(0,0);
+        character.setDx(1.5);
+        character.setDy(1.5);
     }
 
     public Vector2 getScreenLoc() {

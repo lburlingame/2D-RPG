@@ -38,7 +38,6 @@ public class GameScreen implements Screen {
     private TileMap map = new TileMap("res/levels/test_map.txt");
 
     private Camera camera = new Camera(null);
-    private WindowInput win;
 
 
 
@@ -46,7 +45,7 @@ public class GameScreen implements Screen {
 
 
 
-
+    // this all goes into level
     private ArrayList<Entity> chars = new ArrayList<>();
     private ArrayList<Item> items = new ArrayList<>();
     private ArrayList<HealthGlobe> globes = new ArrayList<>();
@@ -65,20 +64,21 @@ public class GameScreen implements Screen {
 
     private MessageBox box1 = new MessageBox("This is wonderful! How wonderful!");
     public ParticleEmitter emitter = new ParticleEmitter();
+    private WindowInput win;
 
 
     public GameScreen(Game game) {
         this.game = game;
 
         win = new WindowInput(game, this,  camera);
-        Entity character = new Entity(1, new PlayerInput2(game), 1.0, new Vector3(50,50,0));
+        Entity character = new Entity(1, new PlayerInput(game, camera), 1.0, new Vector3(50,50,0));
         ui = new UI(character);
 
         Entity skulltula = new Entity(1, new NPCInput(game), 2.0, new Vector3(170,180,0));
         chars.add(character);
         chars.add(skulltula);
         for (int i = 0; i < 400; i++) {
-            chars.add(new Entity(1, new NPCInput(game), 1, new Vector3((double)((int)(Math.random()*1000)), (double)((int)(Math.random() * 1000)), 0)));
+            chars.add(new Entity(1, new NPCInput(game), 1, new Vector3((double)((int)(Math.random()*200)), (double)((int)(Math.random() * 200)), 0)));
         }
 
         SELECTED = chars.get(0);
@@ -101,6 +101,7 @@ public class GameScreen implements Screen {
 
 
     public void tick() {
+        win.tick();
         if (!pause) {
             for (int i = 0; i < chars.size()-1; i++) {
                 ArrayList<Fireball> current = chars.get(i).fireball.getFireballs();

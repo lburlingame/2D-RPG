@@ -3,7 +3,6 @@ package com.dreamstreet.arpg.screen;
 import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.gfx.Vector2;
 import com.dreamstreet.arpg.input.MainMenuInput;
-import com.dreamstreet.arpg.input.MainMenuInput2;
 import com.dreamstreet.arpg.ui.MenuButton;
 
 import java.awt.*;
@@ -20,11 +19,11 @@ public class MainMenuScreen implements Screen {
     public static boolean debug = false;
 
     public ArrayList<MenuButton> buttons = new ArrayList<>();
-    private MainMenuInput2 min;
+    private MainMenuInput min;
 
     public MainMenuScreen(Game game) {
         this.game = game;
-        min = new MainMenuInput2(game, this);
+        min = new MainMenuInput(game, this);
 
         int width = (int)Game.dimension.getWidth() / 6;
         int height = (int)(Game.dimension.getHeight() / 10);
@@ -33,6 +32,8 @@ public class MainMenuScreen implements Screen {
         int y = (int)(Game.dimension.getHeight() / 10 * 4);
 
         buttons.add(new MenuButton(new Vector2(x, y), new Vector2(width, height)));
+        buttons.add(new MenuButton(new Vector2(x, y + height * 1.3), new Vector2(width, height)));
+        buttons.add(new MenuButton(new Vector2(x, y + height * 2.6), new Vector2(width, height)));
 
     }
 

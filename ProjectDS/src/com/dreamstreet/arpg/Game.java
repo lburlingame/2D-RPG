@@ -8,6 +8,7 @@ import javax.swing.*;
 import com.dreamstreet.arpg.input.InputHandler;
 import com.dreamstreet.arpg.screen.GameScreen;
 import com.dreamstreet.arpg.screen.MainMenuScreen;
+import com.dreamstreet.arpg.screen.SplashScreen;
 import com.dreamstreet.arpg.screen.Screen;
 
 import java.util.ArrayList;
@@ -27,7 +28,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
 
 	private boolean running = false;
-    public static boolean debug = true;
+    public static boolean debug = false;
     public static boolean showhealth;
 
     public static boolean pause = false;
@@ -35,6 +36,10 @@ public class Game extends Canvas implements Runnable {
     int fps = 0;
 
     private ArrayList<Screen> screens;
+    private SplashScreen ss;
+    private MainMenuScreen mms;
+    private GameScreen gs;
+
     public int currentscreen = 0;
 
     private InputHandler input;
@@ -42,10 +47,36 @@ public class Game extends Canvas implements Runnable {
     public Game() {
         input = new InputHandler(this);
         screens = new ArrayList<>();
-        screens.add(new MainMenuScreen(this));
-        screens.add(new GameScreen(this));
+        ss = new SplashScreen(this);
+        screens.add(ss);
+    }
 
 
+    public void playGame() {
+        if (gs == null) {
+            gs = new GameScreen(this);
+            screens.add(gs);
+        }
+        currentscreen = screens.indexOf(gs);
+    }
+
+    // need way to dispose of screen
+    public void newGame() {
+        if (gs != null) {
+            screens.remove(gs);
+            gs = null;
+        }
+        gs = new GameScreen(this);
+        screens.add(gs);
+        currentscreen = screens.indexOf(gs);
+    }
+
+    public void openMenu() {
+        if (mms == null) {
+            mms = new MainMenuScreen(this);
+            screens.add(mms);
+        }
+        currentscreen = screens.indexOf(mms);
     }
 
 	@Override
@@ -85,7 +116,7 @@ public class Game extends Canvas implements Runnable {
             }
 
 			if(System.currentTimeMillis() - lastTimer >= 1000){
-				lastTimer+=1000;
+				lastTimer += 1000;
 				fps = frames;
 				frames = 0;
                 frame.setTitle("" + ticks );
@@ -127,11 +158,11 @@ public class Game extends Canvas implements Runnable {
 
 
 	public void drawDebug(Graphics g) {
-        g.drawLine(WIDTH / 12 * 5 * SCALE, HEIGHT / 2 * SCALE, WIDTH / 12 * 7 * SCALE, HEIGHT / 2 * SCALE);
-        g.drawLine(WIDTH / 2 * SCALE, HEIGHT / 12 * 5 * SCALE, WIDTH / 2 * SCALE, HEIGHT / 12 * 7 * SCALE);
+      //  g.drawLine(WIDTH / 12 * 5 * SCALE, HEIGHT / 2 * SCALE, WIDTH / 12 * 7 * SCALE, HEIGHT / 2 * SCALE);
+        //g.drawLine(WIDTH / 2 * SCALE, HEIGHT / 12 * 5 * SCALE, WIDTH / 2 * SCALE, HEIGHT / 12 * 7 * SCALE);
 
-        g.drawString(input.M1.isPressed() + " ", 20, 200);
-        g.drawString(input.M1.getPrevious() + " ", 20, 220);
+        //g.drawString(input.M1.isPressed() + " ", 20, 200);
+       // g.drawString(input.M1.getPrevious() + " ", 20, 220);
 
     }
 

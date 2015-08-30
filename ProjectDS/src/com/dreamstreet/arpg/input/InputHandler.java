@@ -48,35 +48,32 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
     private Cursor cursor_unclicked;
     private Cursor cursor_clicked;
 
-    public boolean leftClicked = false;
-    public boolean rightClicked = false;
+    public Point mLoc = new Point(0,0);
     public int wheelnotches = 0;
-
-    public Key ONE = new Key();
-    public Key TWO = new Key();
-    public Key THREE = new Key();
-    public Key FOUR = new Key();
 
     public Key W = new Key();
     public Key S = new Key();
     public Key A = new Key();
     public Key D = new Key();
+    public Key SPACE = new Key();
     public Key SHIFT = new Key();
     public Key CTRL = new Key();
-    public Key SPACE = new Key();
+
+    public Key ONE = new Key();
+    public Key TWO = new Key();
+    public Key THREE = new Key();
+    public Key FOUR = new Key();
+    public Key M1 = new Key();
+    public Key M2 = new Key();
+    public Key M3 = new Key();
+
+    public Key ESC = new Key();
     public Key U = new Key();
     public Key I = new Key();
     public Key O = new Key();
     public Key P = new Key();
     public Key J = new Key();
     public Key L = new Key();
-
-    public Key M1 = new Key();
-    public Key M2 = new Key();
-    public Key M3 = new Key();
-
-    public Point mLoc = new Point(0,0);
-
 
     public InputHandler(Game game) {
         this.game = game;
@@ -97,37 +94,41 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
     }
 
 
-    // if there is a bug with previous then this needs to be moved into a new function and called at the end of each cycle
     public void tick() {
         mLoc = MouseInfo.getPointerInfo().getLocation();
         Point frameLoc = game.getLocationOnScreen();
         mLoc.x -= frameLoc.x;
         mLoc.y -= frameLoc.y;
+
     }
 
 
     public void setPrevious() {
+        wheelnotches = 0;
+
+        W.setPrevious();
+        S.setPrevious();
+        A.setPrevious();
+        D.setPrevious();
+        SPACE.setPrevious();
+        SHIFT.setPrevious();
+        CTRL.setPrevious();
+
         ONE.setPrevious();
         TWO.setPrevious();
         THREE.setPrevious();
         FOUR.setPrevious();
+        M1.setPrevious();
+        M2.setPrevious();
+        M3.setPrevious();
 
-        S.setPrevious();
-        A.setPrevious();
-        D.setPrevious();
-        SHIFT.setPrevious();
-        CTRL.setPrevious();
-        SPACE.setPrevious();
+        ESC.setPrevious();
         U.setPrevious();
         I.setPrevious();
         O.setPrevious();
         P.setPrevious();
         J.setPrevious();
         L.setPrevious();
-
-        M1.setPrevious();
-        M2.setPrevious();
-        M3.setPrevious();
     }
 
     public void toggleKey(int keyCode, boolean isPressed) {
@@ -144,15 +145,16 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
             case KeyEvent.VK_D:
                 D.toggle(isPressed);
                 break;
+            case KeyEvent.VK_SPACE:
+                SPACE.toggle(isPressed);
+                break;
             case KeyEvent.VK_SHIFT:
                 SHIFT.toggle(isPressed);
                 break;
             case KeyEvent.VK_CONTROL:
                 CTRL.toggle(isPressed);
                 break;
-            case KeyEvent.VK_SPACE:
-                SPACE.toggle(isPressed);
-                break;
+
             case KeyEvent.VK_1:
                 ONE.toggle(isPressed);
                 break;
@@ -164,6 +166,21 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
                 break;
             case KeyEvent.VK_4:
                 FOUR.toggle(isPressed);
+                break;
+
+            case MouseEvent.BUTTON1:
+                M1.toggle(isPressed);
+                break;
+            case MouseEvent.BUTTON2:
+                M2.toggle(isPressed);
+                break;
+            case MouseEvent.BUTTON3:
+                M3.toggle(isPressed);
+                break;
+
+
+            case KeyEvent.VK_ESCAPE:
+                ESC.toggle(isPressed);
                 break;
             case KeyEvent.VK_U:
                 U.toggle(isPressed);
@@ -183,10 +200,7 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
             case KeyEvent.VK_L:
                 L.toggle(isPressed);
                 break;
-            case MouseEvent.BUTTON1:
-                M1.toggle(isPressed);
-            case MouseEvent.BUTTON3:
-                M3.toggle(isPressed);
+
         }
     }
 
@@ -232,6 +246,6 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
     }
 
     public void mouseWheelMoved(MouseWheelEvent e) {
-
+        wheelnotches = e.getWheelRotation();
     }
 }

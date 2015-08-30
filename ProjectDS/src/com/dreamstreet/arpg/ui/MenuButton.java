@@ -39,5 +39,10 @@ public class MenuButton {
     }
 
 
-
+    public void pop() {
+        dim.x += 50;
+        dim.y += 20;
+        pos.x -= 25;
+        pos.y -= 10;
+    }
 }

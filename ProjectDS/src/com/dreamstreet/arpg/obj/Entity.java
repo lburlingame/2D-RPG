@@ -152,10 +152,10 @@ public class Entity extends Collidable implements Comparable<Entity>{
             }
             if (input instanceof PlayerInput) {
                 g.setColor(Color.white);
-                Vector2 point = ((PlayerInput) input).getScreenLoc();
-                g.drawString(point.x + ", " + point.y, 20, 70);
-                float angle = Util.getAngle(new Vector2(pos.x, pos.y), point);
-                g.drawString(angle + " ", 20, 100);
+               // Vector2 point = ((PlayerInput) input).getScreenLoc();
+                //g.drawString(point.x + ", " + point.y, 20, 70);
+               // float angle = Util.getAngle(new Vector2(pos.x, pos.y), point);
+                //g.drawString(angle + " ", 20, 100);
                 g.drawString(STATE + " ", 20, 130);
             }
         }
