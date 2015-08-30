@@ -29,15 +29,15 @@ public class PlayerInput2 extends InputComponent {
     }
 
     public void tick() {
+
+        // TODO MAKE IT SO THE MOST RECENTLY ACTIVATED KEY GETS PRIORITY
         if (input.W.isPressed()) {
             character.setDy(-3);
         }else{
             if (input.S.isPressed()) {
                 character.setDy(3);
             }else if (!input.S.isPressed()) {
-                if (input.W.getPrevious() && input.S.getPrevious()) {
-                    character.setDy(0);
-                }
+                character.setDy(0);
             }
         }
 
@@ -47,13 +47,13 @@ public class PlayerInput2 extends InputComponent {
             if (input.D.isPressed()) {
                 character.setDx(3);
             }else if (!input.D.isPressed()) {
-                if (input.A.getPrevious() && input.D.getPrevious()) {
-                    character.setDx(0);
-                }
+                character.setDx(0);
             }
         }
 
-
+        if (input.SPACE.isPressed() && !input.SPACE.getPrevious()) {
+            character.jump();
+        }
 
         if (clicked && !stopped) {
 

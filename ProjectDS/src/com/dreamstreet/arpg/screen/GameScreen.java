@@ -78,7 +78,7 @@ public class GameScreen implements Screen {
         chars.add(character);
         chars.add(skulltula);
         for (int i = 0; i < 400; i++) {
-            chars.add(new Entity(1, new NPCInput(game), 1, new Vector3((double)((int)(Math.random()*150)), (double)((int)(Math.random() * 150)), 0)));
+            chars.add(new Entity(1, new NPCInput(game), 1, new Vector3((double)((int)(Math.random()*1000)), (double)((int)(Math.random() * 1000)), 0)));
         }
 
         SELECTED = chars.get(0);

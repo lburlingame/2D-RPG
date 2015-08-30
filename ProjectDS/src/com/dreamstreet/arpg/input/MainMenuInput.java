@@ -1,8 +1,6 @@
 package com.dreamstreet.arpg.input;
 
 import com.dreamstreet.arpg.Game;
-import com.dreamstreet.arpg.gfx.Vector2;
-import com.dreamstreet.arpg.gfx.Vector3;
 import com.dreamstreet.arpg.screen.MainMenuScreen;
 
 import javax.swing.event.MouseInputListener;
@@ -62,7 +60,7 @@ public class MainMenuInput implements KeyListener, MouseInputListener, MouseWhee
 
             boolean clicked = false;
             for (int i = 0; i < screen.buttons.size(); i++) {
-                clicked = screen.buttons.get(i).collision(mLoc);
+                clicked = screen.buttons.get(i).clicked(mLoc);
                 if (clicked) {
                     break;
                 }
@@ -83,7 +81,7 @@ public class MainMenuInput implements KeyListener, MouseInputListener, MouseWhee
 
             boolean clicked;
             for (int i = 0; i < screen.buttons.size(); i++) {
-                clicked = screen.buttons.get(i).collision(mLoc);
+                clicked = screen.buttons.get(i).clicked(mLoc);
                 if (clicked && button_clicked) {
                     game.currentscreen = 1;
                 }

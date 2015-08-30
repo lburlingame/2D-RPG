@@ -27,7 +27,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
 
 	private boolean running = false;
-    public static boolean debug = false;
+    public static boolean debug = true;
     public static boolean showhealth;
 
     public static boolean pause = false;
@@ -99,6 +99,7 @@ public class Game extends Canvas implements Runnable {
 	public void tick() {
         input.tick();
         screens.get(currentscreen).tick();
+        input.setPrevious();
     }
 
 	public void render(){
@@ -127,7 +128,11 @@ public class Game extends Canvas implements Runnable {
 
 	public void drawDebug(Graphics g) {
         g.drawLine(WIDTH / 12 * 5 * SCALE, HEIGHT / 2 * SCALE, WIDTH / 12 * 7 * SCALE, HEIGHT / 2 * SCALE);
-        g.drawLine(WIDTH/2*SCALE,HEIGHT/12*5*SCALE,WIDTH/2*SCALE,HEIGHT/12*7*SCALE);
+        g.drawLine(WIDTH / 2 * SCALE, HEIGHT / 12 * 5 * SCALE, WIDTH / 2 * SCALE, HEIGHT / 12 * 7 * SCALE);
+
+        g.drawString(input.M1.isPressed() + " ", 20, 200);
+        g.drawString(input.M1.getPrevious() + " ", 20, 220);
+
     }
 
 

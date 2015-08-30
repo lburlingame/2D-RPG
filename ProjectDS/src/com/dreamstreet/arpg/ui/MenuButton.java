@@ -30,7 +30,7 @@ public class MenuButton {
         return new Vector2(dim.x, dim.y);
     }
 
-    public boolean collision(Point point) {
+    public boolean clicked(Point point) {
         if ((point.getX() >= pos.x && point.getX() <= pos.x + dim.x)
             && (point.getY() >= pos.y && point.getY() <= pos.y + dim.y)) {
             return true;

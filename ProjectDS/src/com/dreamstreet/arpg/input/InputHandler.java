@@ -5,10 +5,11 @@ import com.dreamstreet.arpg.Game;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /**
  * Created on 8/28/2015.
- * reads keybinds from a cfg file
+ * TODO - reads keybinds from a cfg file, how? no clue
  */
 public class InputHandler implements KeyListener, MouseInputListener, MouseWheelListener {
 
@@ -19,9 +20,13 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
     public class Key {
         private boolean pressed = false;
         private boolean previous = false;
+
         protected void toggle(boolean isPressed) {
-            previous = pressed;
             pressed = isPressed;
+        }
+
+        public void setPrevious() {
+            previous = pressed;
         }
 
         public boolean isPressed() {
@@ -58,6 +63,7 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
     public Key D = new Key();
     public Key SHIFT = new Key();
     public Key CTRL = new Key();
+    public Key SPACE = new Key();
     public Key U = new Key();
     public Key I = new Key();
     public Key O = new Key();
@@ -70,8 +76,6 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
     public Key M3 = new Key();
 
     public Point mLoc = new Point(0,0);
-
-
 
 
     public InputHandler(Game game) {
@@ -89,17 +93,42 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
 
         cursor_unclicked = toolkit.createCustomCursor(icon_unclicked, hotSpot, "Unclicked");
         cursor_clicked = toolkit.createCustomCursor(icon_clicked, hotSpot, "Clicked");
-
         game.setCursor(cursor_unclicked);
     }
 
+
+    // if there is a bug with previous then this needs to be moved into a new function and called at the end of each cycle
     public void tick() {
-        Point mLoc = MouseInfo.getPointerInfo().getLocation();
+        mLoc = MouseInfo.getPointerInfo().getLocation();
         Point frameLoc = game.getLocationOnScreen();
         mLoc.x -= frameLoc.x;
         mLoc.y -= frameLoc.y;
     }
 
+
+    public void setPrevious() {
+        ONE.setPrevious();
+        TWO.setPrevious();
+        THREE.setPrevious();
+        FOUR.setPrevious();
+
+        S.setPrevious();
+        A.setPrevious();
+        D.setPrevious();
+        SHIFT.setPrevious();
+        CTRL.setPrevious();
+        SPACE.setPrevious();
+        U.setPrevious();
+        I.setPrevious();
+        O.setPrevious();
+        P.setPrevious();
+        J.setPrevious();
+        L.setPrevious();
+
+        M1.setPrevious();
+        M2.setPrevious();
+        M3.setPrevious();
+    }
 
     public void toggleKey(int keyCode, boolean isPressed) {
         switch (keyCode) {
@@ -120,6 +149,9 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
                 break;
             case KeyEvent.VK_CONTROL:
                 CTRL.toggle(isPressed);
+                break;
+            case KeyEvent.VK_SPACE:
+                SPACE.toggle(isPressed);
                 break;
             case KeyEvent.VK_1:
                 ONE.toggle(isPressed);
