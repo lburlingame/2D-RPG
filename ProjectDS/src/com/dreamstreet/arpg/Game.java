@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.*;
 
+import com.dreamstreet.arpg.input.InputHandler;
 import com.dreamstreet.arpg.screen.GameScreen;
 import com.dreamstreet.arpg.screen.MainMenuScreen;
 import com.dreamstreet.arpg.screen.Screen;
@@ -36,7 +37,10 @@ public class Game extends Canvas implements Runnable {
     private ArrayList<Screen> screens;
     public int currentscreen = 0;
 
+    private InputHandler input;
+
     public Game() {
+        input = new InputHandler(this);
         screens = new ArrayList<>();
         screens.add(new MainMenuScreen(this));
         screens.add(new GameScreen(this));
@@ -48,7 +52,7 @@ public class Game extends Canvas implements Runnable {
 	public void run() {
 		//limit fps approx. 60
 		long lastTime = System.nanoTime();
-		double nsPerTick = 1000000000D/60D;
+		double nsPerTick = 1000000000D / 60D;
 
 		int ticks = 0;
 		int frames = 0;
@@ -62,7 +66,7 @@ public class Game extends Canvas implements Runnable {
 			lastTime = now;
 			boolean shouldRender = true; // false here limits to 60 fps
 
-			while(delta>=1){
+			while(delta >= 1){
 				ticks++;
                 tick();
 				delta--;
@@ -80,7 +84,7 @@ public class Game extends Canvas implements Runnable {
                 render();
             }
 
-			if(System.currentTimeMillis()-lastTimer >= 1000){
+			if(System.currentTimeMillis() - lastTimer >= 1000){
 				lastTimer+=1000;
 				fps = frames;
 				frames = 0;
@@ -93,6 +97,7 @@ public class Game extends Canvas implements Runnable {
 
 
 	public void tick() {
+        input.tick();
         screens.get(currentscreen).tick();
     }
 
@@ -166,6 +171,11 @@ public class Game extends Canvas implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public InputHandler getInput() {
+        return input;
     }
 
 

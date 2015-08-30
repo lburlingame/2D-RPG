@@ -5,9 +5,7 @@ import com.dreamstreet.arpg.gfx.Camera;
 import com.dreamstreet.arpg.gfx.TileMap;
 import com.dreamstreet.arpg.gfx.Vector3;
 import com.dreamstreet.arpg.gfx.particle.ParticleEmitter;
-import com.dreamstreet.arpg.input.NPCInput;
-import com.dreamstreet.arpg.input.PlayerInput;
-import com.dreamstreet.arpg.input.WindowInput;
+import com.dreamstreet.arpg.input.*;
 import com.dreamstreet.arpg.item.Fireball;
 import com.dreamstreet.arpg.item.Item;
 import com.dreamstreet.arpg.obj.Coin;
@@ -68,10 +66,12 @@ public class GameScreen implements Screen {
     private MessageBox box1 = new MessageBox("This is wonderful! How wonderful!");
     public ParticleEmitter emitter = new ParticleEmitter();
 
+
     public GameScreen(Game game) {
         this.game = game;
+
         win = new WindowInput(game, this,  camera);
-        Entity character = new Entity(1, new PlayerInput(game,this, camera), 1.0, new Vector3(50,50,0));
+        Entity character = new Entity(1, new PlayerInput2(game), 1.0, new Vector3(50,50,0));
         ui = new UI(character);
 
         Entity skulltula = new Entity(1, new NPCInput(game), 2.0, new Vector3(170,180,0));
