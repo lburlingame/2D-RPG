@@ -5,6 +5,7 @@ import com.dreamstreet.arpg.Game;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 /**
@@ -43,10 +44,13 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
      */
 
     private Game game;
+
     private Image icon_unclicked;
     private Image icon_clicked;
     private Cursor cursor_unclicked;
     private Cursor cursor_clicked;
+    private Cursor cursor_hidden;
+    private boolean hidden_cursor = false;
 
     public Point mLoc = new Point(0,0);
     public int wheelnotches = 0;
@@ -90,6 +94,8 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
 
         cursor_unclicked = toolkit.createCustomCursor(icon_unclicked, hotSpot, "Unclicked");
         cursor_clicked = toolkit.createCustomCursor(icon_clicked, hotSpot, "Clicked");
+        cursor_hidden = toolkit.createCustomCursor(toolkit.getImage(""), hotSpot, "Hidden");
+
         game.setCursor(cursor_unclicked);
     }
 
@@ -220,12 +226,16 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
     }
 
     public void mousePressed(MouseEvent e) {
-        game.setCursor(cursor_clicked);
+        if (!hidden_cursor) {
+            game.setCursor(cursor_clicked);
+        }
         toggleKey(e.getButton(), true);
     }
 
     public void mouseReleased(MouseEvent e) {
-        game.setCursor(cursor_unclicked);
+        if (!hidden_cursor) {
+            game.setCursor(cursor_unclicked);
+        }
         toggleKey(e.getButton(), false);
     }
 
@@ -248,4 +258,16 @@ public class InputHandler implements KeyListener, MouseInputListener, MouseWheel
     public void mouseWheelMoved(MouseWheelEvent e) {
         wheelnotches = e.getWheelRotation();
     }
+
+    public void hideCursor() {
+        game.setCursor(cursor_hidden);
+        hidden_cursor = true;
+
+    }
+
+    public void showCursor() {
+        game.setCursor(cursor_unclicked);
+        hidden_cursor = false;
+    }
 }
+

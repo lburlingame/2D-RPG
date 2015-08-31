@@ -18,7 +18,6 @@ public abstract class InputComponent {
     }
 
     public abstract void tick();
-
     public void setCharacter(Entity character) {
         this.character = character;
     }

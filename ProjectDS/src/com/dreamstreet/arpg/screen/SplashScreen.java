@@ -12,15 +12,16 @@ import java.awt.image.BufferedImage;
  */
 public class SplashScreen implements Screen {
 
+    // make cursor transparent on splash
     private Game game;
     private InputHandler input;
 
     private int duration;
     private int current;
     private float fade;
+    private float fadeduration;
 
     private static SpriteSheet sheet = new SpriteSheet("/other/fbtest.png");
-
     private static BufferedImage logo = sheet.getSprite(0,0,300,300);
     int x;
     int y;
@@ -31,10 +32,11 @@ public class SplashScreen implements Screen {
     public SplashScreen(Game game) {
         this.game = game;
         input = game.getInput();
-
-        duration = 300;
+        input.hideCursor();
+        duration = 60;//300;
         current = 0;
         fade = 0;
+        fadeduration = 180;
         width = 300;
         height = 300;
         x = (int)(Game.dimension.getWidth() / 2) - width/2;
@@ -44,9 +46,10 @@ public class SplashScreen implements Screen {
 
     public void tick() {
         current++;
-        if (fade < 120)
+        if (fade < fadeduration && current > 30)
             fade++;
         if (current >= duration) {
+            input.showCursor();
             game.openMenu();
         }
     }
@@ -55,9 +58,11 @@ public class SplashScreen implements Screen {
         g.setColor(new Color(255, 255, 255));
         g.fillRect(0, 0, (int) Game.dimension.getWidth() + 100, (int) Game.dimension.getHeight() + 100);
 
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(fade / 120)));
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));//(fade / fadeduration)));
 
         g.drawImage(logo, x, y, width, height, null);
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+
         g.setColor(Color.black);
 
     }

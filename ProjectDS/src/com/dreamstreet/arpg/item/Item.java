@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Item {
 
-
+    // item graphic, item icon graphic
     private boolean available = true;
     private boolean charging = false;
     private int cooldown = 1;

@@ -1,8 +1,10 @@
 package com.dreamstreet.arpg.ui;
 
+import com.dreamstreet.arpg.gfx.SpriteSheet;
 import com.dreamstreet.arpg.gfx.Vector2;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Created on 8/28/2015.
@@ -11,15 +13,18 @@ public class MenuButton {
 
     private Vector2 pos;
     private Vector2 dim;
+    private BufferedImage image;
+    //boolean popped
 
-    public MenuButton(Vector2 pos, Vector2 dim) {
+    public MenuButton(Vector2 pos, Vector2 dim, String path) {
         this.pos = pos;
         this.dim = dim;
+        image = new SpriteSheet(path).getSprite(0,0,300,75);
     }
 
     public void draw(Graphics2D g) {
         g.setColor(Color.white);
-        g.fillRoundRect((int)pos.x, (int)pos.y, (int)dim.x, (int)dim.y, 20, 20);
+        g.drawImage(image, (int)pos.x, (int)pos.y, (int)dim.x, (int)dim.y, null);
     }
 
     public Vector2 getPosition() {

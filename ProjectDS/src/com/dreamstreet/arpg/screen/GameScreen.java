@@ -78,7 +78,7 @@ public class GameScreen implements Screen {
         chars.add(character);
         chars.add(skulltula);
         for (int i = 0; i < 400; i++) {
-            chars.add(new Entity(1, new NPCInput(game), 1, new Vector3((double)((int)(Math.random()*200)), (double)((int)(Math.random() * 200)), 0)));
+            chars.add(new Entity(1, new NPCInput(game), 1, new Vector3((double)((int)(Math.random()*8000)), (double)((int)(Math.random() * 8000)), 0)));
         }
 
         SELECTED = chars.get(0);
@@ -174,7 +174,7 @@ public class GameScreen implements Screen {
 
     public void render(Graphics2D g){
         g.setColor(new Color(0, 0, 0));
-        g.fillRect(0, 0, (int) Game.dimension.getWidth() + 100, (int) Game.dimension.getHeight() + 100);
+        g.fillRect(0, 0, (int) Game.dimension.getWidth(), (int) Game.dimension.getHeight());
         map.draw(g, camera, SELECTED, dayCycle);
         emitter.draw(g, camera);
         Collections.sort(chars);

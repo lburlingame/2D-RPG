@@ -29,9 +29,7 @@ public class Game extends Canvas implements Runnable {
 
 	private boolean running = false;
     public static boolean debug = false;
-    public static boolean showhealth;
-
-    public static boolean pause = false;
+    public static boolean unlimit = true;
 
     int fps = 0;
 
@@ -49,6 +47,10 @@ public class Game extends Canvas implements Runnable {
         screens = new ArrayList<>();
         ss = new SplashScreen(this);
         screens.add(ss);
+        mms = new MainMenuScreen(this);
+        screens.add(mms);
+        gs = new GameScreen(this);
+        screens.add(gs);
     }
 
 
@@ -72,10 +74,6 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void openMenu() {
-        if (mms == null) {
-            mms = new MainMenuScreen(this);
-            screens.add(mms);
-        }
         currentscreen = screens.indexOf(mms);
     }
 
@@ -95,7 +93,7 @@ public class Game extends Canvas implements Runnable {
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = true; // false here limits to 60 fps
+			boolean shouldRender = unlimit; // false here limits to 60 fps
 
 			while(delta >= 1){
 				ticks++;
@@ -144,7 +142,6 @@ public class Game extends Canvas implements Runnable {
         screens.get(currentscreen).render(g);
 
         g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
-        g.setColor(Color.WHITE);
         g.drawString(fps + " ", 20, 40);
 
         if (debug) {

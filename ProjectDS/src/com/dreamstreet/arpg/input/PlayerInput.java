@@ -37,7 +37,7 @@ public class PlayerInput extends InputComponent {
         }else{
             if (input.S.isPressed()) {
                 character.setDy(3);
-            }else if (!input.S.isPressed()) {
+            }else{
                 character.setDy(0);
             }
         }
@@ -47,7 +47,7 @@ public class PlayerInput extends InputComponent {
         }else if (!input.A.isPressed() ) {
             if (input.D.isPressed()) {
                 character.setDx(3);
-            }else if (!input.D.isPressed()) {
+            }else{
                 character.setDx(0);
             }
         }
@@ -84,7 +84,6 @@ public class PlayerInput extends InputComponent {
 
         }
     }
-
 
     // why is this needed? shouldn't the superclass method be sufficient? why is it breaking when i dont have this?
     public void setCharacter(Entity character) {

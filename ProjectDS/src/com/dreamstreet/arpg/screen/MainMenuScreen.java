@@ -25,15 +25,14 @@ public class MainMenuScreen implements Screen {
         this.game = game;
         min = new MainMenuInput(game, this);
 
-        int width = (int)Game.dimension.getWidth() / 6;
-        int height = (int)(Game.dimension.getHeight() / 10);
+        int width = (int)300;
+        int height = (int)(75);
         int x = (int)(Game.dimension.getWidth() / 2) - width/2;
+        int y = (int)(Game.dimension.getHeight() / 2 - height * 3 * 1.3/ 2  );
 
-        int y = (int)(Game.dimension.getHeight() / 10 * 4);
-
-        buttons.add(new MenuButton(new Vector2(x, y), new Vector2(width, height)));
-        buttons.add(new MenuButton(new Vector2(x, y + height * 1.3), new Vector2(width, height)));
-        buttons.add(new MenuButton(new Vector2(x, y + height * 2.6), new Vector2(width, height)));
+        buttons.add(new MenuButton(new Vector2(x, y), new Vector2(width, height), "/menu/play.png"));
+        buttons.add(new MenuButton(new Vector2(x, y + height * 1.3), new Vector2(width, height), "/menu/newgame.png"));
+        buttons.add(new MenuButton(new Vector2(x, y + height * 2.6), new Vector2(width, height), "/menu/exit.png"));
 
     }
 
@@ -44,7 +43,7 @@ public class MainMenuScreen implements Screen {
 
     public void render(Graphics2D g){
         g.setColor(new Color(0, 0, 0));
-        g.fillRect(0, 0, (int) Game.dimension.getWidth() + 100, (int) Game.dimension.getHeight() + 100);
+        g.fillRect(0, 0, (int) Game.dimension.getWidth(), (int) Game.dimension.getHeight());
 
         for (int i = 0; i < buttons.size(); i++) {
             buttons.get(i).draw(g);
