@@ -2,23 +2,16 @@ package com.dreamstreet.arpg;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import javax.swing.*;
 
-import com.dreamstreet.arpg.gfx.*;
-import com.dreamstreet.arpg.gfx.particle.ParticleEmitter;
-import com.dreamstreet.arpg.input.NPCInput;
-import com.dreamstreet.arpg.input.PlayerInput;
-import com.dreamstreet.arpg.item.Fireball;
-import com.dreamstreet.arpg.obj.Entity;
-import com.dreamstreet.arpg.sfx.AudioPlayer;
-import com.dreamstreet.arpg.ui.DayCycle;
-import com.dreamstreet.arpg.ui.MessageBox;
-import com.dreamstreet.arpg.ui.UI;
+import com.dreamstreet.arpg.input.InputHandler;
+import com.dreamstreet.arpg.screen.GameScreen;
+import com.dreamstreet.arpg.screen.MainMenuScreen;
+import com.dreamstreet.arpg.screen.SplashScreen;
+import com.dreamstreet.arpg.screen.Screen;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Game extends Canvas implements Runnable {
 
@@ -35,62 +28,60 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
 
 	private boolean running = false;
-    public static boolean debug = false;
-
-	//map
-	private TileMap map = new TileMap("res/levels/isotest3_map.txt");
-
-    private Camera camera = new Camera(null);
+    public static boolean debug = true;
+    public static boolean unlimit = true;
 
     int fps = 0;
 
+    private ArrayList<Screen> screens;
+    private SplashScreen ss;
+    private MainMenuScreen mms;
+    private GameScreen gs;
 
-    //spritesheets for map and character
+    public int currentscreen = 0;
 
-    private Entity character = new Entity(1, new PlayerInput(this, camera), 1.0, new Vector3(50,50,0));
-    private Entity skulltula = new Entity(1, new NPCInput(this), 2.0, new Vector3(170,170,0));
-    private Entity character1 = new Entity(1, new NPCInput(this), 1.0, new Vector3(50,50,0));
-    private Entity character2 = new Entity(1, new NPCInput(this), 1.0, new Vector3(180,20,0));
-    private Entity character3 = new Entity(1, new NPCInput(this), 1.0, new Vector3(20,180,0));
+    private InputHandler input;
 
-    private ArrayList<Entity> chars = new ArrayList<>();
-    private Entity SELECTED;
-
-    private UI ui = new UI();
-    private DayCycle dayCycle = new DayCycle(dimension.width - 96, 64, 48);
-
-    public AudioPlayer music = new AudioPlayer("res/audio/clocktown-day1.wav");
-    public boolean audioPlay = false;
-    private int curr = 0;
-
-    private MessageBox box1 = new MessageBox("This is wonderful! How wonderful!");
-    public ParticleEmitter emitter = new ParticleEmitter();
     public Game() {
-        chars.add(character);
-        chars.add(skulltula);
-        SELECTED = chars.get(0);
-      //  chars[2] = character1;
-       // chars[3] = character2;
-      //  chars[4] = character3;
+        input = new InputHandler(this);
+        screens = new ArrayList<>();
+        ss = new SplashScreen(this);
+        screens.add(ss);
+        mms = new MainMenuScreen(this);
+        screens.add(mms);
+        gs = new GameScreen(this);
+        screens.add(gs);
+    }
 
-        //System.setProperty("sun.java2d.opengl","True");
-       // System.setProperty("sun.java2d.pmoffscreen","False");
-        //System.setProperty("sun.java2d.translaccel","True");
 
-        camera.setTarget(character);
-        if (audioPlay) {
-            music.start();
-        }else{
-            music.stop();
+    public void playGame() {
+        if (gs == null) {
+            gs = new GameScreen(this);
+            screens.add(gs);
         }
+        currentscreen = screens.indexOf(gs);
+    }
 
-	}
+    // need way to dispose of screen
+    public void newGame() {
+        if (gs != null) {
+            screens.remove(gs);
+            gs = null;
+        }
+        gs = new GameScreen(this);
+        screens.add(gs);
+        currentscreen = screens.indexOf(gs);
+    }
+
+    public void openMenu() {
+        currentscreen = screens.indexOf(mms);
+    }
 
 	@Override
 	public void run() {
 		//limit fps approx. 60
 		long lastTime = System.nanoTime();
-		double nsPerTick = 1000000000D/60D;
+		double nsPerTick = 1000000000D / 60D;
 
 		int ticks = 0;
 		int frames = 0;
@@ -102,28 +93,28 @@ public class Game extends Canvas implements Runnable {
 			long now = System.nanoTime();
 			delta += (now-lastTime)/nsPerTick;
 			lastTime = now;
-			boolean shouldRender = true; // false here limits to 60 fps
+			boolean shouldRender = unlimit; // false here limits to 60 fps
 
-			while(delta>=1){
+			while(delta >= 1){
 				ticks++;
-				tick();
+                tick();
 				delta--;
 				shouldRender = true;
 			}
 
-			/*try{
-				Thread.sleep(2);
+			try{
+				Thread.sleep(1);
 			}catch(InterruptedException e){
 				e.printStackTrace();
-			}*/
-
-			if(shouldRender){
-				frames++;
-				render();
 			}
 
-			if(System.currentTimeMillis()-lastTimer >= 1000){
-				lastTimer+=1000;
+            if(shouldRender){
+                frames++;
+                render();
+            }
+
+			if(System.currentTimeMillis() - lastTimer >= 1000){
+				lastTimer += 1000;
 				fps = frames;
 				frames = 0;
                 frame.setTitle("" + ticks );
@@ -135,128 +126,41 @@ public class Game extends Canvas implements Runnable {
 
 
 	public void tick() {
-        for (int i = 0; i < chars.size(); i++) {
-            chars.get(i).tick();
-        }
-
-        for (int i = 0; i < chars.size()-1; i++) {
-            ArrayList<Fireball> current = chars.get(i).fireball.getFireballs();
-
-            for (int j = i+1; j < chars.size(); j++) {
-                /*if (chars.get(i).collidesWith(chars.get(j))) {
-                    emitter.bloodSpatter(new Vector3(chars.get(i).getX() - chars.get(i).getWidth() / 2, chars.get(i).getY() - chars.get(i).getHeight() / 2, chars.get(i).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
-                }*/
-
-
-                for (int k = 0; k < current.size(); k++) {
-                    if (chars.get(j).collidesWith(current.get(k)) && current.get(k).isActive()) {
-                        emitter.bloodSpatter(new Vector3(chars.get(j).getX() - chars.get(j).getWidth() / 2, chars.get(j).getY() - chars.get(j).getHeight() / 2, chars.get(j).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
-                    }
-                }
-
-                ArrayList<Fireball> other = chars.get(j).fireball.getFireballs();
-                for (int k = 0; k < other.size(); k++) {
-                    if (chars.get(i).collidesWith(other.get(k)) && other.get(k).isActive()) {
-                        emitter.bloodSpatter(new Vector3(chars.get(i).getX() - chars.get(i).getWidth() / 2, chars.get(i).getY() - chars.get(i).getHeight() / 2, chars.get(i).getZ() - 15), new Vector3(Math.random() * 12 - 6, Math.random() * 12 - 6, -Math.random() * 3));
-                    }
-                }
-
-            }
-        }
-
-
-        camera.tick();
-
-        map.tick();
-        emitter.tick();
-        /*
-        kodama.tick();
-        kodama1.tick();
-        kodama2.tick();
-        kodama3.tick();
-        noface.tick();*/
-
-        ui.tick();
-        dayCycle.tick();
-
-        box1.tick();
+        input.tick();
+        screens.get(currentscreen).tick();
+        input.setPrevious();
     }
 
 	public void render(){
 		BufferStrategy bs = getBufferStrategy();
-		if(bs==null){
+		if(bs == null){
 			createBufferStrategy(3);
 			return;
 		}
         Graphics2D g = (Graphics2D)bs.getDrawGraphics();
 
-        g.setColor(new Color(0, 0, 0));
-        g.fillRect(0,0,WIDTH*SCALE+100,HEIGHT*SCALE+100);
-		map.draw(g,camera,character, dayCycle);
-        emitter.draw(g, camera);
-        Collections.sort(chars);
+        screens.get(currentscreen).render(g);
 
-        curr = chars.indexOf(SELECTED);
-
-        for (int i = 0; i < chars.size(); i++) {
-            chars.get(i).draw(g, camera);
-        }
-
-
-        /*
-		kodama.draw(g,camera);
-        kodama1.draw(g,camera);/]
-
-        kodama2.draw(g, camera);
-        kodama3.draw(g, camera);
-        skeleton.draw(g,camera);
-        noface.draw(g,camera);
-        */
-        ui.draw(g);
-        dayCycle.draw(g);
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
+        g.drawString(fps + " ", 20, 40);
 
         if (debug) {
             drawDebug(g);
         }
 
-
-       // SELECTED.drawDebug(g, camera);
-
-        box1.draw(g);
-		g.dispose();
+        g.dispose();
 		bs.show();
+
 	}
 
 
 	public void drawDebug(Graphics g) {
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 25));
-        g.setColor(Color.WHITE);
-        Vector3 curr = new Vector3(character.getX(), character.getY(), 0);
+      //  g.drawLine(WIDTH / 12 * 5 * SCALE, HEIGHT / 2 * SCALE, WIDTH / 12 * 7 * SCALE, HEIGHT / 2 * SCALE);
+        //g.drawLine(WIDTH / 2 * SCALE, HEIGHT / 12 * 5 * SCALE, WIDTH / 2 * SCALE, HEIGHT / 12 * 7 * SCALE);
 
-        g.drawString(fps + " ", 20, 40);
+        //g.drawString(input.M1.isPressed() + " ", 20, 200);
+       // g.drawString(input.M1.getPrevious() + " ", 20, 220);
 
-                //   g.drawString(TileMap.currentx + ", " + TileMap.currenty, 20, 100);
-
-        /*
-        g.drawString(character.getDest_x() + ", " + character.getDest_y(), 20, 100);
-        g.drawString(curr.x + ", " + curr.y, 20, 130);*/
-                // g.drawString(dayCycle.time, Game.WIDTH * Game.SCALE - 100, 40);
-
-                // g.drawString(camera.getScale() + " ", 20, 160);
-                g.drawLine(WIDTH / 12 * 5 * SCALE, HEIGHT / 2 * SCALE, WIDTH / 12 * 7 * SCALE, HEIGHT / 2 * SCALE);
-        g.drawLine(WIDTH/2*SCALE,HEIGHT/12*5*SCALE,WIDTH/2*SCALE,HEIGHT/12*7*SCALE);
-
-
-    }
-
-    public static float getAngle(Vector2 center, Vector2 target) {
-        float angle = (float) Math.toDegrees(Math.atan2(target.y - center.y, target.x - center.x));
-
-        if(angle < 0){
-            angle += 0;
-        }
-
-        return angle;
     }
 
 
@@ -303,20 +207,13 @@ public class Game extends Canvas implements Runnable {
     }
 
 
-    public static enum DebugLevel {
-        INFO, WARNING, SEVERE
+    public InputHandler getInput() {
+        return input;
     }
 
-    public void changeCharacter() {
-        int prev = curr;
-        curr++;
-        curr = curr % chars.size();
-        System.out.println(curr);
-        camera.setTarget(chars.get(curr));
-        SELECTED = chars.get(curr);
 
-        chars.get(curr).setInput(chars.get(prev).getInput());
-        chars.get(prev).setInput(new NPCInput(this));
+    public enum DebugLevel {
+        INFO, WARNING, SEVERE
     }
 
 

@@ -2,6 +2,7 @@ package com.dreamstreet.arpg.gfx;
 
 import com.dreamstreet.arpg.obj.Entity;
 import com.dreamstreet.arpg.ui.DayCycle;
+import com.dreamstreet.arpg.util.Util;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -63,10 +64,13 @@ public class TileMap {
                             tiles[rows][columns] = null;
                         }else if(id < 100){
                             boolean walkable = true;
-                            if (id == 3) {
+                          /*  if (id == 3) {
                                 walkable = false;
+                            }*/
+                            if (id == 1)
+                            {
+                                tiles[rows][columns] = new Tile(columns, rows, 0, 32,32,(int)(Math.random()*5)+1, walkable);
                             }
-                            tiles[rows][columns] = new Tile(columns, rows, 0, 32,32,id, walkable);
                         }else if(id >= 100){
                             tiles[rows][columns] = new Tile(columns, rows, -15, 32,32,1, true);
                         }
@@ -109,7 +113,7 @@ public class TileMap {
         int endX = (int)(xOffset + camera.getWidth()) / 32 + 2;
         if (endX > tiles[0].length) endX = tiles[0].length;
 
-        int endY = (int) (yOffset + zOffset + camera.getHeight()) / 32 + 2;
+        int endY = (int)(yOffset + zOffset + camera.getHeight()) / 32 + 2;
         if (endY > tiles.length) endY = tiles.length;
 
 

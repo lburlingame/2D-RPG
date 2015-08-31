@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 public class ActionButton {
 
     private static BufferedImage EMPTY_BUTTON;
+    // flip light angle
     private static SpriteSheet emptysheet = new SpriteSheet("/gui/action_button.png");
 
     public Vector2 pos;

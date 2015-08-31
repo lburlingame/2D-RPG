@@ -1,6 +1,7 @@
 package com.dreamstreet.arpg.item;
 
 import com.dreamstreet.arpg.gfx.*;
+import com.dreamstreet.arpg.util.Util;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Item {
 
-
+    // item graphic, item icon graphic
     private boolean available = true;
     private boolean charging = false;
     private int cooldown = 1;
@@ -18,8 +19,8 @@ public class Item {
 
     private static final int MAX_POWER = 4;
     private float current_power = 0;
-    private double speed = 0;//3
-    private double base_radius = 1;  // 10
+    private double speed = 10;//0
+    private double base_radius = 1;  // 1
 
     private ArrayList<Fireball> fireballs = new ArrayList();
     private Fireball current = null;
@@ -43,9 +44,9 @@ public class Item {
     public void use(Vector2 loc, Vector2 dest) {
         if (charging) {
             charging = false;
-            double bonus_speed = current_power * current_power;// /10
+            double bonus_speed = current_power * 1.5;// /10  ^2
 
-            Direction dir = Util.findSlope(loc.x + 16, loc.y + 16, dest.x, dest.y);
+            Direction dir = Util.findSlope(loc.x, loc.y, dest.x , dest.y);
 
             double dx = Util.findX(speed + bonus_speed, dir.slope) * dir.xdir;
             double dy = dir.slope * dx;
@@ -70,7 +71,7 @@ public class Item {
 
         if (charging && current_power < MAX_POWER) {
             current_power += .1;
-            double bonus_radius = current_power / 2;
+            double bonus_radius = current_power * 10 * 2;// / 2;
             current.setRadius(base_radius + bonus_radius);
 
         }

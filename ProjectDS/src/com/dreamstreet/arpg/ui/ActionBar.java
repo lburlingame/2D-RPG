@@ -14,12 +14,20 @@ public class ActionBar {
     private ArrayList<ActionButton> buttons = new ArrayList<>();
 
     public ActionBar() {
+      /*  buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2-48*5.6, Game.dimension.getHeight()-49)));
+        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2-48*4.6, Game.dimension.getHeight()-49)));
+        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2-48*3.6, Game.dimension.getHeight()-49)));
+        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2-48*2.6, Game.dimension.getHeight()-49)));
+        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2+48*1.4, Game.dimension.getHeight()-49)));
+        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2+48*2.4, Game.dimension.getHeight()-49)));*/
+
         buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2-48*3, Game.dimension.getHeight()-49)));
-        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2-96, Game.dimension.getHeight()-49)));
-        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2-48, Game.dimension.getHeight()-49)));
+        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2-48*2, Game.dimension.getHeight()-49)));
+        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2-48*1, Game.dimension.getHeight()-49)));
         buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2, Game.dimension.getHeight()-49)));
-        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2+48, Game.dimension.getHeight()-49)));
-        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2+96, Game.dimension.getHeight()-49)));
+        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2+48*1, Game.dimension.getHeight()-49)));
+        buttons.add(new ActionButton(new Vector2(Game.dimension.getWidth()/2+48*2, Game.dimension.getHeight()-49)));
+
     }
 
 

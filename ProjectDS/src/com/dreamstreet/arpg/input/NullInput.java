@@ -17,7 +17,6 @@ public class NullInput extends InputComponent{
 
     }
 
-    @Override
     public Vector2 getScreenLoc() {
         return new Vector2(0,0);
     }

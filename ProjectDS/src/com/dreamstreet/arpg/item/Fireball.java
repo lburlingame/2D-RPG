@@ -1,5 +1,6 @@
 package com.dreamstreet.arpg.item;
 
+import com.dreamstreet.arpg.Game;
 import com.dreamstreet.arpg.gfx.*;
 import com.dreamstreet.arpg.obj.Collidable;
 import com.dreamstreet.arpg.obj.HitCircle;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created on 4/18/2015.
  */
-public class Fireball implements Collidable {
+public class Fireball extends Collidable {
 
     private static BufferedImage FIREBALL;
     private static SpriteSheet spellsheet = new SpriteSheet("/effects/fireball.png");
@@ -40,7 +41,7 @@ public class Fireball implements Collidable {
         this.duration = 180;
         active = false;
 
-        hit = new HitCircle(new Vector3(0,0,0),radius / 2);
+        hit = new HitCircle(new Vector3(0,0,0), radius * .6);
         hitids = new ArrayList<>(); // add casters hit id to this;
     }
 
@@ -59,11 +60,13 @@ public class Fireball implements Collidable {
         double scale = camera.getScale();
 
 
-        g.drawImage(FIREBALL, (int)((pos.x-offset.x - radius)*scale), (int)((pos.y-offset.y-radius + pos.z)*scale), (int)((radius *2)*scale), (int)((radius * 2)*scale), null);
+        g.drawImage(FIREBALL, (int) ((pos.x - offset.x - radius) * scale), (int) ((pos.y - offset.y - radius + pos.z) * scale), (int) ((radius * 2) * scale), (int) ((radius * 2) * scale), null);
 
-        g.setColor(Color.green);
+        if (Game.debug) {
+            g.setColor(Color.green);
+            g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius() - offset.x) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius()- offset.y) * scale), (int)(hit.getRadius() * scale * 2), (int)(hit.getRadius() * scale * 2));
+        }
 
-        g.drawOval((int)((pos.x + hit.getCenter().x - hit.getRadius() * 7 / 5 - offset.x) * scale), (int)((pos.y + hit.getCenter().y  - hit.getRadius() * 7 / 10 - offset.y) * scale), (int)(hit.getRadius() * 14 / 5 * scale), (int)(hit.getRadius() * 7 / 5 * scale));
 
     }
 
@@ -75,7 +78,7 @@ public class Fireball implements Collidable {
 
     public void setRadius(double radius) {
         this.radius = radius;
-        hit.setRadius(radius / 2);
+        hit.setRadius(radius * .6);
     }
 
     public int getDuration() {
@@ -104,7 +107,10 @@ public class Fireball implements Collidable {
         return pos.y;
     }
 
-    @Override
+    public double getRadius() {
+        return radius;
+    }
+
     public boolean collidesWith(Collidable other) {
         return false;
     }
