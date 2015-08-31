@@ -8,6 +8,7 @@ import com.dreamstreet.arpg.gfx.particle.ParticleEmitter;
 import com.dreamstreet.arpg.input.*;
 import com.dreamstreet.arpg.item.Fireball;
 import com.dreamstreet.arpg.item.Item;
+import com.dreamstreet.arpg.item.Nova;
 import com.dreamstreet.arpg.obj.Coin;
 import com.dreamstreet.arpg.obj.Entity;
 import com.dreamstreet.arpg.obj.HealthGlobe;
@@ -29,7 +30,7 @@ public class GameScreen implements Screen {
 
     private String NAME = "GAME";
 
-    public static boolean showhealth;
+    public static boolean showhealth = true;
 
     public static boolean pause = false;
 
@@ -78,7 +79,7 @@ public class GameScreen implements Screen {
         chars.add(character);
         chars.add(skulltula);
         for (int i = 0; i < 400; i++) {
-            chars.add(new Entity(1, new NPCInput(game), 1, new Vector3((double)((int)(Math.random()*8000)), (double)((int)(Math.random() * 8000)), 0)));
+            chars.add(new Entity(1, new NPCInput(game), 1, new Vector3((double)((int)(Math.random()*1000)), (double)((int)(Math.random() * 1000)), 0)));
         }
 
         SELECTED = chars.get(0);
@@ -105,6 +106,7 @@ public class GameScreen implements Screen {
         if (!pause) {
             for (int i = 0; i < chars.size()-1; i++) {
                 ArrayList<Fireball> current = chars.get(i).fireball.getFireballs();
+                ArrayList<Nova> currentn = chars.get(i).nova.getNovas();
 
                 for (int j = i+1; j < chars.size(); j++) {
                     boolean alive = true;
@@ -119,11 +121,36 @@ public class GameScreen implements Screen {
                         }
                     }
 
+                    for (int k = 0; k < currentn.size(); k++) {
+                        if (chars.get(j).collidesWith(currentn.get(k))) {
+                            emitter.bloodSpatter(new Vector3(chars.get(j).getX(), chars.get(j).getY(), chars.get(j).getZ() - chars.get(j).getDimensions().z / 2), new Vector3(Math.random() * 3 - 1.5, Math.random() * 3 - 1.5, -Math.random() * 3));
+                            alive = chars.get(j).takeDamage(100);
+                            if (!alive) {
+                                break;
+                            }
+                        }
+                    }
+
                     ArrayList<Fireball> other = chars.get(j).fireball.getFireballs();
+                    ArrayList<Nova> othern = chars.get(j).nova.getNovas();
                     for (int k = 0; k < other.size(); k++) {
                         if (chars.get(i).collidesWith(other.get(k)) && other.get(k).isActive()) {
                             emitter.bloodSpatter(new Vector3(chars.get(i).getX(), chars.get(i).getY(), chars.get(i).getZ() - chars.get(i).getDimensions().z / 2), new Vector3(Math.random() * 3 - 1.5, Math.random() * 3 - 1.5, -Math.random() * 3));
                             if (!chars.get(i).takeDamage(500)) {
+                                coins.add(new Coin(chars.get(i).getPosition(), new Vector3(Math.random() * 3 - 1.5,Math.random() * 3 - 1.5,-3.5), chars.get(i).getGold()));
+                                if (Math.random() < orbchance) {
+                                    globes.add(new HealthGlobe(chars.get(i).getPosition(), new Vector3(Math.random() * 3 - 1.5,Math.random() * 3 - 1.5,-3.5), 100));
+                                }
+                                chars.remove(i);
+                                break;
+                            }
+                        }
+                    }
+
+                    for (int k = 0; k < othern.size(); k++) {
+                        if (chars.get(i).collidesWith(othern.get(k))) {
+                            emitter.bloodSpatter(new Vector3(chars.get(i).getX(), chars.get(i).getY(), chars.get(i).getZ() - chars.get(i).getDimensions().z / 2), new Vector3(Math.random() * 3 - 1.5, Math.random() * 3 - 1.5, -Math.random() * 3));
+                            if (!chars.get(i).takeDamage(100)) {
                                 coins.add(new Coin(chars.get(i).getPosition(), new Vector3(Math.random() * 3 - 1.5,Math.random() * 3 - 1.5,-3.5), chars.get(i).getGold()));
                                 if (Math.random() < orbchance) {
                                     globes.add(new HealthGlobe(chars.get(i).getPosition(), new Vector3(Math.random() * 3 - 1.5,Math.random() * 3 - 1.5,-3.5), 100));

@@ -37,6 +37,18 @@ public class WindowInput {
             game.openMenu();
         }
 
+        if (!input.I.isPressed() && input.I.getPrevious()) {
+            Game.debug = !Game.debug;
+        }
+
+        if (input.P.isPressed() && !input.P.getPrevious()) {
+            screen.pause = !screen.pause;
+        }
+
+        if (!input.L.isPressed() && input.L.getPrevious()) {
+            screen.showhealth = !screen.showhealth;
+        }
+
         int notches = input.wheelnotches;
         if (notches < 0) {
             camera.zoomIn();
@@ -45,6 +57,8 @@ public class WindowInput {
         }
         camera.centerCamera();
     }
+
+
 
         /*switch(e.getKeyCode())
         {

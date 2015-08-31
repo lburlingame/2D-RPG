@@ -5,6 +5,7 @@ import com.dreamstreet.arpg.gfx.*;
 import com.dreamstreet.arpg.input.InputComponent;
 import com.dreamstreet.arpg.input.PlayerInput;
 import com.dreamstreet.arpg.item.Item;
+import com.dreamstreet.arpg.item.Staff;
 import com.dreamstreet.arpg.screen.GameScreen;
 import com.dreamstreet.arpg.util.Util;
 
@@ -46,6 +47,8 @@ public class Entity extends Collidable implements Comparable<Entity>{
 
 
     public Item fireball = new Item();
+    public Staff nova = new Staff();
+
     private EntityInfo info;
 
 
@@ -131,12 +134,14 @@ public class Entity extends Collidable implements Comparable<Entity>{
 
         gfx.tick();
         fireball.tick();
+        nova.tick();
     }
 
     public void draw(Graphics2D g, Camera camera){
         Vector3 offset = camera.getOffset();
         double scale = camera.getScale();
 
+        nova.draw(g, camera);
         gfx.draw(g, camera);
         fireball.draw(g, camera);
 

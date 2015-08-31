@@ -15,8 +15,8 @@ public class NPCInput extends InputComponent {
     }
 
     public void tick() {
-        character.setDx(-15);
-        character.setDy(-15);
+        character.setDx(0);
+        character.setDy(0);
     }
 
 }

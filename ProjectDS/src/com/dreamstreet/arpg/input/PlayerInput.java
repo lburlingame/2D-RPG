@@ -73,6 +73,10 @@ public class PlayerInput extends InputComponent {
             character.fireball.charge(new Vector3(character.getX(), character.getY(), -character.getHeight() / 4));
         }
 
+        if (input.ONE.isPressed()) {
+            character.nova.use(character.getPosition());
+        }
+
         if (input.M3.isPressed()) {
             character.fireball.charge(new Vector3(character.getX(), character.getY(), -character.getHeight() / 4));
         }else if (input.M3.getPrevious()) {
