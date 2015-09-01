@@ -29,7 +29,7 @@ public class Game extends Canvas implements Runnable {
 
 	private boolean running = false;
     public static boolean debug = true;
-    public static boolean unlimit = true;
+    public static boolean unlimit = false;
 
     int fps = 0;
 
@@ -103,7 +103,7 @@ public class Game extends Canvas implements Runnable {
 			}
 
 			try{
-				Thread.sleep(1);
+				Thread.sleep(2);
 			}catch(InterruptedException e){
 				e.printStackTrace();
 			}
