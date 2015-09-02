@@ -78,8 +78,8 @@ public class GameScreen implements Screen {
         Entity skulltula = new Entity(1, new NPCInput(game), 2.0, new Vector3(170,180,0));
         chars.add(character);
         chars.add(skulltula);
-        for (int i = 0; i < 200; i++) {
-            chars.add(new Entity(1, new NPCInput(game), 1, new Vector3((double)((int)(Math.random()*3000)), (double)((int)(Math.random() * 3000)), 0)));
+        for (int i = 0; i < 400; i++) {
+            chars.add(new Entity(1, new NPCInput(game), 1, new Vector3((double)((int)(Math.random()*500)), (double)((int)(Math.random() * 500)), 0)));
         }
 
         SELECTED = chars.get(0);
@@ -124,7 +124,7 @@ public class GameScreen implements Screen {
                     for (int k = 0; k < currentn.size(); k++) {
                         if (chars.get(j).collidesWith(currentn.get(k))) {
                             emitter.bloodSpatter(new Vector3(chars.get(j).getX(), chars.get(j).getY(), chars.get(j).getZ() - chars.get(j).getDimensions().z / 2), new Vector3(Math.random() * 3 - 1.5, Math.random() * 3 - 1.5, -Math.random() * 3));
-                            alive = chars.get(j).takeDamage(100);
+                            alive = chars.get(j).takeDamage(1000);
                             if (!alive) {
                                 break;
                             }
@@ -142,6 +142,7 @@ public class GameScreen implements Screen {
                                     globes.add(new HealthGlobe(chars.get(i).getPosition(), new Vector3(Math.random() * 3 - 1.5,Math.random() * 3 - 1.5,-3.5), 100));
                                 }
                                 chars.remove(i);
+                                i--;
                                 break;
                             }
                         }
@@ -150,12 +151,14 @@ public class GameScreen implements Screen {
                     for (int k = 0; k < othern.size(); k++) {
                         if (chars.get(i).collidesWith(othern.get(k))) {
                             emitter.bloodSpatter(new Vector3(chars.get(i).getX(), chars.get(i).getY(), chars.get(i).getZ() - chars.get(i).getDimensions().z / 2), new Vector3(Math.random() * 3 - 1.5, Math.random() * 3 - 1.5, -Math.random() * 3));
-                            if (!chars.get(i).takeDamage(100)) {
+                            if (!chars.get(i).takeDamage(1000)) {
                                 coins.add(new Coin(chars.get(i).getPosition(), new Vector3(Math.random() * 3 - 1.5,Math.random() * 3 - 1.5,-3.5), chars.get(i).getGold()));
                                 if (Math.random() < orbchance) {
                                     globes.add(new HealthGlobe(chars.get(i).getPosition(), new Vector3(Math.random() * 3 - 1.5,Math.random() * 3 - 1.5,-3.5), 100));
                                 }
                                 chars.remove(i);
+
+                                i--;
                                 break;
                             }
                         }
@@ -167,6 +170,8 @@ public class GameScreen implements Screen {
                             globes.add(new HealthGlobe(chars.get(j).getPosition(), new Vector3(Math.random() * 3 - 1.5,Math.random() * 3 - 1.5,-3.5), 100));
                         }
                         chars.remove(j);
+                        j--;
+
                     }
                 }
             }
