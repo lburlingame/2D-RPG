@@ -7,10 +7,10 @@ import com.dreamstreet.arpg.gfx.Vector2;
 /**
  * Created on 5/2/2015.
  */
-public class NPCInput extends InputComponent {
+public class AIInput extends InputComponent {
 
 
-    public NPCInput(Game game) {
+    public AIInput(Game game) {
         super(game);
     }
 

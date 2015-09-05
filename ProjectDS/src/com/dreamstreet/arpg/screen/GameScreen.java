@@ -75,11 +75,11 @@ public class GameScreen implements Screen {
         Entity character = new Entity(1, new PlayerInput(game, camera), 1.0, new Vector3(50,50,0));
         ui = new UI(character);
 
-        Entity skulltula = new Entity(1, new NPCInput(game), 2.0, new Vector3(170,180,0));
+        Entity skulltula = new Entity(1, new AIInput(game), 2.0, new Vector3(170,180,0));
         chars.add(character);
         chars.add(skulltula);
-        for (int i = 0; i < 400; i++) {
-            chars.add(new Entity(1, new NPCInput(game), 1, new Vector3((double)((int)(Math.random()*500)), (double)((int)(Math.random() * 500)), 0)));
+        for (int i = 0; i < 40; i++) {
+            chars.add(new Entity(1, new AIInput(game), 1, new Vector3((double)((int)(Math.random()*500)), (double)((int)(Math.random() * 500)), 0)));
         }
 
         SELECTED = chars.get(0);
@@ -305,7 +305,7 @@ public class GameScreen implements Screen {
         SELECTED = chars.get(selected_ix);
 
         chars.get(selected_ix).setInput(chars.get(prev).getInput());
-        chars.get(prev).setInput(new NPCInput(this));
+        chars.get(prev).setInput(new AIInput(this));
     }
 */
 
