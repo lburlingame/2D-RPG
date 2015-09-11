@@ -16,8 +16,8 @@ import java.util.ArrayList;
 public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 640;  // 1920x1080
-	//public static final int WIDTH = 480; // 480
+	//public static final int WIDTH = 640;  // 1920x1080
+	public static final int WIDTH = 480; // 480
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	public static final int SCALE = 3;
     public static final Dimension dimension = new Dimension(Game.WIDTH * Game.SCALE, Game.HEIGHT * Game.SCALE);

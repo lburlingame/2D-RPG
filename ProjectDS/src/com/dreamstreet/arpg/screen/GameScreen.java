@@ -78,8 +78,8 @@ public class GameScreen implements Screen {
         Entity skulltula = new Entity(1, new AIInput(game), 2.0, new Vector3(170,180,0));
         chars.add(character);
         chars.add(skulltula);
-        for (int i = 0; i < 40; i++) {
-            chars.add(new Entity(1, new AIInput(game), 1, new Vector3((double)((int)(Math.random()*500)), (double)((int)(Math.random() * 500)), 0)));
+        for (int i = 0; i < 200; i++) {
+            chars.add(new Entity(1, new AIInput(game), 1, new Vector3((double)((int)(Math.random()*300)), (double)((int)(Math.random() * 300)), 0)));
         }
 
         SELECTED = chars.get(0);
@@ -104,6 +104,27 @@ public class GameScreen implements Screen {
     public void tick() {
         win.tick();
         if (!pause) {
+            for (int i = 0; i < chars.size(); i++) {
+                chars.get(i).tick();
+            }
+            Collections.sort(chars);
+            
+            for (int i = 0; i < coins.size(); i++) {
+                coins.get(i).tick();
+                if (coins.get(i).collidesWith(SELECTED)) {
+                    SELECTED.grabGold(coins.get(i).getAmount());
+                    coins.remove(i);
+                }
+            }
+
+            for (int i = 0; i < globes.size(); i++) {
+                globes.get(i).tick();
+                if (globes.get(i).collidesWith(SELECTED)) {
+                    SELECTED.heal(200);
+                    globes.remove(i);
+                }
+            }
+
             for (int i = 0; i < chars.size()-1; i++) {
                 ArrayList<Fireball> current = chars.get(i).fireball.getFireballs();
                 ArrayList<Nova> currentn = chars.get(i).nova.getNovas();
@@ -177,25 +198,7 @@ public class GameScreen implements Screen {
             }
             emitter.tick();
             dayCycle.tick();
-            for (int i = 0; i < chars.size(); i++) {
-                chars.get(i).tick();
-            }
 
-            for (int i = 0; i < coins.size(); i++) {
-                coins.get(i).tick();
-                if (coins.get(i).collidesWith(SELECTED)) {
-                    SELECTED.grabGold(coins.get(i).getAmount());
-                    coins.remove(i);
-                }
-            }
-
-            for (int i = 0; i < globes.size(); i++) {
-                globes.get(i).tick();
-                if (globes.get(i).collidesWith(SELECTED)) {
-                    SELECTED.heal(200);
-                    globes.remove(i);
-                }
-            }
         }
 
         map.tick();
@@ -210,7 +213,6 @@ public class GameScreen implements Screen {
         g.fillRect(0, 0, (int) Game.dimension.getWidth(), (int) Game.dimension.getHeight());
         map.draw(g, camera, SELECTED, dayCycle);
         emitter.draw(g, camera);
-        Collections.sort(chars);
         // right after sorting
         // a custom binary search that searches only based on y values, for the index of characters that are within the camera y values
         // so, it would search for index that is at camera.offset.y, then -- until it hits the first index that is within that bound,
